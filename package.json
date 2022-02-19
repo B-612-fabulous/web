@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -23,9 +24,18 @@
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
+    "css-loader": "^6.6.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "less": "^4.1.2",
+    "less-loader": "^4.1.0",
+    "style-loader": "^3.3.1",
+    "vue-template-compiler": "^2.6.11",
+    "eslint-plugin-html": "^6.0.3",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "eslint-friendly-formatter": "4.0.1",
+    "eslint-loader": "2.0.0",
+    "eslint-plugin-import": "^2.20.2"
   },
   "eslintConfig": {
     "root": true,
