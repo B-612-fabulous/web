@@ -91,6 +91,9 @@ export default {
  .main-index{
    width: 100%;
    height: auto;
+   input{
+      outline: none;
+   }
    .main-top{
      background-color: #fff;
      height: 98px;
