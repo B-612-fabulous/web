@@ -56,7 +56,7 @@ export default {
 
 <style lang="less" scoped>
 	.poster {
-		background: url("../assets/bg.jpg") no-repeat;
+		// background: url("@components/login/assets/bg.jpg") no-repeat;
 		background-position: center;
 		height: 100%;
 		width: 100%;
