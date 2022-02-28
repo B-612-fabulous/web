@@ -8,7 +8,7 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  routes: [// 下面都是固定的写法
+  routes: [
     {
       path: '/index',
       name: 'Index',
