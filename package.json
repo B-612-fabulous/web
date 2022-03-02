@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
-    "core-js": "^3.6.5",
+    "core-js": "^3.21.1",
     "element-ui": "^2.15.6",
     "express": "^4.17.2",
     "express-serve-static-core": "^0.1.1",
@@ -62,5 +62,18 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "description": "```\r yarn install\r ```",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/B-612-fabulous/web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/B-612-fabulous/web/issues"
+  },
+  "homepage": "https://github.com/B-612-fabulous/web#readme"
 }

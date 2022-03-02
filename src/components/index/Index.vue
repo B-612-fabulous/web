@@ -35,6 +35,66 @@
     </div>
     <!-- 主体 -->
     <div class="main-body" :style="{ 'backgroundImage':'url('+ bodyImg +')' }">
+      <div v-if="curNav == 2" class="main-body-child">
+        <div class="main-body-child-item">
+          <div class="left">
+            <img :src="tdImg">
+            <div class="price">
+              <span class="left">￥1.58</span><span class="right">/500g</span>
+            </div>
+          </div>
+          <div class="right">
+            <div class="text-tit">
+              现刨的大土豆
+            </div>
+            <div class="text-desc">
+              现刨的大土豆，可擦丝，可剁块，绿色新鲜味道鲜美
+            </div>
+            <div class="tag-box">
+              <div class="tag-box-item">
+                秒杀
+              </div>
+              <div class="tag-box-item">
+                <img :src="quan">满18减1
+              </div>
+            </div>
+            <div class="btn">
+              <img :src="addCart">
+            </div>
+          </div>
+        </div>
+        <div class="main-body-child-item">
+          <div class="left">
+            <img :src="fqImg">
+            <div class="price">
+              <span class="left">￥5.88</span><span class="right">/500g</span>
+            </div>
+          </div>
+          <div class="right">
+            <div class="text-tit">
+              刚摘的鲜番茄
+            </div>
+            <div class="text-desc">
+              刚摘的新鲜番茄，甘甜可口，生吃做菜煲汤都是很可口
+            </div>
+            <div class="tag-box">
+              <div class="tag-box-item">
+                秒杀
+              </div>
+              <div class="tag-box-item">
+                <img :src="quan">满20减3
+              </div>
+            </div>
+            <div class="btn">
+              <img :src="addCart">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- 22 -->
       <div v-if="curNav == 1" class="main-body-child">
         <div class="main-body-child-item">
           <div class="left">
@@ -91,6 +151,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>

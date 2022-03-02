@@ -1,24 +1,22 @@
 <template>
-  <div id="ht">
+   <div id="ht">
 
     <div class="main">
       <div class="logoT">
           <div class="spacer4"></div>
-          <a id="logod" ></a>
-
-          <p>欢迎登录</p>
+          <a id="logod" href="" ></a>
+          <p>欢迎注册</p>
       </div>
-      <div class="htHotLine hotline_400">咨询热线：<span>110120</span></div>
+      <div class="htHotLine hotline_400">已有账号  <span><a href="">登入</a></span></div>
     
   </div>
-<!-- //中间 -->
-<div id="loginCont" class="w1920 loginCont">
-  <div class="w1190 clearfix loginInner">
-    <div class="clearfix loginWrapCommon">
-       <!-- 输入登录 开始 --><div id="loginWrapInput" class="loginWrap">
-         <div class="loginTop">
+  <div class="container">
+    <div class="foin">
+
+      <!-- 输入登录 开始 --><div id="loginWrapInput" class="loginWrap">
+        <div class="loginTop">
           <div class="loginTypes">
-            账号密码登入
+            账号密码注册
           </div>
 
          </div>
@@ -28,44 +26,39 @@
             <div class="loginBody">
               <div class="loginInput">
                 <div class="item loginUser">
-                  <input id="loginName" name="username" type="text" placeholder="请输入帐号" data-text="请输入帐号" autocomplete="off" value=""/>
+                  <input id="loginName" name="username" type="text" placeholder="请输入注册号" data-text="请输入注册号" autocomplete="off" value=""/>
                 </div>
                 <div class="item loginPwd">
                     <input id="loginPwd" name="password" type="password" placeholder="请输入密码" data-text="请输入密码" autocomplete="off" value=""/>
                   
                 </div>
-                <div class="forgetPwd">
-                  <a id="forget" href="">忘记密码</a>
-                </div>
-                <a href="javascript:void(0);" class="loginBtn">登&nbsp;录</a>
-              </div>
+               
+                <a href="javascript:void(0);" class="loginBtn">注&nbsp;册</a>
+              </div>            
             </div>
           </form>  <!-- 表格结束 -->
-          <div class="loginFoot">
-            <div class="item2">
-              <a id="registerUrl1" href="">注册账号</a>
-            </div>
-          </div>
          </div>
+
        </div>
     </div>
+
   </div>
-</div>
+
   </div>
 </template>
 
 <script>
 export default {
-   name: 'Login',
-   data() {
-    //  return {
+  name: 'Register',
+  data() {
+    // return {
     //   loginForm: {
     //     username: 'admin',
     //     password: '123'
     //   },
     //   responseResult: []
-    //  }
-   },
+    // }
+  },
   methods: {
     // login() {
     //   var _this = this
@@ -90,13 +83,22 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#ht .main {
+#ht {
+      width: 100%;
+    height: 100%;
+    background: url("../../assets/register/regbgc.png") no-repeat;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    overflow: auto;
+    }
+     #ht .main {
     width: 1190px;
     height: 110px;
     margin: auto;
 }
-#logod {
-    background: url("../../assets/login/logo.png") no-repeat left center;
+    #logod {
+     background: url("../../assets/register/logo.png") no-repeat left center;
     background-size: contain;
     float: left;
     width: 120px;
@@ -110,6 +112,7 @@ export default {
     line-height: 55px;
     font-weight: 500;
 }
+
 .logoT {
   margin-left: 20px;
     margin-top: 10px;
@@ -121,28 +124,33 @@ export default {
   margin-right: 20px;
     float: right;
     padding-top: 40px;
-    font-size: 24px;
+    font-size: 14px;
     color: #11BB99;
 }
-.loginCont {
-    padding-top: 38px;
-    padding-bottom: 12px;
-    background: url("../../assets/login/loginbg210115.jpg") no-repeat top center;
-    background-size: cover;
-}
-.w1920 {
-  height: 500px;
-    width: 100%;
-    max-width: 1920px;
-    min-width: 1190px;
+.container {
+    width: 1200px;
+    height: auto;
     margin: 0 auto;
+    margin-top: 85px;
+    margin-bottom: 288px;
 }
-.loginCont .loginInner {
-    min-height: 480px;
+.foin {
+    flex: 1;
+    padding: 0 255px;
+    position: relative;
+    /* background-color: pink; */
+    width: 500px;
+    height: 500px;
 }
-.w1190 {
-    width: 1190px;
-    margin: auto;
+.loginWrap, .loginWrap * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.loginWrap, .loginWrap * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 .loginWrap {
     position: relative;
@@ -152,66 +160,38 @@ export default {
     background-color: #fff;
     overflow: hidden;
 }
-.loginWrap, .loginWrap * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
 .loginWrap .loginTop {
     position: relative;
     padding: 6px;
     height: 74px;
     border-bottom: 2px solid #e6e6e6;
 }
-.loginWrap, .loginWrap * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.loginTypes{
-  font-size: 24px;
-  text-align: center;
+.loginTypes {
+    font-size: 24px;
+    text-align: center;
 }
 .loginWrap .loginBody {
     position: relative;
     min-height: 302px;
 }
-.loginWrap .loginInput  {
+.loginWrap .loginInput {
     padding: 40px 30px 20px;
 }
 #loginAccountPwd .loginBody .loginInput .item {
     position: relative;
 }
-.loginInput .item {
-    height: 44px;
-    border: 1px solid #e6e6e6;
-    overflow: hidden;
-}
-#loginAccountPwd .loginBody .loginInput .item input {
-    position: absolute;
-    left: 44px;
-    right: 0;
-}
-.loginInput input {
-    padding: 10px 6px 10px 10px;
-    width: 275px;
-    height: 100%;
-    border: none;
-    outline: none;
-    font-size: 14px;
-    line-height: 14px;
-    color: #555;
-}
 #loginAccountPwd .loginBody .loginInput .item {
     position: relative;
 }
-.loginInput .loginPwd {
-    margin-top: 20px;
-}
 .loginInput .item {
     height: 44px;
     border: 1px solid #e6e6e6;
     overflow: hidden;
+}
+#loginAccountPwd .loginBody .loginInput .item input {
+    position: absolute;
+    left: 44px;
+    right: 0;
 }
 #loginAccountPwd .loginBody .loginInput .item input {
     position: absolute;
@@ -228,12 +208,9 @@ export default {
     line-height: 14px;
     color: #555;
 }
-.forgetPwd a {
-    color: #0088ee;
-    text-decoration: none;
-    font-size: 14px;
-    line-height: 14px;
-}
+
+
+
 .loginWrap .loginBtn {
     display: block;
     margin-top: 20px;
@@ -249,23 +226,20 @@ export default {
     -moz-border-radius: 22px;
     border-radius: 22px;
 }
-.loginWrap .loginFoot {
-    padding: 19px 20px 0 30px;
-    height: 84px;
-    background-color: #fcfcfc;
-    border-top: 1px solid #F4F4F4;
-    overflow: hidden;
+.loginWrap, .loginWrap * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
-.loginFoot .item2 a {
-    color: #0088ee;
-    text-decoration: none;
-    float: right;
+.loginWrap, .loginWrap * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
-#forget{
-  float: right;
-}
-#loginWrapInput{
-  border-radius: 15px;
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
 }
 #loginWrapInput{
   border-radius: 15px;
