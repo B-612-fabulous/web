@@ -1,49 +1,43 @@
 <template>
-   <div id="ht">
-
+  <div id="ht">
     <div class="main">
       <div class="logoT">
-          <div class="spacer4"></div>
-          <a id="logod" href="" ></a>
-          <p>欢迎注册</p>
+        <div class="spacer4" />
+        <a id="logod" href="" />
+        <p>欢迎注册</p>
       </div>
-      <div class="htHotLine hotline_400">已有账号  <span><a href="">登入</a></span></div>
-    
-  </div>
-  <div class="container">
-    <div class="foin">
-
-      <!-- 输入登录 开始 --><div id="loginWrapInput" class="loginWrap">
-        <div class="loginTop">
-          <div class="loginTypes">
-            账号密码注册
-          </div>
-
-         </div>
-         <div id="loginAccountPwd" class="loginModule">
-           <!-- 表格 -->
-          <form id="loginFrm" name="loginFrm" method="post" autocomplete="off">
-            <div class="loginBody">
-              <div class="loginInput">
-                <div class="item loginUser">
-                  <input id="loginName" name="username" type="text" placeholder="请输入注册号" data-text="请输入注册号" autocomplete="off" value=""/>
-                </div>
-                <div class="item loginPwd">
-                    <input id="loginPwd" name="password" type="password" placeholder="请输入密码" data-text="请输入密码" autocomplete="off" value=""/>
-                  
-                </div>
-               
-                <a href="javascript:void(0);" class="loginBtn">注&nbsp;册</a>
-              </div>            
-            </div>
-          </form>  <!-- 表格结束 -->
-         </div>
-
-       </div>
+      <div class="htHotLine hotline_400">
+        已有账号  <span><a href="">登入</a></span>
+      </div>
     </div>
+    <div class="container">
+      <div class="foin">
+        <!-- 输入登录 开始 --><div id="loginWrapInput" class="loginWrap">
+          <div class="loginTop">
+            <div class="loginTypes">
+              账号密码注册
+            </div>
+          </div>
+          <div id="loginAccountPwd" class="loginModule">
+            <!-- 表格 -->
+            <form id="loginFrm" name="loginFrm" method="post" autocomplete="off">
+              <div class="loginBody">
+                <div class="loginInput">
+                  <div class="item loginUser">
+                    <input id="loginName" name="username" type="text" placeholder="请输入注册号" data-text="请输入注册号" autocomplete="off" value="">
+                  </div>
+                  <div class="item loginPwd">
+                    <input id="loginPwd" name="password" type="password" placeholder="请输入密码" data-text="请输入密码" autocomplete="off" value="">
+                  </div>
 
-  </div>
-
+                  <a href="javascript:void(0);" class="loginBtn">注&nbsp;册</a>
+                </div>
+              </div>
+            </form>  <!-- 表格结束 -->
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -208,8 +202,6 @@ export default {
     line-height: 14px;
     color: #555;
 }
-
-
 
 .loginWrap .loginBtn {
     display: block;

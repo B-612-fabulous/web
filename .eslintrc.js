@@ -101,6 +101,8 @@ module.exports = {
       'no-console': 0,
       // 禁止修改类声明的变量
       'no-class-assign': 2,
+      // 关闭 闭合标签的错误提示
+      'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
       // 禁止条件表达式中出现赋值操作符
       'no-cond-assign': 2,
       // 禁止修改 const 声明的变量

@@ -1,63 +1,61 @@
 <template>
   <div id="ht">
-
     <div class="main">
       <div class="logoT">
-          <div class="spacer4"></div>
-          <a id="logod" ></a>
+        <div class="spacer4" />
+        <a id="logod" />
 
-          <p>欢迎登录</p>
+        <p>欢迎登录</p>
       </div>
-      <div class="htHotLine hotline_400">咨询热线：<span>110120</span></div>
-    
-  </div>
-<!-- //中间 -->
-<div id="loginCont" class="w1920 loginCont">
-  <div class="w1190 clearfix loginInner">
-    <div class="clearfix loginWrapCommon">
-       <!-- 输入登录 开始 --><div id="loginWrapInput" class="loginWrap">
-         <div class="loginTop">
-          <div class="loginTypes">
-            账号密码登入
-          </div>
-
-         </div>
-         <div id="loginAccountPwd" class="loginModule">
-           <!-- 表格 -->
-          <form id="loginFrm" name="loginFrm" method="post" autocomplete="off">
-            <div class="loginBody">
-              <div class="loginInput">
-                <div class="item loginUser">
-                  <input id="loginName" name="username" type="text" placeholder="请输入帐号" data-text="请输入帐号" autocomplete="off" value=""/>
-                </div>
-                <div class="item loginPwd">
-                    <input id="loginPwd" name="password" type="password" placeholder="请输入密码" data-text="请输入密码" autocomplete="off" value=""/>
-                  
-                </div>
-                <div class="forgetPwd">
-                  <a id="forget" href="">忘记密码</a>
-                </div>
-                <a href="javascript:void(0);" class="loginBtn">登&nbsp;录</a>
+      <div class="htHotLine hotline_400">
+        咨询热线：<span>110120</span>
+      </div>
+    </div>
+    <!-- //中间 -->
+    <div id="loginCont" class="w1920 loginCont">
+      <div class="w1190 clearfix loginInner">
+        <div class="clearfix loginWrapCommon">
+          <!-- 输入登录 开始 --><div id="loginWrapInput" class="loginWrap">
+            <div class="loginTop">
+              <div class="loginTypes">
+                账号密码登入
               </div>
             </div>
-          </form>  <!-- 表格结束 -->
-          <div class="loginFoot">
-            <div class="item2">
-              <a id="registerUrl1" href="">注册账号</a>
+            <div id="loginAccountPwd" class="loginModule">
+              <!-- 表格 -->
+              <form id="loginFrm" name="loginFrm" method="post" autocomplete="off">
+                <div class="loginBody">
+                  <div class="loginInput">
+                    <div class="item loginUser">
+                      <input id="loginName" name="username" type="text" placeholder="请输入帐号" data-text="请输入帐号" autocomplete="off" value="">
+                    </div>
+                    <div class="item loginPwd">
+                      <input id="loginPwd" name="password" type="password" placeholder="请输入密码" data-text="请输入密码" autocomplete="off" value="">
+                    </div>
+                    <div class="forgetPwd">
+                      <a id="forget" href="">忘记密码</a>
+                    </div>
+                    <a href="javascript:void(0);" class="loginBtn">登&nbsp;录</a>
+                  </div>
+                </div>
+              </form>  <!-- 表格结束 -->
+              <div class="loginFoot">
+                <div class="item2">
+                  <a id="registerUrl1" href="">注册账号</a>
+                </div>
+              </div>
             </div>
           </div>
-         </div>
-       </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   </div>
 </template>
 
 <script>
 export default {
-   name: 'Login',
-   data() {
+  name: 'Login',
+  data() {
     //  return {
     //   loginForm: {
     //     username: 'admin',
@@ -65,7 +63,7 @@ export default {
     //   },
     //   responseResult: []
     //  }
-   },
+  },
   methods: {
     // login() {
     //   var _this = this
