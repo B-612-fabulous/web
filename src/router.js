@@ -8,7 +8,7 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  routes: [//fasf
+  routes: [
     {
       path: '/index',
       name: 'Index',

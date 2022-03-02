@@ -14,6 +14,9 @@
         <el-button type="primary" style="width: 100%;background: #505458;border: none" @click="login">
           登录
         </el-button>
+        <el-button type="primary" style="width: 100%;background: #505458;border: none" @click="register">
+          注册
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
