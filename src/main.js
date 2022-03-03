@@ -3,30 +3,32 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import store from './store'
+import axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css'
-var axios = require('axios')
-axios.defaults.baseURL = 'http://localhost:8888/api'
-Vue.prototype.$axios = axios
+// var axios = require('axios')
+ 
+Vue.prototype.axios = axios
 Vue.config.productionTip = false
-
+Vue.use(axios)
 Vue.use(ElementUI)
+axios.defaults.baseURL = 'http://127.0.0.1:8888'  
 
-router.beforeEach((to, from, next) => {
-  if (to.meta.requireAuth) {
-    if (store.state.user.username) {
-      next()
-    } else {
-      next({
-        path: 'login',
-        query: { redirect: to.fullPath }
-      })
-    }
-  } else {
-    next()
-  }
-}
+// router.beforeEach((to, from, next) => {
+//   if (to.meta.requireAuth) {
+//     if (store.state.user.username) {
+//       next()
+//     } else {
+//       next({
+//         path: 'login',
+//         query: { redirect: to.fullPath }
+//       })
+//     }
+//   } else {
+//     next()
+//   }
+// }
 
-)
+// )
 
 /* eslint-disable no-new */
 new Vue({

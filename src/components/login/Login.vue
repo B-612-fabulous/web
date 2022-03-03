@@ -27,15 +27,18 @@
                 <div class="loginBody">
                   <div class="loginInput">
                     <div class="item loginUser">
-                      <input id="loginName" name="username" type="text" placeholder="请输入帐号" data-text="请输入帐号" autocomplete="off" value="">
+                      <input id="loginName" v-model="loginForm.username" type="text" placeholder="请输入帐号"  autocomplete="off" value="">
                     </div>
                     <div class="item loginPwd">
-                      <input id="loginPwd" name="password" type="password" placeholder="请输入密码" data-text="请输入密码" autocomplete="off" value="">
+                      <input id="loginPwd" v-model="loginForm.password" type="password" placeholder="请输入密码"  autocomplete="off" value="">
                     </div>
+                    <!-- name="username"  name="password" -->
+
                     <div class="forgetPwd">
                       <a id="forget" href="">忘记密码</a>
                     </div>
-                    <a href="javascript:void(0);" class="loginBtn">登&nbsp;录</a>
+                    <button class="loginBtn"  @click="login">登录</button>
+                    <!-- <a href="javascript:void(0);" class="loginBtn">登&nbsp;录</a> -->
                   </div>
                 </div>
               </form>  <!-- 表格结束 -->
@@ -56,33 +59,34 @@
 export default {
   name: 'Login',
   data() {
-    //  return {
-    //   loginForm: {
-    //     username: 'admin',
-    //     password: '123'
-    //   },
-    //   responseResult: []
-    //  }
+     return {
+      loginForm: {
+        username:"",
+        password:"",
+      },
+      responseResult: []
+     }
   },
   methods: {
-    // login() {
-    //   var _this = this
-    //   this.$axios
-    //     .post('/login', {
-    //       username: this.loginForm.username,
-    //       password: this.loginForm.password
-    //     })
-    //     .then(successResponse => {
-    //       if (successResponse.data.code === 200) {
-    //         // var data = this.loginForm
-    //         _this.$store.commit('login', _this.loginForm)
-    //         var path = this.$route.query.redirect
-    //         this.$router.replace({
-    //           path: path === '/' || path === undefined ? '/index' : path
-    //         })
-    //       }
-    //     }).catch(failResponse => {})
-    // }
+    login() {
+      // var  _this = this
+      this.axios
+        .post('/login',this.loginForm)
+        .then(successResponse => {
+          if (successResponse.data.code == 200) {
+            // var data = this.loginForm
+            // _this.$store.commit('login', _this.loginForm)
+            // var path = this.$route.query.redirect
+            // this.$router.replace({
+            //   path: path === '/' || path === undefined ? '/index' : path
+            // })
+            this.$router.push('/index')
+          }
+          else{
+            alert("cuo")
+          }
+        }).catch(failResponse => {})
+    }
   }
 }
 </script>
