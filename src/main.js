@@ -6,12 +6,12 @@ import store from './store'
 import axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css'
 // var axios = require('axios')
- 
+
 Vue.prototype.axios = axios
 Vue.config.productionTip = false
 Vue.use(axios)
 Vue.use(ElementUI)
-axios.defaults.baseURL = 'http://127.0.0.1:8888'  
+axios.defaults.baseURL = 'http://127.0.0.1:8888'
 
 // router.beforeEach((to, from, next) => {
 //   if (to.meta.requireAuth) {

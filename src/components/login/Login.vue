@@ -4,7 +4,6 @@
       <div class="logoT">
         <div class="spacer4" />
         <a id="logod" />
-
         <p>欢迎登录</p>
       </div>
       <div class="htHotLine hotline_400">
@@ -27,17 +26,19 @@
                 <div class="loginBody">
                   <div class="loginInput">
                     <div class="item loginUser">
-                      <input id="loginName" v-model="loginForm.username" type="text" placeholder="请输入帐号"  autocomplete="off" value="">
+                      <input id="loginName" v-model="loginForm.userName" type="text" placeholder="请输入帐号" autocomplete="off" value="">
                     </div>
                     <div class="item loginPwd">
-                      <input id="loginPwd" v-model="loginForm.password" type="password" placeholder="请输入密码"  autocomplete="off" value="">
+                      <input id="loginPwd" v-model="loginForm.passWord" type="password" placeholder="请输入密码" autocomplete="off" value="">
                     </div>
                     <!-- name="username"  name="password" -->
 
                     <div class="forgetPwd">
                       <a id="forget" href="">忘记密码</a>
                     </div>
-                    <button class="loginBtn"  @click="login">登录</button>
+                    <button class="loginBtn" @click="login">
+                      登录
+                    </button>
                     <!-- <a href="javascript:void(0);" class="loginBtn">登&nbsp;录</a> -->
                   </div>
                 </div>
@@ -59,21 +60,21 @@
 export default {
   name: 'Login',
   data() {
-     return {
+    return {
       loginForm: {
-        username:"",
-        password:"",
+        userName: '',
+        passWord: ''
       },
       responseResult: []
-     }
+    }
   },
   methods: {
     login() {
       // var  _this = this
       this.axios
-        .post('/login',this.loginForm)
+        .post('/login', this.loginForm)
         .then(successResponse => {
-          if (successResponse.data.code == 200) {
+          if (successResponse.data.code === 200) {
             // var data = this.loginForm
             // _this.$store.commit('login', _this.loginForm)
             // var path = this.$route.query.redirect
@@ -81,9 +82,8 @@ export default {
             //   path: path === '/' || path === undefined ? '/index' : path
             // })
             this.$router.push('/index')
-          }
-          else{
-            alert("cuo")
+          } else {
+            alert('cuo')
           }
         }).catch(failResponse => {})
     }
