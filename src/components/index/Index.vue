@@ -6,8 +6,11 @@
         <div class="letf">
           客服电话&nbsp;:&nbsp;4009991762
         </div>
-        <div class="right">
+        <div v-if="!userInfo.id || userInfo.id === ''" class="right">
           <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
+        </div>
+        <div v-else class="right">
+          <span @click="jumpUserInfo">{{ userInfo.trueName }}</span>|<span @click="loginOut">退出</span>
         </div>
       </div>
       <div class="top-search">
@@ -96,11 +99,15 @@ export default {
       tdImg: require('@/assets/index/td.jpeg'),
       fqImg: require('@/assets/index/fq.png'),
       addCart: require('@/assets/index/addCart.png'),
-      quan: require('@/assets/index/quan.png')
+      quan: require('@/assets/index/quan.png'),
+      userInfo: {}
     }
   },
   created() {
-
+    let userInfo = localStorage.getItem('userInfo')
+    if (userInfo) {
+      this.userInfo = JSON.parse(userInfo)
+    }
   },
   methods: {
     loadItemData(obj) {
@@ -111,6 +118,13 @@ export default {
     },
     jumpRegister() {
       this.$router.push('/register')
+    },
+    jumpUserInfo() {
+
+    },
+    loginOut() {
+      localStorage.removeItem('userInfo')
+      this.$router.push('/login')
     }
   }
 }

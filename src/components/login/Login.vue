@@ -67,7 +67,7 @@ export default {
       this.$server.userLogin(this.loginForm).then(res => {
         if (res.state === 'success') { // 请求成功
           if (res.code === 10000) { // 请求成功
-            localStorage.setItem('userInfo', res.data)
+            localStorage.setItem('userInfo', JSON.stringify(res.data))
             this.$router.push('/index')
           } else {
             this.$message.error(res.data.msg)

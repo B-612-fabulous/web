@@ -304,7 +304,7 @@ module.exports = {
       // 要求或禁止 “Yoda” 条件
       'yoda': [2, 'never'],
       // 要求使用 const 声明那些声明后不再被修改的变量
-      'prefer-const': 2,
+      'prefer-const': 0,
       // 是否允许debugger
       'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
       // 强制在花括号中使用一致的空格
