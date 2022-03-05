@@ -4,14 +4,13 @@
       <div class="logoT">
         <div class="spacer4" />
         <a id="logod" />
-        <p>欢迎登录</p>
       </div>
       <div class="htHotLine hotline_400">
         咨询热线：<span>110120</span>
       </div>
     </div>
     <!-- //中间 -->
-    <div id="loginCont" class="w1920 loginCont">
+    <div class="w1920 loginCont">
       <div class="w1190 clearfix loginInner">
         <div class="clearfix loginWrapCommon">
           <!-- 输入登录 开始 --><div id="loginWrapInput" class="loginWrap">
@@ -20,32 +19,27 @@
                 账号密码登入
               </div>
             </div>
-            <div id="loginAccountPwd" class="loginModule">
+            <div class="loginModule">
               <!-- 表格 -->
-              <form id="loginFrm" name="loginFrm" method="post" autocomplete="off">
-                <div class="loginBody">
-                  <div class="loginInput">
-                    <div class="item loginUser">
-                      <input id="loginName" v-model="loginForm.userName" type="text" placeholder="请输入帐号" autocomplete="off" value="">
-                    </div>
-                    <div class="item loginPwd">
-                      <input id="loginPwd" v-model="loginForm.passWord" type="password" placeholder="请输入密码" autocomplete="off" value="">
-                    </div>
-                    <!-- name="username"  name="password" -->
-
-                    <div class="forgetPwd">
-                      <a id="forget" href="">忘记密码</a>
-                    </div>
-                    <button class="loginBtn" @click="login">
-                      登录
-                    </button>
-                    <!-- <a href="javascript:void(0);" class="loginBtn">登&nbsp;录</a> -->
+              <div class="loginBody">
+                <div class="loginInput">
+                  <div class="item loginUser">
+                    <input id="loginName" v-model="loginForm.userName" type="text" placeholder="请输入帐号" autocomplete="off" value="">
                   </div>
+                  <div class="item loginPwd">
+                    <input id="loginPwd" v-model="loginForm.passWord" type="password" placeholder="请输入密码" autocomplete="off" value="">
+                  </div>
+                  <div class="forgetPwd">
+                    <a id="forget" href="">忘记密码</a>
+                  </div>
+                  <button class="loginBtn" @click="login">
+                    登录
+                  </button>
                 </div>
-              </form>  <!-- 表格结束 -->
+              </div>
               <div class="loginFoot">
                 <div class="item2">
-                  <a id="registerUrl1" href="">注册账号</a>
+                  <a id="registerUrl1" @click="jumpRegister">注册账号</a>
                 </div>
               </div>
             </div>
@@ -70,22 +64,29 @@ export default {
   },
   methods: {
     login() {
-      // var  _this = this
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
       this.axios
         .post('/login', this.loginForm)
-        .then(successResponse => {
-          if (successResponse.data.code === 200) {
-            // var data = this.loginForm
-            // _this.$store.commit('login', _this.loginForm)
-            // var path = this.$route.query.redirect
-            // this.$router.replace({
-            //   path: path === '/' || path === undefined ? '/index' : path
-            // })
-            this.$router.push('/index')
-          } else {
-            alert('cuo')
+        .then(res => {
+          if (res.data.state === 'success') { // 请求成功
+            if (res.data.code === 10000) { // 请求成功
+              this.$router.push('/index')
+            } else {
+              this.$message.error(res.data.msg)
+            }
           }
-        }).catch(failResponse => {})
+          loading.close()
+        }).catch(failResponse => {
+          loading.close()
+        })
+    },
+    jumpRegister() {
+      this.$router.push('/register')
     }
   }
 }
@@ -161,8 +162,8 @@ export default {
 }
 .loginWrap .loginTop {
     position: relative;
-    padding: 6px;
     height: 74px;
+    line-height: 74px;
     border-bottom: 2px solid #e6e6e6;
 }
 .loginWrap, .loginWrap * {
@@ -235,10 +236,11 @@ export default {
     text-decoration: none;
     font-size: 14px;
     line-height: 14px;
+    margin-top: 24px;
 }
 .loginWrap .loginBtn {
     display: block;
-    margin-top: 20px;
+    margin-top: 60px;
     width: 100%;
     height: 44px;
     line-height: 44px;
@@ -250,6 +252,9 @@ export default {
     -webkit-border-radius: 22px;
     -moz-border-radius: 22px;
     border-radius: 22px;
+    outline: none;
+    border: none;
+    cursor: pointer;
 }
 .loginWrap .loginFoot {
     padding: 19px 20px 0 30px;
@@ -262,6 +267,7 @@ export default {
     color: #0088ee;
     text-decoration: none;
     float: right;
+    cursor: pointer;
 }
 #forget{
   float: right;

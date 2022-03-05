@@ -2,6 +2,14 @@
   <div class="main-index">
     <!-- 头部 -->
     <div class="main-top">
+      <div class="userInfo">
+        <div class="letf">
+          客服电话&nbsp;:&nbsp;4009991762
+        </div>
+        <div class="right">
+          <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
+        </div>
+      </div>
       <div class="top-search">
         <div class="left">
           <img :src="logoImg" class="logo">
@@ -97,6 +105,12 @@ export default {
   methods: {
     loadItemData(obj) {
       this.curNav = obj.id
+    },
+    jumpLogin() {
+      this.$router.push('/login')
+    },
+    jumpRegister() {
+      this.$router.push('/register')
     }
   }
 }
@@ -116,9 +130,32 @@ export default {
      width: 80%;
      position: relative;
      left: 10%;
+     .userInfo{
+       height: 40px;
+       line-height: 40px;
+       display: flex;
+       font-size: 14px;
+       color: #8c8c8c;
+       .left{
+         flex: 1;
+       }
+       .right{
+         flex: 1;
+         text-align: right;
+         padding-right: 10px;
+         span{
+           cursor: pointer;
+           padding: 0 20px;
+         }
+
+       }
+     }
      .top-search{
        display: flex;
        width: 100%;
+       height: 80px;
+       line-height: 80px;
+       margin-top: -20px;
        .left{
          width: 200px;
          .logo{
@@ -259,7 +296,7 @@ export default {
        background-size: 100%;
        background-repeat: no-repeat;
        height: ~"calc(100% - 160px)";
-       margin-top: 60px;
+       margin-top: 62px;
    }
  }
 </style>
