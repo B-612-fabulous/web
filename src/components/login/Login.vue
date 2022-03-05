@@ -64,26 +64,18 @@ export default {
   },
   methods: {
     login() {
-      const loading = this.$loading({
-        lock: true,
-        text: 'Loading',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
-      })
-      this.axios
-        .post('/login', this.loginForm)
-        .then(res => {
-          if (res.data.state === 'success') { // 请求成功
-            if (res.data.code === 10000) { // 请求成功
-              this.$router.push('/index')
-            } else {
-              this.$message.error(res.data.msg)
-            }
+      this.$server.userLogin(this.loginForm).then(res => {
+        if (res.state === 'success') { // 请求成功
+          if (res.code === 10000) { // 请求成功
+            localStorage.setItem('userInfo', res.data)
+            this.$router.push('/index')
+          } else {
+            this.$message.error(res.data.msg)
           }
-          loading.close()
-        }).catch(failResponse => {
-          loading.close()
-        })
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
     },
     jumpRegister() {
       this.$router.push('/register')

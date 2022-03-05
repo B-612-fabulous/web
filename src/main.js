@@ -3,15 +3,17 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import store from './store'
-import axios from 'axios'
+// import axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css'
+import { server } from './utils/api'
 // var axios = require('axios')
 
-Vue.prototype.axios = axios
+// Vue.prototype.axios = axios
 Vue.config.productionTip = false
-Vue.use(axios)
+// Vue.use(axios)
 Vue.use(ElementUI)
-axios.defaults.baseURL = 'http://127.0.0.1:8888'
+// axios.defaults.baseURL = 'http://127.0.0.1:8888'
+Vue.prototype.$server = server
 
 // router.beforeEach((to, from, next) => {
 //   if (to.meta.requireAuth) {
