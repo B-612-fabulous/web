@@ -4,7 +4,7 @@
     <div class="main-body-child">
       <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item">
         <div class="left">
-          <img :src="item.fmImg">
+          <img :src="getImgUrl(item)">
           <div class="price">
             <span class="left">￥{{ item.price }}</span><span class="right">/{{ item.unit }}</span>
           </div>
@@ -14,7 +14,7 @@
             {{ item.title }}
           </div>
           <div class="text-desc">
-            {{ item.desc }}
+            {{ item.commodityDesc }}
           </div>
           <div class="tag-box">
             <div v-if="item.isSeckill" class="tag-box-item">
@@ -48,7 +48,7 @@ export default {
           price: '5.88',
           unit: '500g',
           title: '刚摘的鲜番茄',
-          desc: '刚摘的新鲜番茄，甘甜可口，生吃做菜煲汤都是很可口',
+          commodityDesc: '刚摘的新鲜番茄，甘甜可口，生吃做菜煲汤都是很可口',
           isSeckill: true,
           preferentialRules: '满20减3'
         }
@@ -56,11 +56,28 @@ export default {
     }
   },
   created() {
-
+    this.getCommunityVegetablesList()
   },
   methods: {
     addCartVegetable(item) {
       console.log('22')
+    },
+    getCommunityVegetablesList() {
+      let param = {}
+      this.$server.getCommunityVegetablesList(param).then(res => {
+        console.log(res)
+        if (res.state === 'success') { // 请求成功
+          this.dataList = res.data
+          this.showAddVegetables = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+    },
+    getImgUrl(item) {
+      let host = 'http://localhost:8888'
+      item.showFmImg = host + item.fmImg
+      return item.showFmImg
     }
   }
 }

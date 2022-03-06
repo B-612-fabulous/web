@@ -24,15 +24,17 @@
               <div class="loginBody">
                 <div class="loginInput">
                   <div class="item loginUser">
-                    <input id="loginphone" v-model="loginForm.phone" type="text" placeholder="请输入手机号" autocomplete="off" >
+                    <input id="loginphone" v-model="loginForm.phone" type="text" placeholder="请输入手机号" autocomplete="off">
                   </div>
                   <div class="item loginUser">
-                    <input id="loginName" v-model="loginForm.userName" type="text" placeholder="请输入帐号" autocomplete="off" >
+                    <input id="loginName" v-model="loginForm.userName" type="text" placeholder="请输入帐号" autocomplete="off">
                   </div>
                   <div class="item loginPwd">
-                    <input id="loginPwd" v-model="loginForm.passWord" type="password" placeholder="请输入密码" autocomplete="off" >
+                    <input id="loginPwd" v-model="loginForm.passWord" type="password" placeholder="请输入密码" autocomplete="off">
                   </div>
-                  <button class="loginBtn" @click="register">注&nbsp;册</button>
+                  <button class="loginBtn" @click="register">
+                    注&nbsp;册
+                  </button>
                   <!-- <a href="javascript:void(0);" class="loginBtn" @click="register">注&nbsp;册</a> -->
                 </div>
               </div>
@@ -44,7 +46,7 @@
   </div>
 </template>
 
- <script>
+<script>
 export default {
   name: 'Register',
   data() {
@@ -58,7 +60,7 @@ export default {
     }
   },
   methods: {
-      register() {
+    register() {
       this.$server.userLogin(this.loginForm).then(res => {
         if (res.state === 'success') { // 请求成功
           if (res.code === 10000) { // 请求成功
@@ -72,10 +74,10 @@ export default {
         }
       })
     },
-  
-      jumpLogin() {
-     this.$router.push('/login')
-    },
+
+    jumpLogin() {
+      this.$router.push('/login')
+    }
   }
 }
 </script>

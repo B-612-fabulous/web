@@ -8,5 +8,8 @@ export const server = {
   },
   addCommunityVegetables(param) {
     return post(`/addCommunityVegetables`, param)
+  },
+  getCommunityVegetablesList(param) {
+    return post(`/getCommunityVegetablesList`, param)
   }
 }
