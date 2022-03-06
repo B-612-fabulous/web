@@ -2,57 +2,30 @@
   <div class="main-index">
     <!-- 主体 -->
     <div class="main-body-child">
-      <div class="main-body-child-item">
+      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item">
         <div class="left">
-          <img :src="tdImg">
+          <img :src="item.fmImg">
           <div class="price">
-            <span class="left">￥1.58</span><span class="right">/500g</span>
+            <span class="left">￥{{ item.price }}</span><span class="right">/{{ item.unit }}</span>
           </div>
         </div>
         <div class="right">
           <div class="text-tit">
-            现刨的大土豆
+            {{ item.title }}
           </div>
           <div class="text-desc">
-            现刨的大土豆，可擦丝，可剁块，绿色新鲜味道鲜美
+            {{ item.desc }}
           </div>
           <div class="tag-box">
-            <div class="tag-box-item">
+            <div v-if="item.isSeckill" class="tag-box-item">
               秒杀
             </div>
-            <div class="tag-box-item">
-              <img :src="quan">满18减1
-            </div>
-          </div>
-          <div class="btn">
-            <img :src="addCart">
-          </div>
-        </div>
-      </div>
-      <div class="main-body-child-item">
-        <div class="left">
-          <img :src="fqImg">
-          <div class="price">
-            <span class="left">￥5.88</span><span class="right">/500g</span>
-          </div>
-        </div>
-        <div class="right">
-          <div class="text-tit">
-            刚摘的鲜番茄
-          </div>
-          <div class="text-desc">
-            刚摘的新鲜番茄，甘甜可口，生吃做菜煲汤都是很可口
-          </div>
-          <div class="tag-box">
-            <div class="tag-box-item">
-              秒杀
-            </div>
-            <div class="tag-box-item">
+            <div v-if="item.preferentialRules !=='' " class="tag-box-item">
               <img :src="quan">满20减3
             </div>
           </div>
           <div class="btn">
-            <img :src="addCart">
+            <img :src="addCart" @click="addCartVegetable(item)">
           </div>
         </div>
       </div>
@@ -68,13 +41,27 @@ export default {
       tdImg: require('@/assets/index/td.jpeg'),
       fqImg: require('@/assets/index/fq.png'),
       addCart: require('@/assets/index/addCart.png'),
-      quan: require('@/assets/index/quan.png')
+      quan: require('@/assets/index/quan.png'),
+      dataList: [
+        {
+          fmImg: require('@/assets/index/td.jpeg'),
+          price: '5.88',
+          unit: '500g',
+          title: '刚摘的鲜番茄',
+          desc: '刚摘的新鲜番茄，甘甜可口，生吃做菜煲汤都是很可口',
+          isSeckill: true,
+          preferentialRules: '满20减3'
+        }
+      ]
     }
   },
   created() {
 
   },
   methods: {
+    addCartVegetable(item) {
+      console.log('22')
+    }
   }
 }
 </script>

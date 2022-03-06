@@ -104,7 +104,7 @@ module.exports = {
       // 禁止修改类声明的变量
       'no-class-assign': 2,
       // 关闭 闭合标签的错误提示
-      'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
+      'vue/no-parsing-error': [0, { 'x-invalid-end-tag': false }],
       // 禁止条件表达式中出现赋值操作符
       'no-cond-assign': 2,
       // 禁止修改 const 声明的变量
@@ -261,7 +261,7 @@ module.exports = {
         }
       }],
       // 要求或禁止块内填充
-      'padded-blocks': [2, 'never'],
+      'padded-blocks': [0, 'never'],
       // 强制使用一致的反勾号、双引号或单引号
       'quotes': [2, 'single', {
         'avoidEscape': true,

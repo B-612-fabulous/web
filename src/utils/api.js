@@ -5,5 +5,8 @@ export const server = {
   // 用户登录
   userLogin(body) {
     return post(`/login`, body)
+  },
+  addCommunityVegetables(param) {
+    return post(`/addCommunityVegetables`, param)
   }
 }

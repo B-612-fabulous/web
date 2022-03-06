@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="right">
-          <button class="qz-btn">
+          <button class="qz-btn" @click="addCommunityResources">
             发布求助信息
           </button>
         </div>
@@ -52,17 +52,31 @@
         <IdleZone />
       </div>
     </div>
+    <el-dialog
+      title="增加商品"
+      :visible.sync="showAddVegetables"
+      width="60%"
+      :before-close="handleClose"
+    >
+      <AddCommunityVegetables ref="addCommunityVegetables" />
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showAddVegetables = false">取 消</el-button>
+        <el-button type="primary" @click="addVegetables">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import CommunityVegetables from '@/components/index/CommunityVegetables'
+import AddCommunityVegetables from '@/components/index/AddCommunityVegetables'
 import IdleZone from '@/components/index/IdleZone'
 export default {
   name: 'Index',
   components: {
     CommunityVegetables,
-    IdleZone
+    IdleZone,
+    AddCommunityVegetables
   },
   data() {
     return {
@@ -100,7 +114,8 @@ export default {
       fqImg: require('@/assets/index/fq.png'),
       addCart: require('@/assets/index/addCart.png'),
       quan: require('@/assets/index/quan.png'),
-      userInfo: {}
+      userInfo: {},
+      showAddVegetables: false
     }
   },
   created() {
@@ -125,6 +140,30 @@ export default {
     loginOut() {
       localStorage.removeItem('userInfo')
       this.$router.push('/login')
+    },
+    addCommunityResources() {
+      if (this.userInfo.id === 1) { // 管理员登录
+        if (this.curNav === '1') { // 增加送菜的资源
+          this.showAddVegetables = true
+        }
+      } else { // 非管理员登录
+
+      }
+    },
+    addVegetables() {
+      let param = this.$refs.addCommunityVegetables.getParam()
+      param.createPeople = this.userInfo.id
+      this.$server.addCommunityVegetables(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+          this.$message.success('操作成功')
+          this.showAddVegetables = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+    },
+    handleClose() {
+      this.showAddVegetables = false
     }
   }
 }
