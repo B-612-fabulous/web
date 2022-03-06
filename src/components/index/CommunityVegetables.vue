@@ -65,7 +65,6 @@ export default {
     getCommunityVegetablesList() {
       let param = {}
       this.$server.getCommunityVegetablesList(param).then(res => {
-        console.log(res)
         if (res.state === 'success') { // 请求成功
           this.dataList = res.data
           this.showAddVegetables = false

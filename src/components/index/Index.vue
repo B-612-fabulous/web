@@ -45,7 +45,7 @@
     <div class="main-body" :style="{ 'backgroundImage':'url('+ bodyImg +')' }">
       <!-- 社区送菜 -->
       <div v-if="curNav == 1" class="main-body-box">
-        <CommunityVegetables />
+        <CommunityVegetables ref="communityVegetables" />
       </div>
       <!-- 闲置专区 -->
       <div v-if="curNav == 2" class="main-body-box">
@@ -156,6 +156,7 @@ export default {
       this.$server.addCommunityVegetables(param).then(res => {
         if (res.state === 'success') { // 请求成功
           this.$message.success('操作成功')
+          this.$refs.communityVegetables.getCommunityVegetablesList()
           this.showAddVegetables = false
         } else {
           this.$message.error('系统异常')
