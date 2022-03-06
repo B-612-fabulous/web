@@ -66,7 +66,7 @@ export default {
   },
   data() {
     return {
-      logoImg: require('@/assets/index/logo.png'),
+      logoImg: require('@/assets/index/logo1.png'),
       navData: [
         {
           name: '送菜上门',

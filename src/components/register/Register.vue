@@ -92,7 +92,7 @@ export default {
     margin: auto;
 }
     #logod {
-     background: url("../../assets/register/logo.png") no-repeat left center;
+     background: url("../../assets/register/logo1.png") no-repeat left center;
     background-size: contain;
     float: left;
     width: 120px;
