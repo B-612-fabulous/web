@@ -17,11 +17,11 @@
             {{ item.commodityDesc }}
           </div>
           <div class="tag-box">
-            <div v-if="item.isSeckill" class="tag-box-item">
+            <div v-if="item.isSeckill || item.seckill" class="tag-box-item">
               秒杀
             </div>
             <div v-if="item.preferentialRules !=='' " class="tag-box-item">
-              <img :src="quan">满20减3
+              <img :src="quan">{{ item.preferentialRules }}
             </div>
           </div>
           <div class="btn">
