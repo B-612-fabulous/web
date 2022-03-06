@@ -7,7 +7,7 @@
         <p>欢迎注册</p>
       </div>
       <div class="htHotLine hotline_400">
-        已有账号  <span><a href="">登入</a></span>
+        已有账号  <span><a href="" @click="jumpLogin">登入</a></span>
       </div>
     </div>
     <div class="container">
@@ -20,17 +20,20 @@
           </div>
           <div id="loginAccountPwd" class="loginModule">
             <!-- 表格 -->
-            <form id="loginFrm" name="loginFrm" method="post" autocomplete="off">
+            <form id="loginFrm" name="loginFrm">
               <div class="loginBody">
                 <div class="loginInput">
                   <div class="item loginUser">
-                    <input id="loginName" name="username" type="text" placeholder="请输入注册号" data-text="请输入注册号" autocomplete="off" value="">
+                    <input id="loginphone" v-model="loginForm.phone" type="text" placeholder="请输入手机号" autocomplete="off" >
+                  </div>
+                  <div class="item loginUser">
+                    <input id="loginName" v-model="loginForm.userName" type="text" placeholder="请输入帐号" autocomplete="off" >
                   </div>
                   <div class="item loginPwd">
-                    <input id="loginPwd" name="password" type="password" placeholder="请输入密码" data-text="请输入密码" autocomplete="off" value="">
+                    <input id="loginPwd" v-model="loginForm.passWord" type="password" placeholder="请输入密码" autocomplete="off" >
                   </div>
-
-                  <a href="javascript:void(0);" class="loginBtn">注&nbsp;册</a>
+                  <button class="loginBtn" @click="register">注&nbsp;册</button>
+                  <!-- <a href="javascript:void(0);" class="loginBtn" @click="register">注&nbsp;册</a> -->
                 </div>
               </div>
             </form>  <!-- 表格结束 -->
@@ -41,37 +44,38 @@
   </div>
 </template>
 
-<script>
+ <script>
 export default {
   name: 'Register',
   data() {
-    // return {
-    //   loginForm: {
-    //     username: 'admin',
-    //     password: '123'
-    //   },
-    //   responseResult: []
-    // }
+    return {
+      loginForm: {
+        phone: '',
+        username: '',
+        password: ''
+      },
+      responseResult: []
+    }
   },
   methods: {
-    // login() {
-    //   var _this = this
-    //   this.$axios
-    //     .post('/login', {
-    //       username: this.loginForm.username,
-    //       password: this.loginForm.password
-    //     })
-    //     .then(successResponse => {
-    //       if (successResponse.data.code === 200) {
-    //         // var data = this.loginForm
-    //         _this.$store.commit('login', _this.loginForm)
-    //         var path = this.$route.query.redirect
-    //         this.$router.replace({
-    //           path: path === '/' || path === undefined ? '/index' : path
-    //         })
-    //       }
-    //     }).catch(failResponse => {})
-    // }
+      register() {
+      this.$server.userLogin(this.loginForm).then(res => {
+        if (res.state === 'success') { // 请求成功
+          if (res.code === 10000) { // 请求成功
+            localStorage.setItem('userInfo', JSON.stringify(res.data))
+            this.$router.push('/login')
+          } else {
+            this.$message.error(res.data.msg)
+          }
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+    },
+  
+      jumpLogin() {
+     this.$router.push('/login')
+    },
   }
 }
 </script>
