@@ -48,6 +48,7 @@ export default {
         title: '',
         price: '',
         fmImg: '',
+        unit:'500g',
         commodityDesc: '',
         isSeckill: true,
         isSeckillFlag: 1,

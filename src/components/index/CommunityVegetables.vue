@@ -6,7 +6,7 @@
         <div class="left">
           <img :src="getImgUrl(item)">
           <div class="price">
-            <span class="left">￥{{ item.price }}</span><span class="right">/{{ item.unit }}</span>
+            <span class="left">￥{{ item.price }}</span><span class="right">/500g</span>
           </div>
         </div>
         <div class="right">

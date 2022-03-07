@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/components/login/Login'
 import Index from '@/components/index/Index'
 import Register from '@/components/register/Register'
+import Indextable from '@/components/indextable/Indextable'
 // 组件模块
 
 Vue.use(Router)
@@ -24,6 +25,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/indextable',
+      name: 'Indextable',
+      component: Indextable
     }
   ]
 })
