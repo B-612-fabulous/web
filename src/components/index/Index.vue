@@ -95,7 +95,7 @@ export default {
           id: '3'
         },
         {
-          name: '假期出游',
+          name: '首页',
           id: '4'
         },
         {
