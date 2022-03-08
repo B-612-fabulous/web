@@ -11,5 +11,8 @@ export const server = {
   },
   getCommunityVegetablesList(param) {
     return post(`/getCommunityVegetablesList`, param)
+  },
+  addUser(param) {
+    return post(`/reg`, param)
   }
 }

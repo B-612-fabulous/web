@@ -20,25 +20,26 @@
           </div>
           <div id="loginAccountPwd" class="loginModule">
             <!-- 表格 -->
-            <form id="loginFrm" name="loginFrm">
-              <div class="loginBody">
-                <div class="loginInput">
-                  <div class="item loginUser">
-                    <input id="loginphone" v-model="loginForm.phone" type="text" placeholder="请输入手机号" autocomplete="off">
-                  </div>
-                  <div class="item loginUser">
-                    <input id="loginName" v-model="loginForm.userName" type="text" placeholder="请输入帐号" autocomplete="off">
-                  </div>
-                  <div class="item loginPwd">
-                    <input id="loginPwd" v-model="loginForm.passWord" type="password" placeholder="请输入密码" autocomplete="off">
-                  </div>
-                  <button class="loginBtn" @click="register">
-                    注&nbsp;册
-                  </button>
-                  <!-- <a href="javascript:void(0);" class="loginBtn" @click="register">注&nbsp;册</a> -->
+            <div class="loginBody">
+              <div class="loginInput">
+                <div class="item loginUser">
+                  <input id="loginphone" v-model="loginForm.trueName" type="text" placeholder="请输入姓名名" autocomplete="off">
                 </div>
+                <div class="item loginUser">
+                  <input id="loginphone" v-model="loginForm.phone" type="text" placeholder="请输入手机号" autocomplete="off">
+                </div>
+                <div class="item loginUser">
+                  <input id="loginName" v-model="loginForm.userName" type="text" placeholder="请输入帐号" autocomplete="off">
+                </div>
+                <div class="item loginPwd">
+                  <input id="loginPwd" v-model="loginForm.passWord" type="password" placeholder="请输入密码" autocomplete="off">
+                </div>
+                <button class="loginBtn" @click="register">
+                  注&nbsp;册
+                </button>
+                <!-- <a href="javascript:void(0);" class="loginBtn" @click="register">注&nbsp;册</a> -->
               </div>
-            </form>  <!-- 表格结束 -->
+            </div>
           </div>
         </div>
       </div>
@@ -61,16 +62,12 @@ export default {
   },
   methods: {
     register() {
-      this.$server.userLogin(this.loginForm).then(res => {
+      this.$server.addUser(this.loginForm).then(res => {
         if (res.state === 'success') { // 请求成功
-          if (res.code === 10000) { // 请求成功
-            localStorage.setItem('userInfo', JSON.stringify(res.data))
-            this.$router.push('/login')
-          } else {
-            this.$message.error(res.data.msg)
-          }
+          this.$message.success('注册成功,请登录!')
+          this.$router.push('/login')
         } else {
-          this.$message.error('系统异常')
+          this.$message.error(res.data.msg)
         }
       })
     },
@@ -187,6 +184,7 @@ export default {
     height: 44px;
     border: 1px solid #e6e6e6;
     overflow: hidden;
+    margin-top: 8px;
 }
 #loginAccountPwd .loginBody .loginInput .item input {
     position: absolute;
@@ -223,6 +221,7 @@ export default {
     -webkit-border-radius: 22px;
     -moz-border-radius: 22px;
     border-radius: 22px;
+    border: none;
 }
 .loginWrap, .loginWrap * {
     -webkit-box-sizing: border-box;
