@@ -51,6 +51,10 @@
       <div v-if="curNav == 2" class="main-body-box">
         <IdleZone />
       </div>
+      <!-- 公告 -->
+       <div v-if="curNav == 6" class="main-body-box">
+        <Announcement />
+      </div>
     </div>
     <el-dialog
       title="增加商品"
@@ -71,12 +75,14 @@
 import CommunityVegetables from '@/components/index/CommunityVegetables'
 import AddCommunityVegetables from '@/components/index/AddCommunityVegetables'
 import IdleZone from '@/components/index/IdleZone'
+import Announcement from '@/components/index/Announcement.vue'
 export default {
   name: 'Index',
   components: {
     CommunityVegetables,
     IdleZone,
-    AddCommunityVegetables
+    AddCommunityVegetables,
+    Announcement
   },
   data() {
     return {
@@ -100,11 +106,11 @@ export default {
         },
         {
           name: '家政服务',
-          id: '6'
+          id: '5'
         },
         {
           name: '社区公告',
-          id: '7'
+          id: '6'
         }
 
       ],
@@ -137,7 +143,7 @@ export default {
     jumpUserInfo() {
 
     },
-    loginOut() {
+    loginOut() {222
       localStorage.removeItem('userInfo')
       this.$router.push('/login')
     },
