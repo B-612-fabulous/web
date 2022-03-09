@@ -53,7 +53,8 @@
       </div>
       <!-- 公告 -->
        <div v-if="curNav == 6" class="main-body-box">
-        <Announcement />
+         
+        <Announcement ref="Announcement" />
       </div>
     </div>
     <el-dialog

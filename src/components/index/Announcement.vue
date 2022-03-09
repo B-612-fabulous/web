@@ -2,12 +2,12 @@
   <div class="main-index">
     <!-- 主体 -->
     <div class="main-body-child">
-      <div class="main-body-child-item">
+      <div  v-for="(item,index) in dataList" :key="index" class="main-body-child-item">
            <div class="tit">
-             公告一
+            {{ item.title }}
            </div>
            <div>
-             <span class="tim">时间</span>
+             <span class="tim">{{ item.createDate }}</span>
            </div>
       </div>
 
@@ -20,23 +20,21 @@ export default {
   name: 'Announcement',
   data() {
     return {
-          dataList:[{}],
+          dataList:[{
+            title: '公告一',
+            createDate: '2022-03-08 17:21:33',
+          }],
     }
   },
   created() {
-    this.getCommunityAnnounceLists();
-
-  },
-  mounted(){
-    // this.getCommunityAnnounceList();
+    this.getCommunityAnnounceList()
   },
   methods: {
-    getCommunityAnnounceLists(){
+    getCommunityAnnounceList(){
         let param = {}
       this.$server.getCommunityAnnounceList(param).then(res => {
         if (res.state === 'success') { // 请求成功
-          this.dataList = res.data.data
-          console.log(this.dataList);
+          this.dataList = res.data
         } else {
           this.$message.error('系统异常')
         }
