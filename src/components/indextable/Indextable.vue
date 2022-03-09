@@ -1,98 +1,299 @@
 <template>
-  <el-table
-    :data="tableData"
-    border
-    style="width: 100%"
-  >
-    <el-table-column
-      prop="createDate"
-      label="日期"
-      width="180"
-    />
-    <el-table-column
-      prop="title"
-      label="标题"
-      width="180"
-    />
-    <el-table-column
-      prop="price"
-      label="价格"
-      width="180"
-    />
+  <div class="manager-box">
+    <div class="manger-box-top">
+      <!-- 头部 -->
+      <div class="main-top">
+        <div class="userInfo">
+          <div class="letf">
+            客服电话&nbsp;:&nbsp;4009991762
+          </div>
+          <div v-if="!userInfo.id || userInfo.id === ''" class="right">
+            <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
+          </div>
+          <div v-else class="right">
+            <div class="bak_tit">
+              社区众包后台管理系统
+            </div>
+            <span @click="jumpUserInfo">{{ userInfo.trueName }}</span>|<span @click="loginOut">退出</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="manger-box-body">
+      <div class="manger-box-body-left">
+        <el-tabs tab-position="left">
+          <div class="opera-btn-box">
+            <el-button type="primary" @click="addVegetablesPop">
+              新增商品
+            </el-button>
+          </div>
+          <el-tab-pane label="社区送菜管理">
+            <div class="manger-box-body-right">
+              <el-table
+                :data="tableData"
+                border
+                style="width: 100%"
+              >
+                <el-table-column
+                  prop="title"
+                  label="商品标题"
+                  width="180"
+                />
+                <el-table-column
+                  prop="commodityDesc"
+                  label="商品描述"
+                />
+                <el-table-column
+                  prop="price"
+                  label="商品价格"
+                  width="180"
+                />
 
-    <el-table-column
-      prop="fmImg"
-      label="图片"
-      width="180"
-    />
-    <el-table-column
-      prop="preferentialRules"
-      label="秒杀规则"
-      width="180"
-    />
-
-    <el-table-column
-      prop="commodityDesc"
-      label="商品描述"
-      width="180"
-    />
-
-    <el-table-column
-      prop="address"
-      label="地址"
+                <el-table-column
+                  prop="fmImg"
+                  label="封面图片"
+                  width="180"
+                >
+                  <template slot-scope="scope">
+                    <img :src="getImgUrl(scope.row)" style="width:80px;height:80px;">
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  label="是否秒杀"
+                  width="180"
+                >
+                  <template slot-scope="scope">
+                    <el-tag v-if="scope.row.seckill" type="danger">
+                      是
+                    </el-tag>
+                    <el-tag v-else type="danger">
+                      否
+                    </el-tag>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  prop="preferentialRules"
+                  label="折扣描述"
+                  width="180"
+                />
+                <el-table-column
+                  label="操作"
+                  width="200"
+                >
+                  <template slot-scope="scope">
+                    <el-button type="text" size="small" @click="updateData(scope.row)">
+                      编辑
+                    </el-button>
+                    <el-button type="text" size="small" @click="deleteData(scope.row)">
+                      删除
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane label="配置管理">
+            配置管理
+          </el-tab-pane>
+          <el-tab-pane label="角色管理">
+            角色管理
+          </el-tab-pane>
+          <el-tab-pane label="定时任务补偿">
+            定时任务补偿
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+    </div>
+    <el-dialog
+      v-if="showAddVegetables"
+      :title="title"
+      :visible.sync="showAddVegetables"
+      width="60%"
+      :before-close="handleClose"
     >
-      <template slot-scope="scope">
-        <el-button type="text" size="small" @click="handleClick(scope.row)">
-          移除
-        </el-button>
-        <el-button type="text" size="small">
-          编辑
-        </el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+      <AddCommunityVegetables ref="addCommunityVegetables" :community-vegetables="communityVegetables" />
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showAddVegetables = false">取 消</el-button>
+        <el-button type="primary" @click="addVegetables">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
+import AddCommunityVegetables from '@/components/index/AddCommunityVegetables'
 export default {
-  name: 'Indextable0',
-
+  name: 'Indextable',
+  components: {
+    AddCommunityVegetables
+  },
   data() {
     return {
-      tableData: [{
-        createDate: '2016-05-04',
-        title: '王小虎',
-        price: '18',
-        fmImg: ' ',
-        preferentialRules: '限时秒杀',
-        commodityDesc: '好吃不贵，不吃浪费',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }
-      ]
+      tableData: [],
+      userInfo: {},
+      showAddVegetables: false,
+      communityVegetables: {},
+      title: '增加商品'
     }
   },
-
+  created() {
+    let userInfo = localStorage.getItem('userInfo')
+    if (userInfo) {
+      this.userInfo = JSON.parse(userInfo)
+    }
+    this.getDataList()
+  },
   methods: {
+    getDataList() {
+      let param = {}
+      this.$server.getCommunityVegetablesList(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+          this.tableData = res.data
+          this.showAddVegetables = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+    },
+    jumpLogin() {
+      this.$router.push('/login')
+    },
+    jumpRegister() {
+      this.$router.push('/register')
+    },
+    jumpUserInfo() {
 
-    // register() {
-    //   this.$server.userLogin(this.loginForm).then(res => {
-    //     if (res.state === 'success') { // 请求成功
-    //       if (res.code === 10000) { // 请求成功
-    //         localStorage.setItem('userInfo', JSON.stringify(res.data))
-    //         this.$router.push('/login')
-    //       } else {
-    //         this.$message.error(res.data.msg)
-    //       }
-    //     } else {
-    //       this.$message.error('系统异常')
-    //     }
-    //   })
-    // },
-
-    // jumpLogin() {
-    //   this.$router.push('/login')
-    // }
+    },
+    loginOut() {
+      localStorage.removeItem('userInfo')
+      this.$router.push('/login')
+    },
+    addVegetables() {
+      let param = this.$refs.addCommunityVegetables.getParam()
+      param.createPeople = this.userInfo.id
+      if (param.id) { // 修改
+        this.$server.updateCommunityVegetablesList(param).then(res => {
+          if (res.state === 10000) {
+            this.$message.success('操作成功')
+            this.getDataList()
+            this.showAddVegetables = false
+          } else {
+            this.$message.error('系统异常')
+          }
+        })
+      } else { // 新增
+        this.$server.addCommunityVegetables(param).then(res => {
+          if (res.state === 'success') { // 请求成功
+            this.$message.success('操作成功')
+            this.getDataList()
+            this.showAddVegetables = false
+          } else {
+            this.$message.error('系统异常')
+          }
+        })
+      }
+    },
+    addVegetablesPop() {
+      this.title = '增加商品'
+      this.showAddVegetables = true
+    },
+    handleClose() {
+      this.showAddVegetables = false
+    },
+    getImgUrl(item) {
+      let host = 'http://localhost:8888'
+      item.showFmImg = host + item.fmImg
+      return item.showFmImg
+    },
+    deleteData(item) {
+      let param = { id: item.id }
+      this.$server.deleteCommunityVegetablesList(param).then(res => {
+        if (res.state === 10000) {
+          this.getDataList()
+        } else {
+          this.$message.error('操作失败')
+        }
+      })
+    },
+    updateData(item) {
+      this.title = '修改商品'
+      this.communityVegetables = item
+      this.showAddVegetables = true
+    }
   }
 }
 </script>
+<style scoped lang="less">
+.manager-box{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  .manger-box-top{
+    background: rgb(30, 156, 156);
+    .main-top{
+        background-color: rgb(30, 156, 156);
+        height: 98px;
+        width: 80%;
+        position: relative;
+        left: 10%;
+        .userInfo{
+          height: 40px;
+          line-height: 40px;
+          display: flex;
+          font-size: 14px;
+          color: #fff;
+          .left{
+            flex: 1;
+          }
+          .right{
+            flex: 1;
+            text-align: right;
+            padding-right: 10px;
+            .bak_tit{
+              color: #fff;
+              font-size: 36px;
+              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+              font-weight: 700;
+              text-align: left;
+              margin-left: 20%;
+              position: absolute;
+              height: 90px;
+              line-height: 90px;
+            }
+            span{
+              cursor: pointer;
+              padding: 0 20px;
+            }
+
+          }
+        }
+     }
+  }
+  .manger-box-body{
+     height: ~"calc(100% - 100px)";
+    .manger-box-body-left{
+      position: relative;
+      height: 100%;
+      .el-tabs{
+        position: relative;
+        height: 100%;
+        .el-tabs__content{
+          position: relative;
+          height: 100%;
+          .opera-btn-box{
+            width: 100%;
+            text-align: right;
+            height: 60px;
+            line-height: 60px;
+            padding-right: 20px;
+          }
+          .manger-box-body-right{
+            overflow: auto;
+          }
+        }
+      }
+    }
+  }
+}
+</style>
 

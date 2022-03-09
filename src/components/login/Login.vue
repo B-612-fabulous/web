@@ -68,7 +68,11 @@ export default {
         if (res.state === 'success') { // 请求成功
           if (res.code === 10000) { // 请求成功
             localStorage.setItem('userInfo', JSON.stringify(res.data))
-            this.$router.push('/index')
+            if (res.data.id === 1) { // 管理员登录
+              this.$router.push('/Indextable')
+            } else { // 非管理员登录
+              this.$router.push('/index')
+            }
           } else {
             this.$message.error(res.data.msg)
           }

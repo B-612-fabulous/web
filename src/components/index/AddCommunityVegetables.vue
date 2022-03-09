@@ -23,7 +23,7 @@
         <el-input v-model="commodityObj.commodityDesc" type="textarea" rows="3" placeholder="请输入商品描述" />
       </el-form-item>
       <el-form-item label="是否秒杀">
-        <el-radio-group v-model="commodityObj.isSeckill" @change="changeSeckIll">
+        <el-radio-group v-model="radioValue" @change="changeSeckIll">
           <el-radio-button :label="true">
             是
           </el-radio-button>
@@ -42,6 +42,14 @@
 <script>
 export default {
   name: 'CommunityVegetables',
+  props: {
+    communityVegetables: {
+      type: Object,
+      default: function() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
       commodityObj: {
@@ -54,11 +62,15 @@ export default {
         isSeckillFlag: 1,
         preferentialRules: '',
         showFmImg: ''
-      }
+      },
+      radioValue: true
     }
   },
   created() {
-
+    if (this.communityVegetables && this.communityVegetables.id) { // 修改
+      this.commodityObj = this.communityVegetables
+      this.radioValue = this.communityVegetables.seckill
+    }
   },
   methods: {
     handleAvatarSuccess(res, file) {
@@ -79,14 +91,19 @@ export default {
       // return isJPG && isLt2M
     },
     getParam() {
-      return this.commodityObj
-    },
-    changeSeckIll() {
-      if (this.commodityObj.isSeckill) {
+      if (this.communityVegetables && this.communityVegetables.id) { // 修改
+        this.commodityObj.id = this.communityVegetables.id
+      }
+      if (this.radioValue) {
         this.commodityObj.isSeckillFlag = 1
       } else {
         this.commodityObj.isSeckillFlag = 0
       }
+      this.commodityObj.isSeckill = this.radioValue
+      return this.commodityObj
+    },
+    changeSeckIll(item) {
+
     }
   }
 }

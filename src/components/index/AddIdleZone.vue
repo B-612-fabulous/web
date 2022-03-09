@@ -19,8 +19,6 @@
       <el-form-item label="商品描述">
         <el-input v-model="commodityObj.commodityDesc" type="textarea" rows="3" placeholder="请输入商品描述" />
       </el-form-item>
-      
-     
     </el-form>
   </div>
 </template>

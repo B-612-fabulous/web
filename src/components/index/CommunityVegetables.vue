@@ -38,10 +38,6 @@ export default {
   name: 'CommunityVegetables',
   data() {
     return {
-      tdImg: require('@/assets/index/td.jpeg'),
-      fqImg: require('@/assets/index/fq.png'),
-      addCart: require('@/assets/index/addCart.png'),
-      quan: require('@/assets/index/quan.png'),
       dataList: [
         {
           fmImg: require('@/assets/index/td.jpeg'),

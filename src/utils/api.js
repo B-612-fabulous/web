@@ -14,5 +14,11 @@ export const server = {
   },
   addUser(param) {
     return post(`/reg`, param)
+  },
+  deleteCommunityVegetablesList(param) {
+    return post(`/deleteCommunityVegetablesList`, param)
+  },
+  updateCommunityVegetablesList(param) {
+    return post(`/updateCommunityVegetablesList`, param)
   }
 }
