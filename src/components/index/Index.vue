@@ -52,15 +52,29 @@
         <IdleZone />
       </div>
       <!-- 公告 -->
-      <div v-if="curNav == 6" class="main-body-box">
+       <div v-if="curNav == 6" class="main-body-box">
+         
         <Announcement ref="Announcement" />
       </div>
     </div>
+    <el-dialog
+      title="增加商品"
+      :visible.sync="showAddVegetables"
+      width="60%"
+      :before-close="handleClose"
+    >
+      <AddCommunityVegetables ref="addCommunityVegetables" />
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showAddVegetables = false">取 消</el-button>
+        <el-button type="primary" @click="addVegetables">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import CommunityVegetables from '@/components/index/CommunityVegetables'
+import AddCommunityVegetables from '@/components/index/AddCommunityVegetables'
 import IdleZone from '@/components/index/IdleZone'
 import Announcement from '@/components/index/Announcement.vue'
 export default {
@@ -68,6 +82,7 @@ export default {
   components: {
     CommunityVegetables,
     IdleZone,
+    AddCommunityVegetables,
     Announcement
   },
   data() {
@@ -129,12 +144,18 @@ export default {
     jumpUserInfo() {
 
     },
-    loginOut() {
+    loginOut() {222
       localStorage.removeItem('userInfo')
       this.$router.push('/login')
     },
     addCommunityResources() {
+      if (this.userInfo.id === 1) { // 管理员登录
+        if (this.curNav === '1') { // 增加送菜的资源
+          this.showAddVegetables = true
+        }
+      } else { // 非管理员登录
 
+      }
     },
     addVegetables() {
       let param = this.$refs.addCommunityVegetables.getParam()

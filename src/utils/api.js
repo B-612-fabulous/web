@@ -12,13 +12,10 @@ export const server = {
   getCommunityVegetablesList(param) {
     return post(`/getCommunityVegetablesList`, param)
   },
+  getCommunityAnnounceList(param) {
+    return post(`/getCommunityAnnounceList`,param)
+  },
   addUser(param) {
     return post(`/reg`, param)
-  },
-  deleteCommunityVegetablesList(param) {
-    return post(`/deleteCommunityVegetablesList`, param)
-  },
-  updateCommunityVegetablesList(param) {
-    return post(`/updateCommunityVegetablesList`, param)
   }
 }
