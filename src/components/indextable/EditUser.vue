@@ -7,7 +7,7 @@
       <el-form-item label="用户密码">
         <el-input v-model="commodityObj.passWord" placeholder="请输入密码" />
       </el-form-item>
-      <el-form-item label="商品封面">
+      <el-form-item label="用户头像">
         <el-upload
           class="avatar-uploader"
           action="http://localhost:8888/upload"
@@ -15,7 +15,7 @@
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="commodityObj.showFmImg" :src="commodityObj.showFmImg" class="avatar">
+          <img v-if="commodityObj.showpic" :src="commodityObj.showpic" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon" />
         </el-upload>
       </el-form-item>
@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: 'CommunityVegetables',
+  name: 'Usertables',
   props: {
     usertables: {
       type: Object,

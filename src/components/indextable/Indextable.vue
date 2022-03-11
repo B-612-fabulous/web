@@ -134,7 +134,7 @@
                   width="180"
                 >
                   <template slot-scope="scope">
-                    <img :src="getImgUrl(scope.row)" style="width:80px;height:80px;">
+                    <img :src="getpicUrl(scope.row)" style="width:80px;height:80px;">
                   </template>
                 </el-table-column>
               
@@ -198,7 +198,7 @@
      
       <span slot="footer" class="dialog-footer">
         <el-button @click="showUser = false">取 消</el-button>
-        <el-button type="primary" @click="showUser = true">确 定</el-button>
+        <el-button type="primary" @click="updateUserByid">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -219,6 +219,7 @@ export default {
       userDate:[],
       userInfo: {},
       showAddVegetables: false,
+      showUser:false,
       communityVegetables: {},
       Usertables:{},
       title: '增加商品'
@@ -297,12 +298,14 @@ export default {
         })
       }
     },
+
     addVegetablesPop() {
       this.title = '增加商品'
       this.showAddVegetables = true
     },
     handleClose() {
       this.showAddVegetables = false
+      this.showUser = false
     },
     getImgUrl(item) {
       let host = 'http://localhost:8888'
@@ -332,7 +335,6 @@ export default {
     },
 
      deleteDatauser(item) {
-      alert("00");
       let param = { id: item.id }
       
       this.$server.deleteUserByid(param).then(res => {
@@ -343,12 +345,33 @@ export default {
         }
       })
     },
-    updateDatauser(){
-      alert("faff");
+    updateDatauser(item){
       this.title = '修改信息'
       this.Usertables = item
-      // this.showUser = true
-    }
+      this.showUser = true
+      console.log(item);
+    //  this.showAddVegetables = false  updateUserByid
+    },
+
+    updateUserByid(item) {
+     
+      let param = { id: item.id }
+        this.$server.updateUserByid(param).then(res => {
+           alert("qqqq")
+          if (res.state === 10000) {
+            this.$message.success('操作成功')
+            this.getUserDataList()
+            this.showUser = false
+          } else {
+            this.$message.error('系统异常')
+          }
+        })
+      
+    },
+
+
+
+
   }
 }
 </script>

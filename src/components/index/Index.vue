@@ -7,9 +7,14 @@
           客服电话&nbsp;:&nbsp;4009991762
         </div>
         <div v-if="!userInfo.id || userInfo.id === ''" class="right">
+          <!-- <el-avatar :size="60" src="https://empty" @error="errorHandler">
+            <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"/>
+          </el-avatar> -->
           <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
         </div>
-        <div v-else class="right">
+        <div v-else class="right">  
+      <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic">
+   
           <span @click="jumpUserInfo">{{ userInfo.trueName }}</span>|<span @click="loginOut">退出</span>
         </div>
       </div>
@@ -204,6 +209,10 @@ export default {
          flex: 1;
          text-align: right;
          padding-right: 10px;
+         .pic{
+              height: 40px;
+              margin-right: 10px;
+         }
          span{
            cursor: pointer;
            padding: 0 20px;
