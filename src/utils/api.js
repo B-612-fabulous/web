@@ -13,21 +13,21 @@ export const server = {
     return post(`/getCommunityVegetablesList`, param)
   },
   getCommunityAnnounceList(param) {
-    return post(`/getCommunityAnnounceList`,param)
+    return post(`/getCommunityAnnounceList`, param)
   },
   getUserList(param) {
-    return post(`/getUserList`,param)
+    return post(`/getUserList`, param)
   },
   addUser(param) {
     return post(`/reg`, param)
   },
-  deleteCommunityVegetablesList(param){
-    return post(`/deleteCommunityVegetablesList`,param)
+  deleteCommunityVegetablesList(param) {
+    return post(`/deleteCommunityVegetablesList`, param)
   },
-  updateCommunityVegetablesList(param){
-    return post(`/updateCommunityVegetablesList`,param)
+  updateCommunityVegetablesList(param) {
+    return post(`/updateCommunityVegetablesList`, param)
   },
-  deleteUserByid(param){
-    return post( `deleteUserByid`,param)
+  deleteUserByid(param) {
+    return post(`deleteUserByid`, param)
   }
 }

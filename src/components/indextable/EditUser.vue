@@ -2,10 +2,10 @@
   <div class="main-content">
     <el-form ref="form" label-width="80px">
       <el-form-item label="用户名">
-        <el-input v-model="commodityObj.userName" placeholder="请输入用户名" />
+        <el-input v-model="userObj.userName" placeholder="请输入用户名" />
       </el-form-item>
       <el-form-item label="用户密码">
-        <el-input v-model="commodityObj.passWord" placeholder="请输入密码" />
+        <el-input v-model="userObj.passWord" placeholder="请输入密码" />
       </el-form-item>
       <el-form-item label="用户头像">
         <el-upload
@@ -15,19 +15,19 @@
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="commodityObj.showpic" :src="commodityObj.showpic" class="avatar">
+          <img v-if="userObj.showpic" :src="userObj.showpic" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon" />
         </el-upload>
       </el-form-item>
       <el-form-item label="手机号">
-        <el-input v-model="commodityObj.phone"  placeholder="请输入手机号" />
+        <el-input v-model="userObj.phone" placeholder="请输入手机号" />
       </el-form-item>
-    
+
       <el-form-item label="地址">
-        <el-input v-model="commodityObj.address"  placeholder="请输入地址" />
+        <el-input v-model="userObj.address" placeholder="请输入地址" />
       </el-form-item>
       <el-form-item label="真实姓名">
-        <el-input v-model="commodityObj.trueName" placeholder="请输入真实姓名" />
+        <el-input v-model="userObj.trueName" placeholder="请输入真实姓名" />
       </el-form-item>
     </el-form>
   </div>
@@ -37,7 +37,7 @@
 export default {
   name: 'Usertables',
   props: {
-    usertables: {
+    userTables: {
       type: Object,
       default: function() {
         return {}
@@ -46,28 +46,27 @@ export default {
   },
   data() {
     return {
-      commodityObj: {
+      userObj: {
         userName: '',
         passWord: '',
         pic: '',
         phone: '',
         address: '',
         showpic: '',
-        trueName:''
-      },
-      
+        trueName: ''
+      }
     }
   },
   created() {
-    if (this.usertables && this.usertables.id) { // 修改
-      this.commodityObj = this.usertables
+    if (this.userTables && this.userTables.id) { // 修改
+      this.userObj = this.userTables
     }
   },
   methods: {
     handleAvatarSuccess(res, file) {
       let host = 'http://localhost:8888'
-      this.commodityObj.pic = '/download/image?filePath=' + res.data
-      this.commodityObj.showpic = host + '/download/image?filePath=' + res.data
+      this.userObj.pic = '/download/image?filePath=' + res.data
+      this.userObj.showpic = host + '/download/image?filePath=' + res.data
     },
     beforeAvatarUpload(file) {
       // const isJPG = file.type === 'image/jpeg'
@@ -83,12 +82,11 @@ export default {
     },
     getParam() {
       if (this.usertables && this.usertables.id) { // 修改
-        this.commodityObj.id = this.usertables.id
+        this.userObj.id = this.usertables.id
       }
-     
-      return this.commodityObj
-    },
- 
+      return this.userObj
+    }
+
   }
 }
 </script>

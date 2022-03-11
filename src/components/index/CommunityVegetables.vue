@@ -3,36 +3,31 @@
     <!-- 主体 -->
     <div class="main-body-child">
       <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item">
-
-            
-                        <div class="left">
-                      <img :src="getImgUrl(item)">
-                      <div class="price">
-                        <span class="left">￥{{ item.price }}</span><span class="right">/500g</span>
-                      </div>
-                        </div>
-                        <div class="right">
-                          <div class="text-tit">
-                            {{ item.title }}
-                          </div>
-                          <div class="text-desc">
-                            {{ item.commodityDesc }}
-                          </div>
-                          <div class="tag-box">
-                            <div v-if="item.isSeckill || item.seckill" class="tag-box-item">
-                              秒杀
-                            </div>
-                            <div v-if="item.preferentialRules !=='' " class="tag-box-item">
-                              <img :src="quan">{{ item.preferentialRules }}
-                            </div>
-                          </div>
-                          <div class="btn">
-                            <img :src="addCart" @click="addCartVegetable(item)">
-                          </div>
-                
-                
-                
-                        </div>
+        <div class="left">
+          <img :src="getImgUrl(item)">
+          <div class="price">
+            <span class="left">￥{{ item.price }}</span><span class="right">/500g</span>
+          </div>
+        </div>
+        <div class="right">
+          <div class="text-tit">
+            {{ item.title }}
+          </div>
+          <div class="text-desc">
+            {{ item.commodityDesc }}
+          </div>
+          <div class="tag-box">
+            <div v-if="item.isSeckill || item.seckill" class="tag-box-item">
+              秒杀
+            </div>
+            <div v-if="item.preferentialRules !=='' " class="tag-box-item">
+              <img :src="quan">{{ item.preferentialRules }}
+            </div>
+          </div>
+          <div class="btn">
+            <img :src="addCart" @click="addCartVegetable(item)">
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -98,7 +93,7 @@ export default {
       width: 80%;
       margin-left: 10%;
       .main-body-child-item{
-      
+
         border: 1px solid #f2f2f2;
         background: #fff;
         margin-right: 10px;

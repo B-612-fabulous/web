@@ -36,13 +36,13 @@ export default new Router({
     {
       path: '/add',
       name: 'AddCommunityVegetables',
-      component:  AddCommunityVegetables
+      component: AddCommunityVegetables
     },
     {
       path: '/EditUser',
       name: 'EditUser',
       component: EditUser
-    },
+    }
 
   ]
 })

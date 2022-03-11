@@ -12,9 +12,9 @@
           </el-avatar> -->
           <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
         </div>
-        <div v-else class="right">  
-      <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic">
-   
+        <div v-else class="right">
+          <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic">
+
           <span @click="jumpUserInfo">{{ userInfo.trueName }}</span>|<span @click="loginOut">退出</span>
         </div>
       </div>
@@ -57,8 +57,7 @@
         <IdleZone />
       </div>
       <!-- 公告 -->
-       <div v-if="curNav == 6" class="main-body-box">
-         
+      <div v-if="curNav == 6" class="main-body-box">
         <Announcement ref="Announcement" />
       </div>
     </div>
@@ -149,7 +148,8 @@ export default {
     jumpUserInfo() {
 
     },
-    loginOut() {222
+    loginOut() {
+      222
       localStorage.removeItem('userInfo')
       this.$router.push('/login')
     },

@@ -32,11 +32,11 @@ export default {
 
       pld: require('@/assets/index/pld.jpg'),
       userPic: require('@/assets/index/user.jpg'),
-        dataList: [
+      dataList: [
         {
           fmImg: require('@/assets/index/td.jpeg'),
           commodityDesc: '刚摘的新鲜番茄，甘甜可口，生吃做菜煲汤都是很可口',
-          price:456,
+          price: 456,
           preferentialRules: '满20减3'
         }
       ]

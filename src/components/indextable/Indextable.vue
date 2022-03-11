@@ -95,7 +95,6 @@
           </el-tab-pane>
           <el-tab-pane label="配置管理">
             配置管理
-           
           </el-tab-pane>
           <el-tab-pane label="角色管理">
             <div class="manger-box-body-right">
@@ -110,7 +109,7 @@
                   label="用户id"
                   width="180"
                 />
-              
+
                 <el-table-column
                   prop="userName"
                   label="用户名"
@@ -137,13 +136,13 @@
                     <img :src="getpicUrl(scope.row)" style="width:80px;height:80px;">
                   </template>
                 </el-table-column>
-              
+
                 <el-table-column
                   prop="address"
                   label="用户地址"
                   width="180"
                 />
-                  <el-table-column
+                <el-table-column
                   prop="trueName"
                   label="真实姓名"
                   width="180"
@@ -178,7 +177,7 @@
       :before-close="handleClose"
     >
       <AddCommunityVegetables ref="addCommunityVegetables" :community-vegetables="communityVegetables" />
-     
+
       <span slot="footer" class="dialog-footer">
         <el-button @click="showAddVegetables = false">取 消</el-button>
         <el-button type="primary" @click="addVegetables">确 定</el-button>
@@ -194,8 +193,8 @@
       width="60%"
       :before-close="handleClose"
     >
-      <EditUser ref="updateUserByid" :user-tables="Usertables" />
-     
+      <EditUser ref="updateUserByid" :user-tables="userTables" />
+
       <span slot="footer" class="dialog-footer">
         <el-button @click="showUser = false">取 消</el-button>
         <el-button type="primary" @click="updateUserByid">确 定</el-button>
@@ -216,12 +215,12 @@ export default {
   data() {
     return {
       tableData: [],
-      userDate:[],
+      userDate: [],
       userInfo: {},
       showAddVegetables: false,
-      showUser:false,
+      showUser: false,
       communityVegetables: {},
-      Usertables:{},
+      userTables: {},
       title: '增加商品'
     }
   },
@@ -230,7 +229,7 @@ export default {
     if (userInfo) {
       this.userInfo = JSON.parse(userInfo)
     }
-    this.getDataList(),
+    this.getDataList()
     this.getUserDataList()
   },
   methods: {
@@ -246,7 +245,7 @@ export default {
       })
     },
 
-  getUserDataList(){
+    getUserDataList() {
       let param = {}
       this.$server.getUserList(param).then(res => {
         if (res.state === 'success') { // 请求成功
@@ -257,7 +256,6 @@ export default {
         }
       })
     },
-
 
     jumpLogin() {
       this.$router.push('/login')
@@ -278,7 +276,7 @@ export default {
       if (param.id) { // 修改
         this.$server.updateCommunityVegetablesList(param).then(res => {
           if (res.state === 10000) {
-            alert("222");
+            alert('222')
             this.$message.success('操作成功')
             this.getDataList()
             this.showAddVegetables = false
@@ -321,7 +319,7 @@ export default {
       let param = { id: item.id }
       this.$server.deleteCommunityVegetablesList(param).then(res => {
         if (res.state === 10000) {
-          this.getDataList();
+          this.getDataList()
         } else {
           this.$message.error('操作失败')
         }
@@ -333,44 +331,37 @@ export default {
       this.showAddVegetables = true
       // this.showUser = true
     },
-
-     deleteDatauser(item) {
+    deleteDatauser(item) {
       let param = { id: item.id }
-      
       this.$server.deleteUserByid(param).then(res => {
         if (res.state === 10000) {
-          this. getUserDataList();
+          this.getUserDataList()
         } else {
           this.$message.error('操作失败')
         }
       })
     },
-    updateDatauser(item){
+    updateDatauser(item) {
       this.title = '修改信息'
-      this.Usertables = item
+      this.userTables = item
       this.showUser = true
-      console.log(item);
+      console.log(item)
     //  this.showAddVegetables = false  updateUserByid
     },
-
     updateUserByid(item) {
-     
       let param = { id: item.id }
-        this.$server.updateUserByid(param).then(res => {
-           alert("qqqq")
-          if (res.state === 10000) {
-            this.$message.success('操作成功')
-            this.getUserDataList()
-            this.showUser = false
-          } else {
-            this.$message.error('系统异常')
-          }
-        })
-      
-    },
+      this.$server.updateUserByid(param).then(res => {
+        alert('qqqq')
+        if (res.state === 10000) {
+          this.$message.success('操作成功')
+          this.getUserDataList()
+          this.showUser = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
 
-
-
+    }
 
   }
 }

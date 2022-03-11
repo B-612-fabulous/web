@@ -4,7 +4,7 @@
     <div class="main-body-child">
       <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item">
         <div class="tit">
-          {{item.title}}
+          {{ item.title }}
         </div>
         <div>
           <span class="tim">{{ item.createDate }}</span>
@@ -19,30 +19,30 @@ export default {
   name: 'Announcement',
   data() {
     return {
-      dataList:[{
+      dataList: [{
         title: '公告一',
-        createDate: '2022-03-08 17:21:33',
-      }],
+        createDate: '2022-03-08 17:21:33'
+      }]
     }
   },
   created() {
     // this.getCommunityAnnounceLists();
   },
-  mounted(){
-    this.getCommunityAnnounceLists();
+  mounted() {
+    this.getCommunityAnnounceLists()
   },
   methods: {
-    getCommunityAnnounceLists(){
-      let param = {};
-      this.axios.post('/getCommunityAnnounceList',param)
-        .then(resp =>{
-          if (resp.data.state ==='success') {
-            this.dataList = resp.data.data;
-            console.log(this.dataList);
-          }else{
-             this.$message.error('系统异常')
+    getCommunityAnnounceLists() {
+      let param = {}
+      this.axios.post('/getCommunityAnnounceList', param)
+        .then(resp => {
+          if (resp.data.state === 'success') {
+            this.dataList = resp.data.data
+            console.log(this.dataList)
+          } else {
+            this.$message.error('系统异常')
           }
-          
+
         })
       // **************************************
       // this.$server.getCommunityAnnounceList(param).then(res =>{
