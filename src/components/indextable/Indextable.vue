@@ -351,7 +351,7 @@ export default {
     },
     updateUserid() {
       
-      let param = { id: item.id }
+      let param = {}
       this.axios.post('/updateByid', param)
         .then(resp => {
           if (resp.data.state === 10000) {
@@ -359,7 +359,7 @@ export default {
             this.getUserDataList()
             this.showUser = false
             // this.userDate = resp.data
-            console.log(this.userDate)
+            console.log(this.userInfo)
           } else {
             this.$message.error('系统异常')
             console.log(resp.data.state)

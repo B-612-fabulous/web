@@ -2,20 +2,20 @@
   <div class="main-index">
     <!-- 主体 -->
     <div class="main-body-child">
-      <div class="main-body-child-item">
+      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item">
         <div class="top">
-          <img :src="pld">
+          <img :src="getImgUrl(item)">
         </div>
         <div class="desc">
           <div class="tit">
-            富士拍立得hello kitty一次成像相机，功能正常成色如 品牌:富士 型号:其他数码型号
+            {{item.commodityDesc}}
           </div>
           <div class="user-box">
             <div class="head-pic">
-              <img :src="userPic">
+              <img :src="getuserUrl(item)">
             </div>
             <div class="price">
-              <span>￥</span>456
+              <span>￥</span>{{item.price}}
             </div>
           </div>
         </div>
@@ -29,23 +29,69 @@ export default {
   name: 'IdleZone',
   data() {
     return {
-
-      pld: require('@/assets/index/pld.jpg'),
-      userPic: require('@/assets/index/user.jpg'),
       dataList: [
         {
           fmImg: require('@/assets/index/td.jpeg'),
           commodityDesc: '刚摘的新鲜番茄，甘甜可口，生吃做菜煲汤都是很可口',
           price: 456,
-          preferentialRules: '满20减3'
+          preferentialRules: '满20减3',
+          pic:''
+
         }
       ]
     }
   },
   created() {
+    // this.getIdleZoneList();
+
+  },
+   mounted() {
+    this.getIdleZoneList();
 
   },
   methods: {
+
+
+    getIdleZoneList() {
+      let param = {}
+      this.axios.post('/getIdleZoneList', param)
+        .then(resp => {
+
+          if (resp.data.state === 'success') {
+            this.dataList = resp.data.data
+            // console.log(this.dataList)
+            console.log(resp.data)
+          } else {
+            this.$message.error('系统异常')
+          }
+
+        })
+
+    },
+
+
+    // getIdleZoneList() {
+    //   let param = {}
+    //   this.$server.getIdleZoneList(param).then(res => {
+    //     if (res.state === 'success') { // 请求成功
+    //       this.dataList = res.data
+    //       // this.showAddVegetables = false
+    //     } else {
+    //       this.$message.error('系统异常')
+    //     }
+    //   })
+    // },
+     getImgUrl(item) {
+      let host = 'http://localhost:8888'
+      item.showFmImg = host + item.fmImg
+      return item.showFmImg
+    },
+    getuserUrl(item) {
+      let host = 'http://localhost:8888'
+      item.showUserImg = host + item.pic
+      return item.showUserImg
+    }
+
   }
 }
 </script>
@@ -60,6 +106,7 @@ export default {
    }
   .main-body-box{
     .main-body-child{
+       flex-wrap:wrap;
       display: flex;
       width: 80%;
       margin-left: 10%;
