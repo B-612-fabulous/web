@@ -121,10 +121,6 @@ export default {
       ],
       curNav: '1',
       bodyImg: require('@/assets/index/body.png'),
-      tdImg: require('@/assets/index/td.jpeg'),
-      fqImg: require('@/assets/index/fq.png'),
-      addCart: require('@/assets/index/addCart.png'),
-      quan: require('@/assets/index/quan.png'),
       userInfo: {},
       showAddVegetables: false
     }
@@ -149,7 +145,6 @@ export default {
 
     },
     loginOut() {
-      222
       localStorage.removeItem('userInfo')
       this.$router.push('/login')
     },

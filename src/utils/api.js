@@ -29,5 +29,11 @@ export const server = {
   },
   deleteUserByid(param) {
     return post(`deleteUserByid`, param)
+  },
+  updateByid(param) {
+    return post(`/updateByid`, param)
+  },
+  getIdleZoneList(param) {
+    return post(`/getIdleZoneList`, param)
   }
 }

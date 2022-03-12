@@ -2,7 +2,7 @@
   <div class="main-index">
     <!-- 主体 -->
     <div class="main-body-child">
-      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item">
+      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item" @click="jumpAnnouncementDetail(item)">
         <div class="tit">
           {{ item.title }}
         </div>
@@ -34,27 +34,30 @@ export default {
   methods: {
     getCommunityAnnounceLists() {
       let param = {}
-      this.axios.post('/getCommunityAnnounceList', param)
-        .then(resp => {
-          if (resp.data.state === 'success') {
-            this.dataList = resp.data.data
-            console.log(this.dataList)
-          } else {
-            this.$message.error('系统异常')
-          }
+      // this.axios.post('/getCommunityAnnounceList', param)
+      //   .then(resp => {
+      //     if (resp.data.state === 'success') {
+      //       this.dataList = resp.data.data
+      //       console.log(this.dataList)
+      //     } else {
+      //       this.$message.error('系统异常')
+      //     }
 
-        })
+      //   })
       // **************************************
-      // this.$server.getCommunityAnnounceList(param).then(res =>{
-      //   if (res.data.state === 'success') { // 请求成功
-      //   alert("222")
-      //     this.dataList = res.data
-      //   } else {
-      //     this.$message.error('系统异常')
-      //   }
-      // })
+      this.$server.getCommunityAnnounceList(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+          this.dataList = res.data
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
       // **************************************
 
+    },
+    jumpAnnouncementDetail(obj) {
+      let routerJump = this.$router.resolve({ path: '/showAnnouncement', query: { param: JSON.stringify(obj) }})
+      window.open(routerJump.href, '_blank')
     }
   }
 }
@@ -83,6 +86,8 @@ export default {
         border: 1px solid rgba(233, 233, 233, 1);
         box-shadow: 0px 0px 4px rgb(0 0 0 / 15%);
         text-align: left;
+        cursor: pointer;
+        margin-right: 10px;
          .tit{
               margin-top: 10px;
               margin-bottom: 15px;

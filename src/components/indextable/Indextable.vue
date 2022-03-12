@@ -276,9 +276,7 @@ export default {
       if (param.id) { // 修改
         this.$server.updateCommunityVegetablesList(param).then(res => {
           if (res.state === 10000) {
-            alert('222')
             this.$message.success('操作成功')
-            console.log(res);
             this.getDataList()
             this.showAddVegetables = false
           } else {
@@ -330,7 +328,6 @@ export default {
       this.title = '修改商品'
       this.communityVegetables = item
       this.showAddVegetables = true
-      // this.showUser = true
     },
     deleteDatauser(item) {
       let param = { id: item.id }
@@ -346,42 +343,31 @@ export default {
       this.title = '修改信息'
       this.userTables = item
       this.showUser = true
-      console.log(item)
-    //  this.showAddVegetables = false  updateUserByid
     },
     updateUserid() {
-      
-      let param = {}
-      this.axios.post('/updateByid', param)
-        .then(resp => {
-          if (resp.data.state === 10000) {
-            alert("进入")
-            this.getUserDataList()
-            this.showUser = false
-            // this.userDate = resp.data
-            console.log(this.userInfo)
-          } else {
-            this.$message.error('系统异常')
-            console.log(resp.data.state)
-          }
-
-        })
-
-
-      //  alert('qqqq');
-      // let param = { id: item.id }
-      // this.$server.updateByid(param).then(res => {
-      //   alert('qqqq')
-      //   if (res.state === 10000) {
-      //     this.$message.success('操作成功')
-      //     this.getUserDataList()
-      //     this.showUser = false
-      //   } else {
-      //     this.$message.error('系统异常')
-      //   }
-      // })
-
-
+      let param = this.$refs.updateUserByid.getParam()
+      // this.axios.post('/updateByid', param)
+      //   .then(resp => {
+      //     if (resp.data.state === 10000) {
+      //       alert('进入')
+      //       this.getUserDataList()
+      //       this.showUser = false
+      //       // this.userDate = resp.data
+      //       console.log(this.userInfo)
+      //     } else {
+      //       this.$message.error('系统异常')
+      //       console.log(resp.data.state)
+      //     }
+      //   })
+      this.$server.updateByid(param).then(res => {
+        if (res.state === 10000) {
+          this.$message.success('操作成功')
+          this.getUserDataList()
+          this.showUser = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
 
     }
 

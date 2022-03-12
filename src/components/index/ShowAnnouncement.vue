@@ -1,8 +1,8 @@
 <template>
-<el-container>
-  <el-header>标题</el-header>
-  <el-main>正文</el-main>
-</el-container>
+  <el-container>
+    <el-header>{{ annoucementObj.title }}</el-header>
+    <el-main>{{ annoucementObj.createDate }}</el-main>
+  </el-container>
   <!-- <el-table
       :data="tableData"
       style="width: 100%">
@@ -21,33 +21,38 @@
         label="地址">
       </el-table-column>
     </el-table> -->
-    
 </template>
 
 <script>
 export default {
-      data() {
-        return {
-          tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }]
-        }
-      }
+  data() {
+    return {
+      tableData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄'
+      }],
+      annoucementObj: {}
     }
+  },
+  created() {
+    let param = this.$route.query.param
+    let annoucementObj = JSON.parse(param)
+    this.annoucementObj = annoucementObj
+  }
+}
 </script>
 
 <style lang="less" scoped>

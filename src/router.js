@@ -43,8 +43,7 @@ export default new Router({
       path: '/EditUser',
       name: 'EditUser',
       component: EditUser
-    }
-    ,
+    },
     {
       path: '/ShowAnnouncement',
       name: 'ShowAnnouncement',

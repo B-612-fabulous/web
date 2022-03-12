@@ -48,7 +48,9 @@ export default {
           isSeckill: true,
           preferentialRules: '满20减3'
         }
-      ]
+      ],
+      quan: require('@/assets/index/quan.png'),
+      addCart: require('@/assets/index/addCart.png')
     }
   },
   created() {
