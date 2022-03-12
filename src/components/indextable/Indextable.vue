@@ -197,7 +197,7 @@
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="showUser = false">取 消</el-button>
-        <el-button type="primary" @click="updateUserByid">确 定</el-button>
+        <el-button type="primary" @click="updateUserid">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -278,6 +278,7 @@ export default {
           if (res.state === 10000) {
             alert('222')
             this.$message.success('操作成功')
+            console.log(res);
             this.getDataList()
             this.showAddVegetables = false
           } else {
@@ -348,18 +349,39 @@ export default {
       console.log(item)
     //  this.showAddVegetables = false  updateUserByid
     },
-    updateUserByid(item) {
+    updateUserid() {
+      
       let param = { id: item.id }
-      this.$server.updateUserByid(param).then(res => {
-        alert('qqqq')
-        if (res.state === 10000) {
-          this.$message.success('操作成功')
-          this.getUserDataList()
-          this.showUser = false
-        } else {
-          this.$message.error('系统异常')
-        }
-      })
+      this.axios.post('/updateByid', param)
+        .then(resp => {
+          if (resp.data.state === 10000) {
+            alert("进入")
+            this.getUserDataList()
+            this.showUser = false
+            // this.userDate = resp.data
+            console.log(this.userDate)
+          } else {
+            this.$message.error('系统异常')
+            console.log(resp.data.state)
+          }
+
+        })
+
+
+      //  alert('qqqq');
+      // let param = { id: item.id }
+      // this.$server.updateByid(param).then(res => {
+      //   alert('qqqq')
+      //   if (res.state === 10000) {
+      //     this.$message.success('操作成功')
+      //     this.getUserDataList()
+      //     this.showUser = false
+      //   } else {
+      //     this.$message.error('系统异常')
+      //   }
+      // })
+
+
 
     }
 
@@ -439,4 +461,3 @@ export default {
   }
 }
 </style>
-
