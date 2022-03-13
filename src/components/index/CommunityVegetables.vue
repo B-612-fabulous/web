@@ -2,9 +2,9 @@
   <div class="main-index">
     <!-- 主体 -->
     <div class="main-body-child">
-      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item">
-        <div class="left">
-          <img :src="getImgUrl(item)">
+      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item" @click="jumpcommvegDetail(item)">
+        <div class="left" >
+          <img :src="getImgUrl(item)" >
           <div class="price">
             <span class="left">￥{{ item.price }}</span><span class="right">/500g</span>
           </div>
@@ -75,6 +75,12 @@ export default {
       let host = 'http://localhost:8888'
       item.showFmImg = host + item.fmImg
       return item.showFmImg
+    },
+    jumpcommvegDetail(){
+      let routerJump = this.$router.resolve({ path: '/ShowCommunityVegtables',
+       query: { param: JSON.stringify()
+       }})
+      window.open(routerJump.href, '_blank')
     }
   }
 }
