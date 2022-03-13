@@ -95,7 +95,7 @@
             </div>
           </el-tab-pane>
 
-        <!-- 角色管理" -->
+          <!-- 角色管理" -->
           <el-tab-pane label="角色管理">
             <div class="manger-box-body-right">
               <el-table
@@ -164,13 +164,11 @@
             </div>
           </el-tab-pane>
 
-
           <el-tab-pane label="定时任务补偿">
             定时任务补偿
           </el-tab-pane>
 
-
-        <!-- 公告管理 -->
+          <!-- 公告管理 -->
           <el-tab-pane label="公告管理">
             <div class="manger-box-body-right">
               <el-table
@@ -261,8 +259,6 @@
         <el-button type="primary" @click="updateAnnounce">确 定</el-button>
       </span>
     </el-dialog>
-
-
   </div>
 </template>
 
@@ -285,10 +281,10 @@ export default {
       userInfo: {},
       showAddVegetables: false,
       showUser: false,
-      showAnnouncement:false,
+      showAnnouncement: false,
       communityVegetables: {},
       userTables: {},
-      editAnnounceTables:{},
+      editAnnounceTables: {},
       title: '增加商品'
     }
   },
@@ -297,8 +293,8 @@ export default {
     if (userInfo) {
       this.userInfo = JSON.parse(userInfo)
     }
-    this.getDataList(),
-    this.getUserDataList(),
+    this.getDataList()
+    this.getUserDataList()
     this.getCommunityAnnounceList()
   },
   methods: {
@@ -326,7 +322,7 @@ export default {
       })
     },
 
-      getCommunityAnnounceList() {
+    getCommunityAnnounceList() {
       let param = {}
       this.$server.getCommunityAnnounceList(param).then(res => {
         if (res.state === 'success') { // 请求成功
@@ -384,7 +380,7 @@ export default {
     handleClose() {
       this.showAddVegetables = false
       this.showUser = false
-      this.showAnnouncement=false
+      this.showAnnouncement = false
     },
     getImgUrl(item) {
       let host = 'http://localhost:8888'
@@ -425,14 +421,14 @@ export default {
     // 删除公告
     deleteDataannounce(item) {
       let param = { id: item.id }
-      alert("112")
+      alert('112')
       this.$server.deleteCommunityAnnounce(param).then(res => {
         if (res.state === 10000) {
-          this.getCommunityAnnounceList();
-          alert("进入")
+          this.getCommunityAnnounceList()
+          alert('进入')
         } else {
           this.$message.error('操作失败')
-          alert("出去")
+          alert('出去')
         }
       })
     },
@@ -442,14 +438,14 @@ export default {
       this.userTables = item
       this.showUser = true
     },
-    updateDataannounce(item){
+    updateDataannounce(item) {
       this.title = '修改公告信息'
       this.editAnnounceTables = item
-      console.log(this.editAnnounceTables);
+      console.log(this.editAnnounceTables)
       this.showAnnouncement = true
 
     },
-// 修改用户信息
+    // 修改用户信息
     updateUserid() {
       let param = this.$refs.updateUserByid.getParam()
       // this.axios.post('/updateByid', param)
@@ -470,32 +466,26 @@ export default {
           this.$message.success('操作成功')
           this.getUserDataList()
           this.showUser = false
-           console.log(param);
+          console.log(param)
         } else {
           this.$message.error('系统异常')
-          console.log(res.state );
+          console.log(res.state)
         }
       })
 
     },
-    updateAnnounce(){
-
+    updateAnnounce() {
       let param = this.$refs.updateCommunityAnnounce.getParam()
-      alert("1")
       this.$server.updateCommunityAnnounce(param).then(res => {
         if (res.state === 10000) {
           this.$message.success('操作成功')
           this.getCommunityAnnounceList()
           this.showAnnouncement = false
-          //  console.log(param);
         } else {
           this.$message.error('系统异常')
-          console.log(res.state );
         }
       })
-
-    },
-
+    }
   }
 }
 </script>

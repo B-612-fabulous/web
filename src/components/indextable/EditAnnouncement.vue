@@ -5,7 +5,7 @@
         <el-input v-model="announceObj.title" placeholder="请输入标题" />
       </el-form-item>
 
-       <el-form-item label="内容">
+      <el-form-item label="内容">
         <el-input v-model="announceObj.announcement" type="textarea" rows="3" placeholder="请输入内容" />
       </el-form-item>
     </el-form>
@@ -16,7 +16,7 @@
 export default {
   name: 'EditAnnouncetables',
   props: {
-    editAnnounceTables:{
+    editAnnounceTables: {
       type: Object,
       default: function() {
         return {}
@@ -25,21 +25,21 @@ export default {
   },
   data() {
     return {
-      announceObj:{
+      announceObj: {
         title: '',
-        announcement: '',
+        announcement: ''
       }
     }
   },
-  created(){
+  created() {
     if (this.editAnnounceTables && this.editAnnounceTables.id) { // 修改
       this.announceObj = this.editAnnounceTables
     }
   },
-  methods:{
-    getParam(){
+  methods: {
+    getParam() {
       if (this.editAnnounceTables && this.editAnnounceTables.id) { // 修改
-        this.editAnnounceTables.id = this.editAnnounceTables.id
+        this.announceObj.id = this.editAnnounceTables.id
       }
       return this.announceObj
     }
