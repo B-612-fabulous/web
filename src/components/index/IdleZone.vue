@@ -8,14 +8,14 @@
         </div>
         <div class="desc">
           <div class="tit">
-            {{ item.commodityDesc }}
+            {{item.commodityDesc}}
           </div>
           <div class="user-box">
             <div class="head-pic">
               <img :src="getuserUrl(item)">
             </div>
             <div class="price">
-              <span>￥</span>{{ item.price }}
+              <span>￥</span>{{item.price}}
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@ export default {
           commodityDesc: '刚摘的新鲜番茄，甘甜可口，生吃做菜煲汤都是很可口',
           price: 456,
           preferentialRules: '满20减3',
-          pic: ''
+          pic:''
 
         }
       ]
@@ -45,22 +45,30 @@ export default {
     // this.getIdleZoneList();
 
   },
-  mounted() {
-    this.getIdleZoneList()
+   mounted() {
+    this.getIdleZoneList();
 
   },
   methods: {
+
+
     // getIdleZoneList() {
     //   let param = {}
     //   this.axios.post('/getIdleZoneList', param)
     //     .then(resp => {
+
     //       if (resp.data.state === 'success') {
     //         this.dataList = resp.data.data
+    //         // console.log(this.dataList)
+    //         console.log(resp.data)
     //       } else {
     //         this.$message.error('系统异常')
     //       }
+
     //     })
+
     // },
+  
     getIdleZoneList() {
       let param = {}
       this.$server.getIdleZoneList(param).then(res => {
@@ -72,7 +80,7 @@ export default {
         }
       })
     },
-    getImgUrl(item) {
+     getImgUrl(item) {
       let host = 'http://localhost:8888'
       item.showFmImg = host + item.fmImg
       return item.showFmImg

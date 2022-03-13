@@ -27,6 +27,7 @@
               新增商品
             </el-button>
           </div>
+          <!-- 送菜管理 -->
           <el-tab-pane label="社区送菜管理">
             <div class="manger-box-body-right">
               <el-table
@@ -93,9 +94,8 @@
               </el-table>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="配置管理">
-            配置管理
-          </el-tab-pane>
+
+        <!-- 角色管理" -->
           <el-tab-pane label="角色管理">
             <div class="manger-box-body-right">
               <el-table
@@ -163,8 +163,53 @@
               </el-table>
             </div>
           </el-tab-pane>
+
+
           <el-tab-pane label="定时任务补偿">
             定时任务补偿
+          </el-tab-pane>
+
+
+        <!-- 公告管理 -->
+          <el-tab-pane label="公告管理">
+            <div class="manger-box-body-right">
+              <el-table
+                :data="announceDate"
+                border
+                height="700"
+                style="width: 100%"
+              >
+                <el-table-column
+                  prop="title"
+                  label="公告标题"
+                  width="180"
+                />
+
+                <el-table-column
+                  prop="announcement"
+                  label="内容"
+                  width="280"
+                />
+                <el-table-column
+                  prop="createDate"
+                  label="创建时间"
+                  width="180"
+                />
+                <el-table-column
+                  label="操作"
+                  width="200"
+                >
+                  <template slot-scope="scope">
+                    <el-button type="text" size="small" @click="updateDataannounce(scope.row)">
+                      编辑11
+                    </el-button>
+                    <el-button type="text" size="small" @click="deleteDataannounce(scope.row)">
+                      删除
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -200,27 +245,50 @@
         <el-button type="primary" @click="updateUserid">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 公告 -->
+
+    <el-dialog
+      v-if="showAnnouncement"
+      :title="title"
+      :visible.sync="showAnnouncement"
+      width="60%"
+      :before-close="handleClose"
+    >
+      <EditAnnouncement ref="updateCommunityAnnounce" :edit-tables="editAnnounceTables" />
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showAnnouncement = false">取 消</el-button>
+        <el-button type="primary" @click="updateAnnounce">确 定</el-button>
+      </span>
+    </el-dialog>
+
+
   </div>
 </template>
 
 <script>
 import AddCommunityVegetables from '@/components/index/AddCommunityVegetables'
 import EditUser from '@/components/indextable/EditUser'
+import EditAnnouncement from '@/components/indextable/EditAnnouncement'
 export default {
   name: 'Indextable',
   components: {
     AddCommunityVegetables,
-    EditUser
+    EditUser,
+    EditAnnouncement
   },
   data() {
     return {
       tableData: [],
       userDate: [],
+      announceDate: [],
       userInfo: {},
       showAddVegetables: false,
       showUser: false,
+      showAnnouncement:false,
       communityVegetables: {},
       userTables: {},
+      editAnnounceTables:{},
       title: '增加商品'
     }
   },
@@ -229,8 +297,9 @@ export default {
     if (userInfo) {
       this.userInfo = JSON.parse(userInfo)
     }
-    this.getDataList()
-    this.getUserDataList()
+    this.getDataList(),
+    this.getUserDataList(),
+    this.getCommunityAnnounceList()
   },
   methods: {
     getDataList() {
@@ -251,6 +320,18 @@ export default {
         if (res.state === 'success') { // 请求成功
           this.userDate = res.data
           this.showAddVegetables = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+    },
+
+      getCommunityAnnounceList() {
+      let param = {}
+      this.$server.getCommunityAnnounceList(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+          this.announceDate = res.data
+          // this.showAddVegetables = false
         } else {
           this.$message.error('系统异常')
         }
@@ -303,6 +384,7 @@ export default {
     handleClose() {
       this.showAddVegetables = false
       this.showUser = false
+      this.showAnnouncement=false
     },
     getImgUrl(item) {
       let host = 'http://localhost:8888'
@@ -329,6 +411,7 @@ export default {
       this.communityVegetables = item
       this.showAddVegetables = true
     },
+    // 删除用户
     deleteDatauser(item) {
       let param = { id: item.id }
       this.$server.deleteUserByid(param).then(res => {
@@ -339,11 +422,34 @@ export default {
         }
       })
     },
+    // 删除公告
+    deleteDataannounce(item) {
+      let param = { id: item.id }
+      alert("112")
+      this.$server.deleteCommunityAnnounce(param).then(res => {
+        if (res.state === 10000) {
+          this.getCommunityAnnounceList();
+          alert("进入")
+        } else {
+          this.$message.error('操作失败')
+          alert("出去")
+        }
+      })
+    },
+
     updateDatauser(item) {
       this.title = '修改信息'
       this.userTables = item
       this.showUser = true
     },
+    updateDataannounce(item){
+      this.title = '修改公告信息'
+      this.editAnnounceTables = item
+      console.log(this.editAnnounceTables);
+      this.showAnnouncement = true
+
+    },
+// 修改用户信息
     updateUserid() {
       let param = this.$refs.updateUserByid.getParam()
       // this.axios.post('/updateByid', param)
@@ -364,12 +470,31 @@ export default {
           this.$message.success('操作成功')
           this.getUserDataList()
           this.showUser = false
+           console.log(param);
         } else {
           this.$message.error('系统异常')
+          console.log(res.state );
         }
       })
 
-    }
+    },
+    updateAnnounce(){
+
+      let param = this.$refs.updateCommunityAnnounce.getParam()
+      alert("1")
+      this.$server.updateCommunityAnnounce(param).then(res => {
+        if (res.state === 10000) {
+          this.$message.success('操作成功')
+          this.getCommunityAnnounceList()
+          this.showAnnouncement = false
+          //  console.log(param);
+        } else {
+          this.$message.error('系统异常')
+          console.log(res.state );
+        }
+      })
+
+    },
 
   }
 }

@@ -7,6 +7,7 @@ import Indextable from '@/components/indextable/Indextable'
 import AddCommunityVegetables from '@/components/index/AddCommunityVegetables'
 import EditUser from '@/components/indextable/EditUser'
 import ShowAnnouncement from '@/components/index/ShowAnnouncement'
+import EditAnnouncement from '@/components/indextable/EditAnnouncement'
 // 组件模块
 
 Vue.use(Router)
@@ -48,6 +49,11 @@ export default new Router({
       path: '/ShowAnnouncement',
       name: 'ShowAnnouncement',
       component: ShowAnnouncement
+    },
+    {
+      path: '/EditAnnouncement',
+      name: 'EditAnnouncement',
+      component: EditAnnouncement
     }
 
   ]

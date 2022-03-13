@@ -192,6 +192,7 @@ export default {
      position: relative;
      left: 10%;
      .userInfo{
+       margin-bottom: 17px;
        height: 40px;
        line-height: 40px;
        display: flex;
