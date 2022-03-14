@@ -56,7 +56,9 @@ export default {
 
     },
     jumpAnnouncementDetail(obj) {
-      let routerJump = this.$router.resolve({ path: '/showAnnouncement', query: { param: JSON.stringify(obj) }})
+      let routerJump = this.$router.resolve({ path: '/showAnnouncement',
+       query: { param: JSON.stringify(obj)
+       }})
       window.open(routerJump.href, '_blank')
     }
   }

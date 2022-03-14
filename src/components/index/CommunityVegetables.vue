@@ -3,8 +3,8 @@
     <!-- 主体 -->
     <div class="main-body-child">
       <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item" @click="jumpcommvegDetail(item)">
-        <div class="left">
-          <img :src="getImgUrl(item)">
+        <div class="left" >
+          <img :src="getImgUrl(item)" >
           <div class="price">
             <span class="left">￥{{ item.price }}</span><span class="right">/500g</span>
           </div>
@@ -76,10 +76,10 @@ export default {
       item.showFmImg = host + item.fmImg
       return item.showFmImg
     },
-    jumpcommvegDetail(obj) {
-      let routerJump = this.$router.resolve({ path: '/showCommunityVegtables',
-        query: { param: JSON.stringify(obj) }
-      })
+    jumpcommvegDetail(obj){
+      let routerJump = this.$router.resolve({ path: '/ShowCommunityVegtables',
+       query: { param: JSON.stringify(obj)
+       }})
       window.open(routerJump.href, '_blank')
     }
   }

@@ -13,7 +13,8 @@
           <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
         </div>
         <div v-else class="right">
-          <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic">
+          <!-- <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic"> -->
+           <!-- <img :src="getImgUrl(userInfo)"  class="pic" > -->
 
           <span @click="jumpUserInfo">{{ userInfo.trueName }}</span>|<span @click="loginOut">退出</span>
         </div>
@@ -132,6 +133,11 @@ export default {
     }
   },
   methods: {
+    // getImgUrl(userInfo) {
+    //   let host = 'http://localhost:8888'
+    //   commvegtObj.showFmImg = host + commvegtObj.pic
+    //   return commvegtObj.showFmImg
+    // },
     loadItemData(obj) {
       this.curNav = obj.id
     },

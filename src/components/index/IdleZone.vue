@@ -2,7 +2,7 @@
   <div class="main-index">
     <!-- 主体 -->
     <div class="main-body-child">
-      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item">
+      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item" @click="jumpidleDetail(item)">
         <div class="top">
           <img :src="getImgUrl(item)">
         </div>
@@ -88,6 +88,12 @@ export default {
       let host = 'http://localhost:8888'
       item.showUserImg = host + item.pic
       return item.showUserImg
+    },
+    jumpidleDetail(obj){
+        let routerJump = this.$router.resolve({ path: '/ShowIdleZone',
+       query: { param: JSON.stringify(obj)
+       }})
+      window.open(routerJump.href, '_blank')
     }
 
   }

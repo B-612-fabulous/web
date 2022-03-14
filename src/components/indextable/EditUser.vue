@@ -60,6 +60,7 @@ export default {
   created() {
     if (this.userTables && this.userTables.id) { // 修改
       this.userObj = this.userTables
+      console.log("00000000"+this.userObj);
     }
   },
   methods: {
