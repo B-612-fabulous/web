@@ -52,6 +52,24 @@ export const server = {
   },
   updateCommunityAnnounce(param) {
     return post(`/updateCommunityAnnounce`, param)
-  }
+  },
+  getHolidaTtravelList(param) {
+    return post(`/getHolidaTtravelList`, param)
+  },
+  getHousekeepingServicesList(param) {
+    return post(`/getHousekeepingServicesList`, param)
+  },
+  deleteHousekeepingServices(param) {
+    return post(`/deleteHousekeepingServices`, param)
+  },
+  upadteIdHousekeepingServices(param) {
+    return post(`/upadteIdHousekeepingServices`, param)
+  },
+  getHolidaTtravelList(param) {
+    return post(`/getHolidaTtravelList`, param)
+  },
+  deleteHolidaTtravel(param) {
+    return post(`/deleteHolidaTtravel`, param)
+  },
 
 }

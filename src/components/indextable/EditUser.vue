@@ -47,8 +47,8 @@ export default {
   data() {
     return {
       userObj: {
-        userName: '',
-        passWord: '',
+        userName: '123',
+        passWord: '123',
         pic: '',
         phone: '',
         address: '',
@@ -61,6 +61,7 @@ export default {
     if (this.userTables && this.userTables.id) { // 修改
       this.userObj = this.userTables
       console.log("00000000"+this.userObj);
+      // console.log("00000000"+this.userTables.id)
     }
   },
   methods: {
@@ -82,8 +83,9 @@ export default {
       // return isJPG && isLt2M
     },
     getParam() {
-      if (this.usertables && this.usertables.id) { // 修改
-        this.userObj.id = this.usertables.id
+      if (this.userTables && this.userTables.id) { // 修改
+        this.userObj.id = this.userTables.id
+        console.log("000011"+this.userObj.id);
       }
       return this.userObj
     }

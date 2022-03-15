@@ -167,7 +167,115 @@
           <el-tab-pane label="定时任务补偿">
             定时任务补偿
           </el-tab-pane>
+          <!-- 家政服务 -->
+            <el-tab-pane label="家政服务">
+            <div class="manger-box-body-right">
+              <el-table
+                :data="HouservicesData"
+                border
+                height="700"
+                style="width: 100%"
+              >
+                <el-table-column
+                  prop="title"
+                  label="服务标题"
+                  width="180"
+                />
+                <el-table-column
+                  prop="phone"
+                  label="联系电话"
+                   width="180"
+                />
+                <el-table-column
+                  prop="price"
+                  label="服务价格"
+                  width="180"
+                />
+                 <el-table-column
+                  prop="dotime"
+                  label="服务时间"
+                  width="180"
+                />
 
+                <el-table-column
+                  prop="address"
+                  label="服务地点"
+                  width="180"
+                />
+                <el-table-column
+                  label="操作"
+                  width="200"
+                >
+                  <template slot-scope="scope">
+                    <el-button type="text" size="small" @click="updateDatahourse(scope.row)">
+                      编辑
+                    </el-button>
+                    <el-button type="text" size="small" @click="deleteHousekeepingServices(scope.row)">
+                      删除
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </el-tab-pane>
+          <!-- 假期出行 -->
+                   
+            <el-tab-pane label="假期出行">
+            <div class="manger-box-body-right">
+              <el-table
+                :data="HolidayData"
+                border
+                height="700"
+                style="width: 100%"
+              >
+                <el-table-column
+                  prop="title"
+                  label="出行标题"
+                  width="180"
+                />
+                <el-table-column
+                  prop="phone"
+                  label="联系电话"
+                   width="180"
+                />
+                <el-table-column
+                  prop="address"
+                  label="出行地点"
+                  width="180"
+                />
+                 <el-table-column
+                  prop="commodityDesc"
+                  label="出行描述"
+                  width="180"
+                />
+                <el-table-column
+                  prop="price"
+                  label="服务价格"
+                  width="180"
+                />
+                 <el-table-column
+                  prop="dotime"
+                  label="出行时间"
+                  width="180"
+                />
+
+                
+                <el-table-column
+                  label="操作"
+                  width="200"
+                >
+                  <template slot-scope="scope">
+                    <el-button type="text" size="small" @click="updateData(scope.row)">
+                      编辑
+                    </el-button>
+                    <el-button type="text" size="small" @click="deleteHolidaTtravel(scope.row)">
+                      删除
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </el-tab-pane>
           <!-- 公告管理 -->
           <el-tab-pane label="公告管理">
             <div class="manger-box-body-right">
@@ -212,6 +320,7 @@
         </el-tabs>
       </div>
     </div>
+    <!-- 送菜 -->
     <el-dialog
       v-if="showAddVegetables"
       :title="title"
@@ -259,6 +368,23 @@
         <el-button type="primary" @click="updateAnnounce">确 定</el-button>
       </span>
     </el-dialog>
+
+    <!-- 家政服务 -->
+     <el-dialog
+      v-if="showHouse"
+      :title="title"
+      :visible.sync="showHouse"
+      width="60%"
+      :before-close="handleClose"
+    >
+      <EditHousekeepingServices ref="upadteIdHolidaTtravel" :hourse-tables="houseTables" />
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showHouse = false">取 消</el-button>
+        <el-button type="primary" @click="updateUserid">确 定</el-button>
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -266,24 +392,31 @@
 import AddCommunityVegetables from '@/components/index/AddCommunityVegetables'
 import EditUser from '@/components/indextable/EditUser'
 import EditAnnouncement from '@/components/indextable/EditAnnouncement'
+import EditHousekeepingServices from '@/components/indextable/EditHousekeepingServices'
 export default {
   name: 'Indextable',
   components: {
     AddCommunityVegetables,
     EditUser,
-    EditAnnouncement
+    EditAnnouncement,
+    EditHousekeepingServices,
+
   },
   data() {
     return {
       tableData: [],
       userDate: [],
       announceDate: [],
+      HouservicesData:[],
+      HolidayData:[],
       userInfo: {},
       showAddVegetables: false,
       showUser: false,
+      showHouse:false,
       showAnnouncement: false,
       communityVegetables: {},
       userTables: {},
+      houseTables:{},
       editAnnounceTables: {},
       title: '增加商品'
     }
@@ -296,6 +429,8 @@ export default {
     this.getDataList()
     this.getUserDataList()
     this.getCommunityAnnounceList()
+    this.getHousekeepingServicesList()
+    this.getHolidaTtravelList()
   },
   methods: {
     getDataList() {
@@ -332,6 +467,30 @@ export default {
           this.$message.error('系统异常')
         }
       })
+    },
+    getHousekeepingServicesList(){
+     let param = {}
+      this.$server.getHousekeepingServicesList(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+          this.HouservicesData = res.data
+          // this.showAddVegetables = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+
+    },
+    getHolidaTtravelList(){
+     let param = {}
+      this.$server.getHolidaTtravelList(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+          this.HolidayData = res.data
+          // this.showAddVegetables = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+
     },
 
     jumpLogin() {
@@ -381,6 +540,7 @@ export default {
       this.showAddVegetables = false
       this.showUser = false
       this.showAnnouncement = false
+      this.showHouse=false
     },
     getImgUrl(item) {
       let host = 'http://localhost:8888'
@@ -432,16 +592,50 @@ export default {
         }
       })
     },
+     deleteHousekeepingServices(item) {
+      let param = { id: item.id }
+      alert('112')
+      this.$server.deleteHousekeepingServices(param).then(res => {
+        if (res.state === 10000) {
+          this.getHousekeepingServicesList()
+          alert('进入')
+        } else {
+          this.$message.error('操作失败')
+          alert('出去')
+        }
+      })
+    },
+     deleteHolidaTtravel(item) {
+      let param = { id: item.id }
+      alert('112')
+      this.$server.deleteHolidaTtravel(param).then(res => {
+        if (res.state === 10000) {
+          this.getHolidaTtravelList()
+          alert('进入')
+        } else {
+          this.$message.error('操作失败')
+          alert('出去')
+        }
+      })
+    },
 
     updateDatauser(item) {
       this.title = '修改信息'
       this.userTables = item
       this.showUser = true
     },
+
+    updateDatahourse(item){
+      this.title='修改家政信息'
+      this.houseTables=item
+      console.log(item);
+      this.showHouse=true
+
+    },
     updateDataannounce(item) {
       this.title = '修改公告信息'
       this.editAnnounceTables = item
-      console.log(this.editAnnounceTables)
+      console.log(this.editAnnounceTables.id)
       this.showAnnouncement = true
 
     },
