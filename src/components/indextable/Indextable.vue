@@ -168,7 +168,7 @@
             定时任务补偿
           </el-tab-pane>
           <!-- 家政服务 -->
-            <el-tab-pane label="家政服务">
+          <el-tab-pane label="家政服务">
             <div class="manger-box-body-right">
               <el-table
                 :data="HouservicesData"
@@ -184,14 +184,14 @@
                 <el-table-column
                   prop="phone"
                   label="联系电话"
-                   width="180"
+                  width="180"
                 />
                 <el-table-column
                   prop="price"
                   label="服务价格"
                   width="180"
                 />
-                 <el-table-column
+                <el-table-column
                   prop="dotime"
                   label="服务时间"
                   width="180"
@@ -219,8 +219,8 @@
             </div>
           </el-tab-pane>
           <!-- 假期出行 -->
-                   
-            <el-tab-pane label="假期出行">
+
+          <el-tab-pane label="假期出行">
             <div class="manger-box-body-right">
               <el-table
                 :data="HolidayData"
@@ -236,14 +236,14 @@
                 <el-table-column
                   prop="phone"
                   label="联系电话"
-                   width="180"
+                  width="180"
                 />
                 <el-table-column
                   prop="address"
                   label="出行地点"
                   width="180"
                 />
-                 <el-table-column
+                <el-table-column
                   prop="commodityDesc"
                   label="出行描述"
                   width="180"
@@ -253,13 +253,12 @@
                   label="服务价格"
                   width="180"
                 />
-                 <el-table-column
+                <el-table-column
                   prop="dotime"
                   label="出行时间"
                   width="180"
                 />
 
-                
                 <el-table-column
                   label="操作"
                   width="200"
@@ -307,7 +306,7 @@
                 >
                   <template slot-scope="scope">
                     <el-button type="text" size="small" @click="updateDataannounce(scope.row)">
-                      编辑11
+                      编辑
                     </el-button>
                     <el-button type="text" size="small" @click="deleteDataannounce(scope.row)">
                       删除
@@ -361,7 +360,7 @@
       width="60%"
       :before-close="handleClose"
     >
-      <EditAnnouncement ref="updateCommunityAnnounce" :edit-tables="editAnnounceTables" />
+      <EditAnnouncement ref="updateCommunityAnnounce" :edit-announce-tables="editAnnounceTables" />
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="showAnnouncement = false">取 消</el-button>
@@ -370,7 +369,7 @@
     </el-dialog>
 
     <!-- 家政服务 -->
-     <el-dialog
+    <el-dialog
       v-if="showHouse"
       :title="title"
       :visible.sync="showHouse"
@@ -384,7 +383,6 @@
         <el-button type="primary" @click="updateUserid">确 定</el-button>
       </span>
     </el-dialog>
-
   </div>
 </template>
 
@@ -399,7 +397,7 @@ export default {
     AddCommunityVegetables,
     EditUser,
     EditAnnouncement,
-    EditHousekeepingServices,
+    EditHousekeepingServices
 
   },
   data() {
@@ -407,16 +405,16 @@ export default {
       tableData: [],
       userDate: [],
       announceDate: [],
-      HouservicesData:[],
-      HolidayData:[],
+      HouservicesData: [],
+      HolidayData: [],
       userInfo: {},
       showAddVegetables: false,
       showUser: false,
-      showHouse:false,
+      showHouse: false,
       showAnnouncement: false,
       communityVegetables: {},
       userTables: {},
-      houseTables:{},
+      houseTables: {},
       editAnnounceTables: {},
       title: '增加商品'
     }
@@ -468,8 +466,8 @@ export default {
         }
       })
     },
-    getHousekeepingServicesList(){
-     let param = {}
+    getHousekeepingServicesList() {
+      let param = {}
       this.$server.getHousekeepingServicesList(param).then(res => {
         if (res.state === 'success') { // 请求成功
           this.HouservicesData = res.data
@@ -480,8 +478,8 @@ export default {
       })
 
     },
-    getHolidaTtravelList(){
-     let param = {}
+    getHolidaTtravelList() {
+      let param = {}
       this.$server.getHolidaTtravelList(param).then(res => {
         if (res.state === 'success') { // 请求成功
           this.HolidayData = res.data
@@ -540,7 +538,7 @@ export default {
       this.showAddVegetables = false
       this.showUser = false
       this.showAnnouncement = false
-      this.showHouse=false
+      this.showHouse = false
     },
     getImgUrl(item) {
       let host = 'http://localhost:8888'
@@ -592,7 +590,7 @@ export default {
         }
       })
     },
-     deleteHousekeepingServices(item) {
+    deleteHousekeepingServices(item) {
       let param = { id: item.id }
       alert('112')
       this.$server.deleteHousekeepingServices(param).then(res => {
@@ -605,7 +603,7 @@ export default {
         }
       })
     },
-     deleteHolidaTtravel(item) {
+    deleteHolidaTtravel(item) {
       let param = { id: item.id }
       alert('112')
       this.$server.deleteHolidaTtravel(param).then(res => {
@@ -625,17 +623,17 @@ export default {
       this.showUser = true
     },
 
-    updateDatahourse(item){
-      this.title='修改家政信息'
-      this.houseTables=item
-      console.log(item);
-      this.showHouse=true
+    updateDatahourse(item) {
+      this.title = '修改家政信息'
+      this.houseTables = item
+      console.log(item)
+      this.showHouse = true
 
     },
     updateDataannounce(item) {
+      console.log(item)
       this.title = '修改公告信息'
       this.editAnnounceTables = item
-      console.log(this.editAnnounceTables.id)
       this.showAnnouncement = true
 
     },
@@ -660,7 +658,6 @@ export default {
           this.$message.success('操作成功')
           this.getUserDataList()
           this.showUser = false
-          console.log(param)
         } else {
           this.$message.error('系统异常')
           console.log(res.state)

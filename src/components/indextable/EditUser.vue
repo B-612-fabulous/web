@@ -60,7 +60,7 @@ export default {
   created() {
     if (this.userTables && this.userTables.id) { // 修改
       this.userObj = this.userTables
-      console.log("00000000"+this.userObj);
+      console.log('00000000' + this.userObj)
       // console.log("00000000"+this.userTables.id)
     }
   },
@@ -85,11 +85,10 @@ export default {
     getParam() {
       if (this.userTables && this.userTables.id) { // 修改
         this.userObj.id = this.userTables.id
-        console.log("000011"+this.userObj.id);
+        console.log('000011' + this.userObj.id)
       }
       return this.userObj
     }
-
   }
 }
 </script>

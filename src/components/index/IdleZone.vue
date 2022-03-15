@@ -89,10 +89,10 @@ export default {
       item.showUserImg = host + item.pic
       return item.showUserImg
     },
-    jumpidleDetail(obj){
-        let routerJump = this.$router.resolve({ path: '/ShowIdleZone',
-       query: { param: JSON.stringify(obj)
-       }})
+    jumpidleDetail(obj) {
+      let routerJump = this.$router.resolve({ path: '/ShowIdleZone',
+        query: { param: JSON.stringify(obj)
+        }})
       window.open(routerJump.href, '_blank')
     }
 

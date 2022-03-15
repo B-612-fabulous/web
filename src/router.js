@@ -53,7 +53,7 @@ export default new Router({
     {
       path: '/ShowAnnouncement',
       name: 'ShowAnnouncement',
-      component: ShowAnnouncement 
+      component: ShowAnnouncement
     },
     {
       path: '/EditAnnouncement',
@@ -63,28 +63,27 @@ export default new Router({
     {
       path: '/ShowCommunityVegtables',
       name: 'ShowCommunityVegtables',
-      component: ShowCommunityVegtables 
+      component: ShowCommunityVegtables
     },
     {
       path: '/ShowIdleZone',
       name: 'ShowIdleZone',
-      component: ShowIdleZone 
+      component: ShowIdleZone
     },
     {
       path: '/AddIdleZone',
       name: 'AddIdleZone',
-      component: AddIdleZone 
+      component: AddIdleZone
     },
     {
       path: '/HolidayTravel',
       name: 'HolidayTravel',
-      component: HolidayTravel 
-    }
-    ,
+      component: HolidayTravel
+    },
     {
       path: '/EditHousekeepingServices',
       name: 'EditHousekeepingServices',
-      component: EditHousekeepingServices 
+      component: EditHousekeepingServices
     }
   ]
 })

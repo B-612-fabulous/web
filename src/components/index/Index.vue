@@ -14,7 +14,7 @@
         </div>
         <div v-else class="right">
           <!-- <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic"> -->
-           <!-- <img :src="getImgUrl(userInfo)"  class="pic" > -->
+          <!-- <img :src="getImgUrl(userInfo)"  class="pic" > -->
 
           <span @click="jumpUserInfo">{{ userInfo.trueName }}</span>|<span @click="loginOut">退出</span>
         </div>
@@ -57,11 +57,11 @@
       <div v-if="curNav == 2" class="main-body-box">
         <IdleZone />
       </div>
-       <!-- 假期出游 -->
+      <!-- 假期出游 -->
       <div v-if="curNav == 3" class="main-body-box">
         <HolidayTravel />
       </div>
-       <!-- 家政服务 -->
+      <!-- 家政服务 -->
       <div v-if="curNav == 5" class="main-body-box">
         <HousekeepingServices />
       </div>
@@ -90,8 +90,8 @@ import CommunityVegetables from '@/components/index/CommunityVegetables'
 import AddCommunityVegetables from '@/components/index/AddCommunityVegetables'
 import IdleZone from '@/components/index/IdleZone'
 import Announcement from '@/components/index/Announcement.vue'
-import HolidayTravel from'@/components/index/HolidayTravel'
-import HousekeepingServices from'@/components/index/HousekeepingServices'
+import HolidayTravel from '@/components/index/HolidayTravel'
+import HousekeepingServices from '@/components/index/HousekeepingServices'
 export default {
   name: 'Index',
   components: {

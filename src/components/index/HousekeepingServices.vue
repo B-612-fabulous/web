@@ -2,11 +2,11 @@
   <div class="main-index">
     <!-- 主体 -->
     <div class="main-body-child">
-       <!-- @click="jumpcommvegDetail(item)" -->
+      <!-- @click="jumpcommvegDetail(item)" -->
       <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item">
-        <div class="left" >
+        <div class="left">
           <!-- getImgUrl(item) -->
-          <img :src="addbg" >
+          <img :src="addbg">
           <div class="price">
             <span class="left">￥{{ item.price }}</span><span class="right">/人</span>
           </div>
@@ -19,10 +19,9 @@
             {{ item.address }}
           </div>
           <div class="tag-box">
-              <div class="do-time">
-            {{ item.dotime }}
-          </div>
-          
+            <div class="do-time">
+              {{ item.dotime }}
+            </div>
           </div>
           <!-- <div class="btn">
             <img :src="addCart" @click="addCartVegetable(item)">
@@ -69,7 +68,7 @@ export default {
           this.$message.error('系统异常')
         }
       })
-    },
+    }
     // getImgUrl(item) {
     //   let host = 'http://localhost:8888'
     //   item.showFmImg = host + item.fmImg

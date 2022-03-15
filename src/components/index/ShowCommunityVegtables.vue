@@ -2,38 +2,33 @@
   <el-container>
     <!-- <el-header>{{ commvegtObj.title }}</el-header>
     <el-main>{{ commvegtObj.price }}</el-main> -->
-      <div class="bd">
-    <div id="detail">
-      <div class="tb-item-info tb-clear">
-        <div class="tb-item-info-l">
-          <!-- <img src="https://gd1.alicdn.com/imgextra/i3/0/T1Qy39FiJbXXXXXXXX_!!0-item_pic.jpg_400x400.jpg"  class="imgt"> -->
-          <img :src="getImgUrl(commvegtObj)"  class="imgt" >
-        </div>
-        <div class="tb-item-info-r">
-          <div class="tb-title">
+    <div class="bd">
+      <div id="detail">
+        <div class="tb-item-info tb-clear">
+          <div class="tb-item-info-l">
+            <!-- <img src="https://gd1.alicdn.com/imgextra/i3/0/T1Qy39FiJbXXXXXXXX_!!0-item_pic.jpg_400x400.jpg"  class="imgt"> -->
+            <img :src="getImgUrl(commvegtObj)" class="imgt">
+          </div>
+          <div class="tb-item-info-r">
+            <div class="tb-title">
               <h3>{{ commvegtObj.title }}</h3>
-          </div>
-          <div class="price">
-            {{ commvegtObj.price }}
-          </div>
-          
-          <div class="rules">
-          {{ commvegtObj.commodityDesc }}
-          </div>
+            </div>
+            <div class="price">
+              {{ commvegtObj.price }}
+            </div>
 
-          <div class="commodityDesc">
-          {{ commvegtObj.preferentialRules }}
-          </div>
+            <div class="rules">
+              {{ commvegtObj.commodityDesc }}
+            </div>
 
+            <div class="commodityDesc">
+              {{ commvegtObj.preferentialRules }}
+            </div>
+          </div>
         </div>
-
       </div>
-      
     </div>
-
-  </div>
   </el-container>
-  
 </template>
 
 <script>
@@ -41,13 +36,12 @@ export default {
   data() {
     return {
       commvegtObj: {
-        title:'',
-        price:'',
+        title: '',
+        price: '',
         commodityDesc: '刚摘的新鲜番茄，甘甜可口，生吃做菜煲汤都是很可口',
         isSeckill: true,
         preferentialRules: '满20减3',
-        fmImg: require('@/assets/index/td.jpeg'),
-
+        fmImg: require('@/assets/index/td.jpeg')
 
       }
     }
@@ -57,12 +51,12 @@ export default {
     let commvegtObj = JSON.parse(param)
     this.commvegtObj = commvegtObj
   },
-  methods:{
-     getImgUrl(commvegtObj) {
+  methods: {
+    getImgUrl(commvegtObj) {
       let host = 'http://localhost:8888'
       commvegtObj.showFmImg = host + commvegtObj.fmImg
       return commvegtObj.showFmImg
-    },
+    }
   }
 }
 </script>
@@ -151,7 +145,4 @@ export default {
     margin-top: 13px;
 }
 
- 
-
-  
 </style>

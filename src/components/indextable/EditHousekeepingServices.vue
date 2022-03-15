@@ -45,7 +45,7 @@ export default {
   created() {
     if (this.houseTables && this.houseTables.id) { // 修改
       this.userObj = this.houseTables
-      console.log("00000000"+this.userObj);
+      console.log('00000000' + this.userObj)
       // console.log("00000000"+this.userTables.id)
     }
   },
@@ -58,7 +58,7 @@ export default {
     getParam() {
       if (this.houseTables && this.houseTables.id) { // 修改
         this.userObj.id = this.houseTables.id
-        console.log("000011"+this.userObj.id);
+        console.log('000011' + this.userObj.id)
       }
       return this.userObj
     }

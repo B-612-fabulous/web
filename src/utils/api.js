@@ -65,11 +65,8 @@ export const server = {
   upadteIdHousekeepingServices(param) {
     return post(`/upadteIdHousekeepingServices`, param)
   },
-  getHolidaTtravelList(param) {
-    return post(`/getHolidaTtravelList`, param)
-  },
   deleteHolidaTtravel(param) {
     return post(`/deleteHolidaTtravel`, param)
-  },
+  }
 
 }

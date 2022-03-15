@@ -26,22 +26,20 @@ export default {
   data() {
     return {
       announceObj: {
-        title:'13',
-        announcement:'23'
+        title: '13',
+        announcement: '23'
       }
     }
   },
   created() {
-    if (this.editAnnounceTables&& this.editAnnounceTables.id) { // 修改
+    if (this.editAnnounceTables && this.editAnnounceTables.id) { // 修改
       this.announceObj = this.editAnnounceTables
-      console.log("0000"+this.announceObj);
     }
   },
   methods: {
     getParam() {
       if (this.editAnnounceTables && this.editAnnounceTables.id) { // 修改
         this.announceObj.id = this.editAnnounceTables.id
-        console.log("0000"+this.announceObj.id);
       }
       return this.announceObj
     }
