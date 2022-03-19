@@ -33,8 +33,14 @@
           </div>
         </div>
         <div class="right">
-          <button class="qz-btn" @click="addCommunityResources">
+          <button  v-if="curNav == 1" class="qz-btn" @click="addCommunityResources">
             发布求助信息
+          </button>
+           <button  v-if="curNav == 2" class="qz-btn" @click="addIdleZone">
+            发布信息
+          </button>
+            <button  v-if="curNav == 6" class="qz-btn" @click="addAnnounce">
+            发布公告
           </button>
         </div>
       </div>
@@ -70,6 +76,7 @@
         <Announcement ref="Announcement" />
       </div>
     </div>
+    <!-- 增加送菜 -->
     <el-dialog
       title="增加商品"
       :visible.sync="showAddVegetables"
@@ -82,6 +89,39 @@
         <el-button type="primary" @click="addVegetables">确 定</el-button>
       </span>
     </el-dialog>
+
+ <!-- 增加公告 -->
+    <el-dialog
+      title="增加公告"
+      :visible.sync="showAnnouncement"
+      width="60%"
+      :before-close="handleClose"
+    >
+      <EditAnnouncement ref="addCommunityAnnounce" />
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showAnnouncement = false">取 消</el-button>
+        <el-button type="primary" @click="addAnnouncetables">确 定</el-button>
+      </span>
+    </el-dialog>
+
+  <!-- 闲置商品 -->
+
+      <!-- <el-dialog
+      title="增加商品"
+      :visible.sync="showAddVegetables"
+      width="60%"
+      :before-close="handleClose"
+    >
+      <AddCommunityVegetables ref="addCommunityVegetables" />
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showAddVegetables = false">取 消</el-button>
+        <el-button type="primary" @click="addVegetables">确 定</el-button>
+      </span>
+    </el-dialog> -->
+
+
+
+
   </div>
 </template>
 
@@ -92,6 +132,7 @@ import IdleZone from '@/components/index/IdleZone'
 import Announcement from '@/components/index/Announcement.vue'
 import HolidayTravel from '@/components/index/HolidayTravel'
 import HousekeepingServices from '@/components/index/HousekeepingServices'
+import EditAnnouncement from '@/components/indextable/EditAnnouncement'
 export default {
   name: 'Index',
   components: {
@@ -100,7 +141,8 @@ export default {
     AddCommunityVegetables,
     Announcement,
     HolidayTravel,
-    HousekeepingServices
+    HousekeepingServices,
+    EditAnnouncement,
   },
   data() {
     return {
@@ -135,7 +177,8 @@ export default {
       curNav: '1',
       bodyImg: require('@/assets/index/body.png'),
       userInfo: {},
-      showAddVegetables: false
+      showAddVegetables: false,
+      showAnnouncement:false,
     }
   },
   created() {
@@ -175,6 +218,20 @@ export default {
 
       }
     },
+    addAnnounce(){
+        if (this.userInfo.id === 1) { // 管理员登录
+        if (this.curNav === '6') { // 增加送菜的资源
+          this.showAnnouncement = true
+        }
+      } else { // 非管理员登录
+
+      }
+    },
+
+    addIdleZone(){
+      alert("222");
+    },
+
     addVegetables() {
       let param = this.$refs.addCommunityVegetables.getParam()
       param.createPeople = this.userInfo.id
@@ -188,8 +245,26 @@ export default {
         }
       })
     },
+
+  addAnnouncetables(){
+    let param = this.$refs.addCommunityAnnounce.getParam()
+      param.createPeople = this.userInfo.id
+      this.$server.addCommunityAnnounce(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+         this.showAnnouncement = false
+          this.$message.success('操作成功')
+          this.$refs.addCommunityAnnounce.getCommunityAnnounceList()
+         
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+
+  },
+
     handleClose() {
       this.showAddVegetables = false
+      this.showAnnouncement=false
     }
   }
 }

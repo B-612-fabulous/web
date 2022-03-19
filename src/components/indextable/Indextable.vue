@@ -264,7 +264,7 @@
                   width="200"
                 >
                   <template slot-scope="scope">
-                    <el-button type="text" size="small" @click="updateData(scope.row)">
+                    <el-button type="text" size="small" @click="updatetravelData(scope.row)">
                       编辑
                     </el-button>
                     <el-button type="text" size="small" @click="deleteHolidaTtravel(scope.row)">
@@ -360,7 +360,7 @@
       width="60%"
       :before-close="handleClose"
     >
-      <EditAnnouncement ref="updateCommunityAnnounce" :edit-announce-tables="editAnnounceTables" />
+      <EditAnnouncement ref="updateCommunityAnnounce" :editAnnounceTables="editAnnounceTables" />
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="showAnnouncement = false">取 消</el-button>
@@ -376,11 +376,26 @@
       width="60%"
       :before-close="handleClose"
     >
-      <EditHousekeepingServices ref="upadteIdHolidaTtravel" :hourse-tables="houseTables" />
+      <EditHousekeepingServices ref="upadteIdHousekeepingServices" :houseTables="houseTables" />
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="showHouse = false">取 消</el-button>
-        <el-button type="primary" @click="updateUserid">确 定</el-button>
+        <el-button type="primary" @click="upadteIdHousekeepingServices">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!-- 假期出行 -->
+    <el-dialog
+      v-if="showTravel"
+      :title="title"
+      :visible.sync="showTravel"
+      width="60%"
+      :before-close="handleClose"
+    >
+      <EdittHolidayTravel ref="upadteIdHolidaTtravel" :travelTables="travelTables" />
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showTravel = false">取 消</el-button>
+        <el-button type="primary" @click="upadteIdHolidaTtravel">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -391,13 +406,15 @@ import AddCommunityVegetables from '@/components/index/AddCommunityVegetables'
 import EditUser from '@/components/indextable/EditUser'
 import EditAnnouncement from '@/components/indextable/EditAnnouncement'
 import EditHousekeepingServices from '@/components/indextable/EditHousekeepingServices'
+import EdittHolidayTravel from '@/components/indextable/EdittHolidayTravel'
 export default {
   name: 'Indextable',
   components: {
     AddCommunityVegetables,
     EditUser,
     EditAnnouncement,
-    EditHousekeepingServices
+    EditHousekeepingServices,
+    EdittHolidayTravel
 
   },
   data() {
@@ -411,8 +428,10 @@ export default {
       showAddVegetables: false,
       showUser: false,
       showHouse: false,
+      showTravel:false,
       showAnnouncement: false,
       communityVegetables: {},
+      travelTables:{},
       userTables: {},
       houseTables: {},
       editAnnounceTables: {},
@@ -539,6 +558,7 @@ export default {
       this.showUser = false
       this.showAnnouncement = false
       this.showHouse = false
+      this.showTravel=false
     },
     getImgUrl(item) {
       let host = 'http://localhost:8888'
@@ -565,6 +585,14 @@ export default {
       this.communityVegetables = item
       this.showAddVegetables = true
     },
+
+     updatetravelData(item) {
+      this.title = '修改出行信息'
+      console.log(item)
+      this.travelTables = item
+      this.showTravel = true
+    },
+
     // 删除用户
     deleteDatauser(item) {
       let param = { id: item.id }
@@ -665,6 +693,9 @@ export default {
       })
 
     },
+
+
+    
     updateAnnounce() {
       let param = this.$refs.updateCommunityAnnounce.getParam()
       this.$server.updateCommunityAnnounce(param).then(res => {
@@ -676,7 +707,32 @@ export default {
           this.$message.error('系统异常')
         }
       })
+    },
+    upadteIdHousekeepingServices(){
+      let param = this.$refs.upadteIdHousekeepingServices.getParam()
+      this.$server.upadteIdHousekeepingServices(param).then(res => {
+        if (res.state === 10000) {
+          this.$message.success('操作成功')
+          this.getHousekeepingServicesList()
+          this.showHouse = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+    },
+     upadteIdHolidaTtravel(){
+      let param = this.$refs.upadteIdHolidaTtravel.getParam()
+      this.$server.upadteIdHolidaTtravel(param).then(res => {
+        if (res.state === 10000) {
+          this.$message.success('操作成功')
+          this.getHolidaTtravelList()
+          this.showTravel = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
     }
+
   }
 }
 </script>

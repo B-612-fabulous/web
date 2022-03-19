@@ -67,6 +67,13 @@ export const server = {
   },
   deleteHolidaTtravel(param) {
     return post(`/deleteHolidaTtravel`, param)
-  }
+  },
+  upadteIdHolidaTtravel(param) {
+    return post(`/upadteIdHolidaTtravel`, param)
+  },
+  addCommunityAnnounce(param) {
+    return post(`/addCommunityAnnounce`, param)
+  },
+
 
 }
