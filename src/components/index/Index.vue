@@ -14,7 +14,7 @@
         </div>
         <div v-else class="right">
           <!-- <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic"> -->
-          <!-- <img :src="getImgUrl(userInfo)"  class="pic" > -->
+          <img :src="getImgUrl(userInfo)"  class="pic" >
 
           <span @click="jumpUserInfo">{{ userInfo.trueName }}</span>|<span @click="loginOut">退出</span>
         </div>
@@ -228,11 +228,11 @@ export default {
     }
   },
   methods: {
-    // getImgUrl(userInfo) {
-    //   let host = 'http://localhost:8888'
-    //   commvegtObj.showFmImg = host + commvegtObj.pic
-    //   return commvegtObj.showFmImg
-    // },
+    getImgUrl(userInfo) {
+      let host = 'http://localhost:8888'
+      userInfo.showFmImg = host + userInfo.pic
+      return userInfo.showFmImg
+    },
     loadItemData(obj) {
       this.curNav = obj.id
     },
@@ -422,6 +422,8 @@ export default {
          .pic{
               height: 40px;
               margin-right: 10px;
+              border-radius: 10px;
+              margin-top: 5px;
          }
          span{
            cursor: pointer;
