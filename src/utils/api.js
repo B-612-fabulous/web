@@ -74,6 +74,23 @@ export const server = {
   addCommunityAnnounce(param) {
     return post(`/addCommunityAnnounce`, param)
   },
+  // 删除闲置物品deleteIdleZone
+  deleteIdleZone(param) {
+    return post(`/deleteIdleZone`, param)
+  },
+  updateIdleZone(param) {
+    return post(`/updateIdleZone`, param)
+  },
+  
+  addIIdleZone(param) {
+    return post(`/addIIdleZone`, param)
+  },
+  addHolidaTtravel(param) {
+    return post(`/addHolidaTtravel`, param)
+  },
+  addHousekeepingServices(param) {
+    return post(`/addHousekeepingServices`, param)
+  },
 
 
 }

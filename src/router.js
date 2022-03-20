@@ -13,6 +13,7 @@ import ShowIdleZone from '@/components/index/ShowIdleZone'
 import AddIdleZone from '@/components/index/AddIdleZone'
 import HolidayTravel from '@/components/index/HolidayTravel'
 import EditHousekeepingServices from '@/components/indextable/EditHousekeepingServices'
+import EditIdleZone from '@/components/indextable/EditIdleZone'
 // 组件模块
 
 Vue.use(Router)
@@ -84,6 +85,12 @@ export default new Router({
       path: '/EditHousekeepingServices',
       name: 'EditHousekeepingServices',
       component: EditHousekeepingServices
-    }
+    },
+    {
+      path: '/EditIdleZone',
+      name: 'EditIdleZone',
+      component: EditIdleZone
+    },
+
   ]
 })

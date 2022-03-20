@@ -316,6 +316,52 @@
               </el-table>
             </div>
           </el-tab-pane>
+          <!-- 闲置专区 -->
+           <el-tab-pane label="闲置专区">
+            <div class="manger-box-body-right">
+              <el-table
+                :data="IdleZonetableData"
+                border
+                height="700"
+                style="width: 100%"
+              >
+                <el-table-column
+                  prop="commodityDesc"
+                  label="商品描述"
+                  width="180"
+                />
+                <el-table-column
+                  prop="price"
+                  label="商品价格"
+                  width="180"
+                />
+
+                <el-table-column
+                  prop="fmImg"
+                  label="封面图片"
+                  width="180"
+                >
+                  <template slot-scope="scope">
+                    <img :src="getImgUrl(scope.row)" style="width:80px;height:80px;">
+                  </template>
+                </el-table-column>
+                 <el-table-column
+                  label="操作"
+                  width="200"
+                >
+                  <template slot-scope="scope">
+                    <el-button type="text" size="small" @click="updateIdleZoneData(scope.row)">
+                      编辑
+                    </el-button>
+                    <el-button type="text" size="small" @click="deleteIdleZone(scope.row)">
+                      删除
+                    </el-button>
+                  </template>
+                </el-table-column>
+               
+              </el-table>
+            </div>
+          </el-tab-pane>
         </el-tabs>
       </div>
     </div>
@@ -398,6 +444,22 @@
         <el-button type="primary" @click="upadteIdHolidaTtravel">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 闲置物品 -->
+ <el-dialog
+      v-if="showIdleZone"
+      :title="title"
+      :visible.sync="showIdleZone"
+      width="60%"
+      :before-close="handleClose"
+    >
+      <EditIdleZone ref="updateIdleZone" :idleZone="idleZone" />
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showIdleZone = false">取 消</el-button>
+        <el-button type="primary" @click="updateIdleZone">确 定</el-button>
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -407,6 +469,7 @@ import EditUser from '@/components/indextable/EditUser'
 import EditAnnouncement from '@/components/indextable/EditAnnouncement'
 import EditHousekeepingServices from '@/components/indextable/EditHousekeepingServices'
 import EdittHolidayTravel from '@/components/indextable/EdittHolidayTravel'
+import EditIdleZone from '@/components/indextable/EditIdleZone'
 export default {
   name: 'Indextable',
   components: {
@@ -414,13 +477,15 @@ export default {
     EditUser,
     EditAnnouncement,
     EditHousekeepingServices,
-    EdittHolidayTravel
+    EdittHolidayTravel,
+    EditIdleZone
 
   },
   data() {
     return {
       tableData: [],
       userDate: [],
+      IdleZonetableData:[],
       announceDate: [],
       HouservicesData: [],
       HolidayData: [],
@@ -429,10 +494,12 @@ export default {
       showUser: false,
       showHouse: false,
       showTravel:false,
+      showIdleZone:false,
       showAnnouncement: false,
       communityVegetables: {},
       travelTables:{},
       userTables: {},
+      idleZone:{},
       houseTables: {},
       editAnnounceTables: {},
       title: '增加商品'
@@ -448,6 +515,7 @@ export default {
     this.getCommunityAnnounceList()
     this.getHousekeepingServicesList()
     this.getHolidaTtravelList()
+    this.getIdleZoneList()
   },
   methods: {
     getDataList() {
@@ -461,7 +529,7 @@ export default {
         }
       })
     },
-
+    //  获取用户列表
     getUserDataList() {
       let param = {}
       this.$server.getUserList(param).then(res => {
@@ -473,6 +541,19 @@ export default {
         }
       })
     },
+    // 获取闲置物品列表
+    getIdleZoneList(){
+      let param = {}
+      this.$server.getIdleZoneList(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+          this.IdleZonetableData = res.data
+          // this.showAddVegetables = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+    },
+
 
     getCommunityAnnounceList() {
       let param = {}
@@ -559,6 +640,7 @@ export default {
       this.showAnnouncement = false
       this.showHouse = false
       this.showTravel=false
+      this.showIdleZone=false
     },
     getImgUrl(item) {
       let host = 'http://localhost:8888'
@@ -570,6 +652,7 @@ export default {
       item.showpic = host + item.pic
       return item.showpic
     },
+    // 删除用户信息
     deleteData(item) {
       let param = { id: item.id }
       this.$server.deleteCommunityVegetablesList(param).then(res => {
@@ -580,10 +663,27 @@ export default {
         }
       })
     },
+    // 删除闲置物品信息
+    deleteIdleZone(item){
+      let param = { id: item.id }
+      this.$server.deleteIdleZone(param).then(res => {
+        if (res.state === 10000) {
+          this.getIdleZoneList()
+        } else {
+          this.$message.error('操作失败')
+        }
+      })
+
+    },
     updateData(item) {
       this.title = '修改商品'
       this.communityVegetables = item
       this.showAddVegetables = true
+    },
+    updateIdleZoneData(item){
+      this.title = '修改闲置商品'
+      this.idleZone=item
+      this.showIdleZone=true
     },
 
      updatetravelData(item) {
@@ -668,24 +768,26 @@ export default {
     // 修改用户信息
     updateUserid() {
       let param = this.$refs.updateUserByid.getParam()
-      // this.axios.post('/updateByid', param)
-      //   .then(resp => {
-      //     if (resp.data.state === 10000) {
-      //       alert('进入')
-      //       this.getUserDataList()
-      //       this.showUser = false
-      //       // this.userDate = resp.data
-      //       console.log(this.userInfo)
-      //     } else {
-      //       this.$message.error('系统异常')
-      //       console.log(resp.data.state)
-      //     }
-      //   })
       this.$server.updateByid(param).then(res => {
         if (res.state === 10000) {
           this.$message.success('操作成功')
           this.getUserDataList()
           this.showUser = false
+        } else {
+          this.$message.error('系统异常')
+          console.log(res.state)
+        }
+      })
+
+    },
+    // 修改
+     updateIdleZone() {
+      let param = this.$refs.updateIdleZone.getParam()
+      this.$server.updateIdleZone(param).then(res => {
+        if (res.state === 10000) {
+          this.$message.success('操作成功')
+          this.getIdleZoneList()
+          this.showIdleZone = false
         } else {
           this.$message.error('系统异常')
           console.log(res.state)

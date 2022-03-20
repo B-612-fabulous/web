@@ -38,8 +38,8 @@ export default {
   data() {
     return {
       userObj: {
-        title: '123',
-        phone: '123',
+        title: '',
+        phone: '',
         price: '',
         commodityDesc:'',
         dotime: '',

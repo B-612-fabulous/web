@@ -36,11 +36,17 @@
           <button  v-if="curNav == 1" class="qz-btn" @click="addCommunityResources">
             发布求助信息
           </button>
-           <button  v-if="curNav == 2" class="qz-btn" @click="addIdleZone">
-            发布信息
+          <button  v-if="curNav == 2" class="qz-btn" @click="addIdle">
+            发布闲置信息
           </button>
-            <button  v-if="curNav == 6" class="qz-btn" @click="addAnnounce">
+          <button  v-if="curNav == 6" class="qz-btn" @click="addAnnounce">
             发布公告
+          </button>
+          <button  v-if="curNav == 3" class="qz-btn" @click="addTravel">
+            发布出游信息
+          </button>
+           <button  v-if="curNav == 5" class="qz-btn" @click="addHouse">
+            发布家政信息
           </button>
         </div>
       </div>
@@ -61,19 +67,19 @@
       </div>
       <!-- 闲置专区 -->
       <div v-if="curNav == 2" class="main-body-box">
-        <IdleZone />
+        <IdleZone ref="idleZone" />
       </div>
       <!-- 假期出游 -->
       <div v-if="curNav == 3" class="main-body-box">
-        <HolidayTravel />
+        <HolidayTravel  ref="holidayTravel"/>
       </div>
       <!-- 家政服务 -->
       <div v-if="curNav == 5" class="main-body-box">
-        <HousekeepingServices />
+        <HousekeepingServices ref="housekeepingServices" />
       </div>
       <!-- 公告 -->
       <div v-if="curNav == 6" class="main-body-box">
-        <Announcement ref="Announcement" />
+        <Announcement ref="announcement" />
       </div>
     </div>
     <!-- 增加送菜 -->
@@ -87,6 +93,19 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="showAddVegetables = false">取 消</el-button>
         <el-button type="primary" @click="addVegetables">确 定</el-button>
+      </span>
+    </el-dialog>
+<!-- 增加闲置用品 -->
+    <el-dialog
+      title="增加闲置商品"
+      :visible.sync="showIdleZone"
+      width="60%"
+      :before-close="handleClose"
+    >
+      <EditIdleZone ref="addIIdleZone" />
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showIdleZone = false">取 消</el-button>
+        <el-button type="primary" @click="addIdleZone">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -103,21 +122,33 @@
         <el-button type="primary" @click="addAnnouncetables">确 定</el-button>
       </span>
     </el-dialog>
-
-  <!-- 闲置商品 -->
-
-      <!-- <el-dialog
-      title="增加商品"
-      :visible.sync="showAddVegetables"
+ <!-- 增加假期信息 -->
+     <el-dialog
+      title="增加假期出行"
+      :visible.sync="showTravel"
       width="60%"
       :before-close="handleClose"
     >
-      <AddCommunityVegetables ref="addCommunityVegetables" />
+      <EdittHolidayTravel ref="addHolidaTtravel" />
       <span slot="footer" class="dialog-footer">
-        <el-button @click="showAddVegetables = false">取 消</el-button>
-        <el-button type="primary" @click="addVegetables">确 定</el-button>
+        <el-button @click="showTravel = false">取 消</el-button>
+        <el-button type="primary" @click="addHolidaTtravel">确 定</el-button>
       </span>
-    </el-dialog> -->
+    </el-dialog>
+
+     <!-- 增加家政服务信息 -->
+     <el-dialog
+      title="增加公告"
+      :visible.sync="showHouse"
+      width="60%"
+      :before-close="handleClose"
+    >
+      <EditHousekeepingServices ref="addHousekeepingServices" />
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showHouse = false">取 消</el-button>
+        <el-button type="primary" @click="addHousekeepingServices">确 定</el-button>
+      </span>
+    </el-dialog>
 
 
 
@@ -129,10 +160,13 @@
 import CommunityVegetables from '@/components/index/CommunityVegetables'
 import AddCommunityVegetables from '@/components/index/AddCommunityVegetables'
 import IdleZone from '@/components/index/IdleZone'
-import Announcement from '@/components/index/Announcement.vue'
+import Announcement from '@/components/index/Announcement'
 import HolidayTravel from '@/components/index/HolidayTravel'
 import HousekeepingServices from '@/components/index/HousekeepingServices'
 import EditAnnouncement from '@/components/indextable/EditAnnouncement'
+import EditIdleZone from '@/components/indextable/EditIdleZone'
+import EdittHolidayTravel from '@/components/indextable/EdittHolidayTravel'
+import EditHousekeepingServices from '@/components/indextable/EditHousekeepingServices'
 export default {
   name: 'Index',
   components: {
@@ -143,6 +177,9 @@ export default {
     HolidayTravel,
     HousekeepingServices,
     EditAnnouncement,
+    EditIdleZone,
+    EdittHolidayTravel,
+    EditHousekeepingServices
   },
   data() {
     return {
@@ -179,6 +216,9 @@ export default {
       userInfo: {},
       showAddVegetables: false,
       showAnnouncement:false,
+      showTravel:false,
+      showHouse:false,
+      showIdleZone:false,
     }
   },
   created() {
@@ -218,6 +258,7 @@ export default {
 
       }
     },
+
     addAnnounce(){
         if (this.userInfo.id === 1) { // 管理员登录
         if (this.curNav === '6') { // 增加送菜的资源
@@ -228,10 +269,39 @@ export default {
       }
     },
 
-    addIdleZone(){
-      alert("222");
+    addTravel(){
+        if (this.userInfo.id ) { // 管理员登录
+        if (this.curNav === '3') { // 增加送菜的资源
+          this.showTravel = true
+        }
+      } else { // 非管理员登录
+
+      }
+    },
+    addHouse(){
+          if (this.userInfo.id) { // 管理员登录
+        if (this.curNav === '5') { // 增加送菜的资源
+          this.showHouse = true
+        }
+      } else { // 非管理员登录
+
+      }
     },
 
+
+    addIdle(){
+      if (this.userInfo.id) { // 
+        if (this.curNav === '2') {
+          this.showAddVegetables = false
+          this.showIdleZone = true
+        }
+      } else { // 非管理员登录
+
+      }
+
+  
+    },
+// 增加菜
     addVegetables() {
       let param = this.$refs.addCommunityVegetables.getParam()
       param.createPeople = this.userInfo.id
@@ -245,7 +315,22 @@ export default {
         }
       })
     },
+    addIdleZone(){
 
+      let param = this.$refs.addIIdleZone.getParam()
+      param.createPeople = this.userInfo.id
+      this.$server.addIIdleZone(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+          this.$message.success('操作成功')
+          this.$refs.idleZone.getIdleZoneList()
+          this.showIdleZone = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+
+    },
+// 增加公告
   addAnnouncetables(){
     let param = this.$refs.addCommunityAnnounce.getParam()
       param.createPeople = this.userInfo.id
@@ -253,7 +338,39 @@ export default {
         if (res.state === 'success') { // 请求成功
          this.showAnnouncement = false
           this.$message.success('操作成功')
-          this.$refs.addCommunityAnnounce.getCommunityAnnounceList()
+          this.$refs.announcement.getCommunityAnnounceList()
+         
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+
+  },
+  // 增加假期游玩信息
+  addHolidaTtravel(){
+    let param = this.$refs.addHolidaTtravel.getParam()
+      param.createPeople = this.userInfo.id
+      this.$server.addHolidaTtravel(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+         this.showTravel = false
+          this.$message.success('操作成功')
+          this.$refs.holidayTravel.getHolidaTtravelList()
+         
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+
+  },
+  // 添加家政服务
+  addHousekeepingServices(){
+    let param = this.$refs.addHousekeepingServices.getParam()
+      param.createPeople = this.userInfo.id
+      this.$server.addHousekeepingServices(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+         this.showHouse = false
+          this.$message.success('操作成功')
+          this.$refs.housekeepingServices.getHousekeepingServicesList()
          
         } else {
           this.$message.error('系统异常')
@@ -262,9 +379,13 @@ export default {
 
   },
 
+
     handleClose() {
       this.showAddVegetables = false
       this.showAnnouncement=false
+      this.showIdleZone=false
+      this.showTravel=false
+      this.showHouse=false
     }
   }
 }

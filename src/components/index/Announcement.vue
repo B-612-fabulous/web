@@ -26,13 +26,13 @@ export default {
     }
   },
   created() {
-    // this.getCommunityAnnounceLists();
+    this.getCommunityAnnounceList();
   },
-  mounted() {
-    this.getCommunityAnnounceLists()
-  },
+  // mounted() {
+  //   this.getCommunityAnnounceLists()
+  // },
   methods: {
-    getCommunityAnnounceLists() {
+    getCommunityAnnounceList() {
       let param = {}
       // this.axios.post('/getCommunityAnnounceList', param)
       //   .then(resp => {

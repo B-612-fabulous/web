@@ -1,10 +1,10 @@
 <template>
   <div class="main-content">
     <el-form ref="form" label-width="80px">
-      <el-form-item label="用户名">
+      <el-form-item label="服务标题">
         <el-input v-model="userObj.title" placeholder="请输入服务标题" />
       </el-form-item>
-      <el-form-item label="用户密码">
+      <el-form-item label="联系电话">
         <el-input v-model="userObj.phone" placeholder="请输入联系电话" />
       </el-form-item>
       <el-form-item label="价格">
@@ -34,8 +34,8 @@ export default {
   data() {
     return {
       userObj: {
-        title: '123',
-        phone: '123',
+        title: '',
+        phone: '',
         price: '',
         dotime: '',
         address: ''
@@ -45,20 +45,15 @@ export default {
   created() {
     if (this.houseTables && this.houseTables.id) { // 修改
       this.userObj = this.houseTables
-      console.log('00000000' + this.userObj)
+      console.log("00000000"+this.userObj);
       // console.log("00000000"+this.userTables.id)
     }
   },
   methods: {
-    handleAvatarSuccess(res, file) {
-      let host = 'http://localhost:8888'
-      this.userObj.pic = '/download/image?filePath=' + res.data
-      this.userObj.showpic = host + '/download/image?filePath=' + res.data
-    },
     getParam() {
       if (this.houseTables && this.houseTables.id) { // 修改
         this.userObj.id = this.houseTables.id
-        console.log('000011' + this.userObj.id)
+        console.log("000011"+this.userObj.id);
       }
       return this.userObj
     }

@@ -23,26 +23,43 @@ export default {
       }
     }
   },
+  
   data() {
     return {
       announceObj: {
-        title: '13',
-        announcement: '23'
+        title:' ',
+        announcement:' '
       }
     }
   },
   created() {
-    if (this.editAnnounceTables && this.editAnnounceTables.id) { // 修改
+    if (this.editAnnounceTables&& this.editAnnounceTables.id) { // 修改
       this.announceObj = this.editAnnounceTables
+      console.log("0000"+this.announceObj);
     }
   },
+  // created() {
+  //   if (this.userTables && this.userTables.id) { // 修改
+  //     this.userObj = this.userTables
+  //     console.log("00000000"+this.userObj);
+  //     // console.log("00000000"+this.userTables.id)
+  //   }
+  // },
   methods: {
     getParam() {
       if (this.editAnnounceTables && this.editAnnounceTables.id) { // 修改
         this.announceObj.id = this.editAnnounceTables.id
+        console.log("0000"+this.announceObj.id);
       }
       return this.announceObj
-    }
+    } ,
+    // getParam() {
+    //   if (this.usertables && this.usertables.id) { // 修改
+    //     this.userObj.id = this.usertables.id
+    //     console.log("000011"+this.userObj.id);
+    //   }
+    //   return this.userObj
+    // }
 
   }
 }
