@@ -319,6 +319,7 @@ export default {
 
       let param = this.$refs.addIIdleZone.getParam()
       param.createPeople = this.userInfo.id
+      param.pic=this.userInfo.pic
       this.$server.addIIdleZone(param).then(res => {
         if (res.state === 'success') { // 请求成功
           this.$message.success('操作成功')
