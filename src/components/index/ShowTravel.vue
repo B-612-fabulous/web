@@ -2,9 +2,9 @@
   <el-container>
 
     <div class="bd" :style="{ 'backgroundImage':'url('+ bodyImg +')'}">
-        <div class="userInfo" >
+       <div class="userInfo" >
         <div class="letf">
-          欢迎来到家政服务专区。
+          欢迎来到假期出游专区。
         </div>
         <div v-if="!userInfo.id || userInfo.id === ''" class="right">
           <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
@@ -16,30 +16,39 @@
         </div>
         
       </div>
-      <div id="detail">
+      <div id="detail"  >
         <div class="tb-item-info tb-clear">
           <div class="tb-item-info-l">
-            <img :src="getImgUrl(commvegtObj)" class="imgt">
+            <img :src="addbg" class="imgt">
           </div>
           <div class="tb-item-info-r">
             <div class="tb-title">
-             
-                  <img :src="getuserUrl(commvegtObj)" class="head-pic">
-            </div>
-            <div class="price">
-            <span>物品价格</span>:  {{ commvegtObj.price }}
+              <h3>{{ commvegtObj.title }}</h3>
             </div>
 
-            <div class="rules">
-              <span>物品描述</span>:{{ commvegtObj.commodityDesc }}
+           <div class="address">
+            <span>地点</span>:{{commvegtObj.address }}
+            </div>
+
+            <div class="price">
+              <span>价格</span>:<span>{{ commvegtObj.price }}</span>/<span>人</span>
+            </div>
+
+            <div class="commodityDesc">
+             <span>景点描述</span>: {{ commvegtObj.commodityDesc }}
+            </div>
+
+            <div class="commodityDesc">
+             <span>时间</span>: {{ commvegtObj.dotime }}
             </div>
 
             <el-button type="success" round @click="addShoppingCart" class="el">加入购物车</el-button>
-
-            <!-- <div class="commodityDesc">
-              {{ commvegtObj.preferentialRules }}
-            </div> -->
           </div>
+
+          <div class="phone">
+          <span>联系电话</span>:<span>{{ commvegtObj.phone }}</span>
+          </div>
+
         </div>
       </div>
     </div>
@@ -54,16 +63,18 @@ export default {
         title: '',
         price: '',
         commodityDesc: '刚摘的新鲜番茄，甘甜可口，生吃做菜煲汤都是很可口',
+        isSeckill: true,
         preferentialRules: '满20减3',
         fmImg: require('@/assets/index/td.jpeg')
 
       },
       userInfo: {},
       bodyImg: require('@/assets/index/body.png'),
+      addbg: require('@/assets/index/travel.jpg')
     }
   },
   created() {
-     let userInfo = localStorage.getItem('userInfo')
+    let userInfo = localStorage.getItem('userInfo')
     if (userInfo) {
       this.userInfo = JSON.parse(userInfo)
     }
@@ -72,20 +83,15 @@ export default {
     this.commvegtObj = commvegtObj
   },
   methods: {
-     getImgUrll(userInfo) {
-      let host = 'http://localhost:8888'
-      userInfo.showFmImg = host + userInfo.pic
-      return userInfo.showFmImg
-    },
     getImgUrl(commvegtObj) {
       let host = 'http://localhost:8888'
       commvegtObj.showFmImg = host + commvegtObj.fmImg
       return commvegtObj.showFmImg
     },
-    getuserUrl(commvegtObj) {
+    getImgUrll(userInfo) {
       let host = 'http://localhost:8888'
-      commvegtObj.showUserImg = host + commvegtObj.pic
-      return commvegtObj.showUserImg
+      userInfo.showFmImg = host + userInfo.pic
+      return userInfo.showFmImg
     },
     loginOut() {
       localStorage.removeItem('userInfo')
@@ -101,13 +107,21 @@ export default {
     addShoppingCart(){
 
     },
+  
   }
 }
 </script>
 
 <style lang="less" scoped>
-
-  .userInfo{
+.el{
+  margin-top: 100px;
+}
+.phone{
+  width: 300px;
+  height: 120px;
+  text-align: center;
+}
+.userInfo{
       // background-color: #fff;
     width: 80%;
     position: relative;
@@ -146,25 +160,11 @@ export default {
 
        }
      }
-
-  .head-pic{
-     height: 40px;
-     width: 40px;
-                  border-radius:40px;
-                  overflow: hidden;
-                  border: 1px solid #f2f2f2;
-                  margin-top: 20px;
-                  margin-left: 10px;
-              }
-
-  .el{
-       margin-top: 100px;
-    }
   
    .bd{
       width: 100%;
       height: 800px;
-      background-color: skyblue;
+      // background-color: skyblue;
     }
     .tb-item-info-r{
       text-align: center;
@@ -174,21 +174,20 @@ export default {
     margin: 20px auto 0;
     height: 500px;
     width: 1140px;
-    background-color: pink;
     }
     .tb-item-info {
       width: 940px;
       height: 500px;
     margin-right: 198px;
     border-right: 1px solid #E8E8E8;
-    background-color: #ab00ff42;
+    // background-color: #ab00ff42;
   }
   .tb-item-info-l {
     float: left;
     padding: 20px 0 20px 20px;
     width: 400px;
     position: relative;
-    background-color: blanchedalmond;
+    // background-color: blanchedalmond;
     height: 300px;
 }
 .tb-item-info-l .imgt{
@@ -199,14 +198,14 @@ export default {
   float: left;
     padding: 0 20px 20px 0;
     width: 400px;
-    height: 300px;
-    background-color: blue;
+    height: 360px;
+    // background-color: blue;
 }
  .tb-title {
     padding: 20px 0 10px;
     width: 420px;
     height: 56px;
-    background-color: pink;
+    // background-color: pink;
     margin-top: 13px;
 
 }
@@ -214,21 +213,21 @@ export default {
   padding: 20px 0 10px;
     width: 420px;
     height: 16px;
-    background-color: pink;
+    // background-color: pink;
     margin-top: 13px;
 }
-.rules{
+.address{
   padding: 20px 0 10px;
     width: 420px;
     height: 16px;
-    background-color: pink;
+    // background-color: pink;
     margin-top: 13px;
 }
 .commodityDesc{
   padding: 20px 0 10px;
     width: 420px;
     height: 16px;
-    background-color: pink;
+    // background-color: pink;
     margin-top: 13px;
 }
 

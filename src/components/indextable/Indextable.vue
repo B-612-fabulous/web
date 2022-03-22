@@ -748,6 +748,7 @@ export default {
     updateDatauser(item) {
       this.title = '修改信息'
       this.userTables = item
+      console.log(this.userTables);
       this.showUser = true
     },
 
@@ -780,7 +781,7 @@ export default {
       })
 
     },
-    // 修改
+    // 修改闲置物品
      updateIdleZone() {
       let param = this.$refs.updateIdleZone.getParam()
       this.$server.updateIdleZone(param).then(res => {

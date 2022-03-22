@@ -14,6 +14,9 @@ import AddIdleZone from '@/components/index/AddIdleZone'
 import HolidayTravel from '@/components/index/HolidayTravel'
 import EditHousekeepingServices from '@/components/indextable/EditHousekeepingServices'
 import EditIdleZone from '@/components/indextable/EditIdleZone'
+import ShowTravel from '@/components/index/ShowTravel'
+import ShowHouse from '@/components/index/ShowHouse'
+import HomePage from '@/components/index/HomePage'
 // 组件模块
 
 Vue.use(Router)
@@ -72,6 +75,12 @@ export default new Router({
       component: ShowIdleZone
     },
     {
+      path: '/ShowTravel',
+      name: 'ShowTravel',
+      component: ShowTravel
+    },
+
+    {
       path: '/AddIdleZone',
       name: 'AddIdleZone',
       component: AddIdleZone
@@ -91,6 +100,17 @@ export default new Router({
       name: 'EditIdleZone',
       component: EditIdleZone
     },
+    {
+      path: '/ShowHouse',
+      name: 'ShowHouse',
+      component: ShowHouse
+    },
+    {
+      path: '/HomePage',
+      name: 'HomePage',
+      component: HomePage
+    },
+
 
   ]
 })

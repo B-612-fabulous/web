@@ -6,7 +6,7 @@
         <a id="logod" />
       </div>
       <div class="htHotLine hotline_400">
-        咨询热线：<span>110120</span>
+        咨询热线：<span>4001234567</span>
       </div>
     </div>
     <!-- //中间 -->
@@ -70,13 +70,18 @@ export default {
             localStorage.setItem('userInfo', JSON.stringify(res.data))
             if (res.data.id === 1) { // 管理员登录
               this.$router.push('/Indextable')
+              this.$message.success('登录成功')
             } else { // 非管理员登录
               this.$router.push('/index')
+              this.$message.success('登录成功')
             }
           } else {
-            this.$message.error(res.data.msg)
+            // this.$message.error(res.data.msg)
+            this.$message.error('账号密码错误')
           }
         } else {
+          alert("账号密码错误")
+
           this.$message.error('系统异常')
         }
       })

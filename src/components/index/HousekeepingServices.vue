@@ -3,12 +3,12 @@
     <!-- 主体 -->
     <div class="main-body-child">
       <!-- @click="jumpcommvegDetail(item)" -->
-      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item">
+      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item" @click="jumpHouseDetail(item)">
         <div class="left">
           <!-- getImgUrl(item) -->
           <img :src="addbg">
           <div class="price">
-            <span class="left">￥{{ item.price }}</span><span class="right">/人</span>
+            <span class="left">￥{{ item.price }}</span><span class="right">/时</span>
           </div>
         </div>
         <div class="right">
@@ -16,11 +16,11 @@
             {{ item.title }}
           </div>
           <div class="text-desc">
-            {{ item.address }}
+           <span>服务地点</span>: {{ item.address }}
           </div>
           <div class="tag-box">
             <div class="do-time">
-              {{ item.dotime }}
+             <span>服务时间</span>: {{ item.dotime }}
             </div>
           </div>
           <!-- <div class="btn">
@@ -68,7 +68,7 @@ export default {
           this.$message.error('系统异常')
         }
       })
-    }
+    },
     // getImgUrl(item) {
     //   let host = 'http://localhost:8888'
     //   item.showFmImg = host + item.fmImg
@@ -80,6 +80,12 @@ export default {
     //    }})
     //   window.open(routerJump.href, '_blank')
     // }
+    jumpHouseDetail(obj) {
+      let routerJump = this.$router.resolve({ path: '/ShowHouse',
+        query: { param: JSON.stringify(obj)
+        }})
+      window.open(routerJump.href, '_blank')
+    }
   }
 }
 </script>

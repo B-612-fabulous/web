@@ -1,8 +1,40 @@
 <template>
-  <el-container>
-    <el-header>{{ annoucementObj.title }}</el-header>
-    <el-main>{{ annoucementObj.announcement }}</el-main>
-  </el-container>
+<div class="main-top">
+  <div class="userInfo">
+        <div class="letf">
+          公告详情
+        </div>
+        <div v-if="!userInfo.id || userInfo.id === ''" class="right">
+          <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
+        </div>
+        <div v-else class="right">
+          <img :src="getImgUrl(userInfo)"  class="pic" >
+           <span>{{ userInfo.trueName }}</span>|
+         <span @click="loginOut">退出</span>
+        </div>
+        
+      </div>
+      <div class="bgc" :style="{ 'backgroundImage':'url('+ bodyImg +')'}">
+        <h1 class="center">
+        {{ annoucementObj.title }}
+      </h1>
+      <p>{{ annoucementObj.announcement }}</p>
+
+      <div class="tim">
+        {{ annoucementObj.createDate }}
+      </div>
+       
+
+      </div>
+      
+
+       <el-container>
+    <!-- <el-header>{{ annoucementObj.title }}</el-header> -->
+    <!-- <el-main>{{ annoucementObj.announcement }}</el-main> -->
+      </el-container>
+      </div>
+      
+
 </template>
 
 <script>
@@ -14,51 +46,99 @@ export default {
         name: '王小虎',
         address: '上海市普陀区金沙江路 1518 弄'
       }],
-      annoucementObj: {}
+      bodyImg: require('@/assets/index/body.png'),
+      annoucementObj: {},
+      userInfo: {},
     }
   },
   created() {
+    let userInfo = localStorage.getItem('userInfo')
+    if (userInfo) {
+      this.userInfo = JSON.parse(userInfo)
+    }
+
     let param = this.$route.query.param
     let annoucementObj = JSON.parse(param)
     this.annoucementObj = annoucementObj
+    
+  },
+  methods:{
+
+    getImgUrl(userInfo) {
+      let host = 'http://localhost:8888'
+      userInfo.showFmImg = host + userInfo.pic
+      return userInfo.showFmImg
+    },
+    loginOut() {
+      localStorage.removeItem('userInfo')
+      this.$router.push('/login')
+    },
+
+    jumpLogin() {
+      this.$router.push('/login')
+    },
+    jumpRegister() {
+      this.$router.push('/register')
+    },
   }
 }
 </script>
 
 <style lang="less" scoped>
- .el-header, .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-    line-height: 60px;
-  }
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-    line-height: 160px;
-  }
-.avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
+p{
+  text-indent: 2em;
+}
+.tim{
+    margin-top: 320px;
+    margin-left: 1060px;
+}
+.center{
+  text-align: center;
+}
+.bgc{
+  height: 500px;
+}
+.main-top{
+  background-color: #fff;
+    height: 398px;
+    width: 80%;
     position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 80px;
-    height: 80px;
-    line-height: 80px;
-    text-align: center;
-  }
-  .avatar {
-    width: 80px;
-    height: 80px;
-    display: block;
-  }
+    left: 10%;
+}
+ .userInfo{
+       margin-bottom: 17px;
+       height: 40px;
+       line-height: 40px;
+       display: flex;
+       font-size: 14px;
+       color: #8c8c8c;
+       .left{
+         flex: 1;
+       }
+       .right{
+         flex: 1;
+         text-align: right;
+         padding-right: 10px;
+         .el-dropdown-link {
+      cursor: pointer;
+     color: #409EFF;
+         }
+        .el-icon-arrow-down {
+          font-size: 12px;
+           }
+         .pic{
+              height: 40px;
+              margin-right: 10px;
+              border-radius: 10px;
+              margin-top: 5px;
+         }
+         span{
+           cursor: pointer;
+           padding: 0 20px;
+         }
+
+       }
+     }
+ 
+  
 </style>

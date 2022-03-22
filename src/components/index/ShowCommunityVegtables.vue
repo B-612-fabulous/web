@@ -1,12 +1,24 @@
 <template>
   <el-container>
-    <!-- <el-header>{{ commvegtObj.title }}</el-header>
-    <el-main>{{ commvegtObj.price }}</el-main> -->
-    <div class="bd">
-      <div id="detail">
+
+    <div class="bd" :style="{ 'backgroundImage':'url('+ bodyImg +')'}">
+       <div class="userInfo" >
+        <div class="letf">
+          欢迎来到送菜专区。
+        </div>
+        <div v-if="!userInfo.id || userInfo.id === ''" class="right">
+          <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
+        </div>
+        <div v-else class="right">
+          <img :src="getImgUrll(userInfo)"  class="pic" >
+           <span>{{ userInfo.trueName }}</span>|
+         <span @click="loginOut">退出</span>
+        </div>
+        
+      </div>
+      <div id="detail"  >
         <div class="tb-item-info tb-clear">
           <div class="tb-item-info-l">
-            <!-- <img src="https://gd1.alicdn.com/imgextra/i3/0/T1Qy39FiJbXXXXXXXX_!!0-item_pic.jpg_400x400.jpg"  class="imgt"> -->
             <img :src="getImgUrl(commvegtObj)" class="imgt">
           </div>
           <div class="tb-item-info-r">
@@ -14,16 +26,17 @@
               <h3>{{ commvegtObj.title }}</h3>
             </div>
             <div class="price">
-              {{ commvegtObj.price }}
+             <span>单价</span>: {{ commvegtObj.price }}
             </div>
 
             <div class="rules">
-              {{ commvegtObj.commodityDesc }}
+              <span>商品描述</span>:{{ commvegtObj.commodityDesc }}
             </div>
 
             <div class="commodityDesc">
-              {{ commvegtObj.preferentialRules }}
+            <span>促销折扣</span>:{{ commvegtObj.preferentialRules }}
             </div>
+             <el-button type="success" round @click="addShoppingCart" class="el">加入购物车</el-button>
           </div>
         </div>
       </div>
@@ -43,10 +56,16 @@ export default {
         preferentialRules: '满20减3',
         fmImg: require('@/assets/index/td.jpeg')
 
-      }
+      },
+      userInfo: {},
+      bodyImg: require('@/assets/index/body.png'),
     }
   },
   created() {
+    let userInfo = localStorage.getItem('userInfo')
+    if (userInfo) {
+      this.userInfo = JSON.parse(userInfo)
+    }
     let param = this.$route.query.param
     let commvegtObj = JSON.parse(param)
     this.commvegtObj = commvegtObj
@@ -56,28 +75,76 @@ export default {
       let host = 'http://localhost:8888'
       commvegtObj.showFmImg = host + commvegtObj.fmImg
       return commvegtObj.showFmImg
-    }
+    },
+    getImgUrll(userInfo) {
+      let host = 'http://localhost:8888'
+      userInfo.showFmImg = host + userInfo.pic
+      return userInfo.showFmImg
+    },
+    loginOut() {
+      localStorage.removeItem('userInfo')
+      this.$router.push('/login')
+    },
+
+    jumpLogin() {
+      this.$router.push('/login')
+    },
+    jumpRegister() {
+      this.$router.push('/register')
+    },
+  
   }
 }
 </script>
 
 <style lang="less" scoped>
- .el-header, .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-    line-height: 60px;
-  }
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-    line-height: 160px;
-  }
+.el{
+      margin-top: 70px;
+}
+.userInfo{
+      // background-color: #fff;
+    width: 80%;
+    position: relative;
+    color: black;
+    left: 11%;
+
+       margin-bottom: 17px;
+       height: 40px;
+       line-height: 40px;
+       display: flex;
+       font-size: 14px;
+       .left{
+         flex: 1;
+       }
+       .right{
+         flex: 1;
+         text-align: right;
+         padding-right: 10px;
+         .el-dropdown-link {
+      cursor: pointer;
+     color: #409EFF;
+         }
+        .el-icon-arrow-down {
+          font-size: 12px;
+           }
+         .pic{
+              height: 40px;
+              margin-right: 10px;
+              border-radius: 10px;
+              margin-top: 5px;
+         }
+         span{
+           cursor: pointer;
+           padding: 0 20px;
+         }
+
+       }
+     }
+  
    .bd{
       width: 100%;
       height: 800px;
-      background-color: skyblue;
+      // background-color: skyblue;
     }
     .tb-item-info-r{
       text-align: center;
@@ -87,7 +154,6 @@ export default {
     margin: 20px auto 0;
     height: 500px;
     width: 1140px;
-    background-color: pink;
     }
     .tb-item-info {
       width: 940px;
@@ -113,7 +179,7 @@ export default {
     padding: 0 20px 20px 0;
     width: 400px;
     height: 300px;
-    background-color: blue;
+    // background-color: blue;
 }
  .tb-title {
     padding: 20px 0 10px;

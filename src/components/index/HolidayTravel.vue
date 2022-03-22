@@ -2,13 +2,13 @@
   <div class="main-index">
     <!-- 主体 -->
     <div class="main-body-child">
-      <!-- @click="jumpcommvegDetail(item)" -->
-      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item">
-        <div class="left">
+       <!-- @click="jumpcommvegDetail(item)" -->
+      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item" @click="jumptravelDetail(item)" >
+        <div class="left" >
           <!-- getImgUrl(item) -->
-          <img :src="addbg">
+          <img :src="addbg" >
           <div class="price">
-            <span class="left">￥{{ item.price }}</span><span class="right">/次</span>
+            <span class="left">￥{{ item.price }}</span><span class="right">/人</span>
           </div>
         </div>
         <div class="right">
@@ -19,13 +19,12 @@
             {{ item.commodityDesc }}
           </div>
           <div class="tag-box">
-            <div class="do-time">
-              {{ item.dotime }}
-            </div>
+              <div class="do-time">
+            {{ item.dotime }}
           </div>
-          <!-- <div class="btn">
-            <img :src="addCart" @click="addCartVegetable(item)">
-          </div> -->
+          
+          </div>
+        
         </div>
       </div>
     </div>
@@ -34,7 +33,7 @@
 
 <script>
 export default {
-  name: 'HolidayTravel',
+  name: 'HousekeepingServices',
   data() {
     return {
       dataList: [
@@ -46,8 +45,6 @@ export default {
           preferentialRules: '满20减3'
         }
       ],
-      quan: require('@/assets/index/quan.png'),
-      addCart: require('@/assets/index/addCart.png'),
       addbg: require('@/assets/index/travel.jpg')
     }
   },
@@ -68,7 +65,7 @@ export default {
           this.$message.error('系统异常')
         }
       })
-    }
+    },
     // getImgUrl(item) {
     //   let host = 'http://localhost:8888'
     //   item.showFmImg = host + item.fmImg
@@ -80,6 +77,13 @@ export default {
     //    }})
     //   window.open(routerJump.href, '_blank')
     // }
+
+    jumptravelDetail(obj) {
+      let routerJump = this.$router.resolve({ path: '/ShowTravel',
+        query: { param: JSON.stringify(obj)
+        }})
+      window.open(routerJump.href, '_blank')
+    }
   }
 }
 </script>

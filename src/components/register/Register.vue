@@ -23,7 +23,7 @@
             <div class="loginBody">
               <div class="loginInput">
                 <div class="item loginUser">
-                  <input id="loginphone" v-model="loginForm.trueName" type="text" placeholder="请输入姓名名" autocomplete="off">
+                  <input id="loginphone" v-model="loginForm.trueName" type="text" placeholder="请输入真实姓名" autocomplete="off">
                 </div>
                 <div class="item loginUser">
                   <input id="loginphone" v-model="loginForm.phone" type="text" placeholder="请输入手机号" autocomplete="off">

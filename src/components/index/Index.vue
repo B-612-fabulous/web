@@ -4,7 +4,7 @@
     <div class="main-top">
       <div class="userInfo">
         <div class="letf">
-          客服电话&nbsp;:&nbsp;4009991762
+          客服电话&nbsp;:&nbsp;4001234567
         </div>
         <div v-if="!userInfo.id || userInfo.id === ''" class="right">
           <!-- <el-avatar :size="60" src="https://empty" @error="errorHandler">
@@ -13,10 +13,19 @@
           <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
         </div>
         <div v-else class="right">
-          <!-- <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="pic"> -->
           <img :src="getImgUrl(userInfo)"  class="pic" >
 
-          <span @click="jumpUserInfo">{{ userInfo.trueName }}</span>|<span @click="loginOut">退出</span>
+          <!-- <span @click="jumpUserInfo">{{ userInfo.trueName }}</span>| -->
+
+                <el-dropdown>
+                  <span class="el-dropdown-link" @click="jumpUserInfo">
+                    {{ userInfo.trueName }}<i class="el-icon-arrow-down el-icon--right"></i>
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item   @click.native="editperson">编辑个人资料</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+         <span @click="loginOut">退出</span>
         </div>
       </div>
       <div class="top-search">
@@ -81,6 +90,10 @@
       <div v-if="curNav == 6" class="main-body-box">
         <Announcement ref="announcement" />
       </div>
+    <div v-if="curNav == 4" class="main-body-box">
+        <HomePage ref="HomePage" />
+      </div>
+
     </div>
     <!-- 增加送菜 -->
     <el-dialog
@@ -149,6 +162,20 @@
         <el-button type="primary" @click="addHousekeepingServices">确 定</el-button>
       </span>
     </el-dialog>
+<!-- 编辑用户资料 -->
+    <el-dialog
+      v-if="showDateUser"
+      :visible.sync="showDateUser"
+      width="60%"
+      :before-close="handleClose"
+    >
+      <EditDate ref="updateUserByid" :user-tables="userTables" />
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showDateUser = false">取 消</el-button>
+        <el-button type="primary" @click="updateUserid">确 定</el-button>
+      </span>
+    </el-dialog>
 
 
 
@@ -167,6 +194,8 @@ import EditAnnouncement from '@/components/indextable/EditAnnouncement'
 import EditIdleZone from '@/components/indextable/EditIdleZone'
 import EdittHolidayTravel from '@/components/indextable/EdittHolidayTravel'
 import EditHousekeepingServices from '@/components/indextable/EditHousekeepingServices'
+import EditDate from '@/components/indextable/EditDate'
+import HomePage from '@/components/index/HomePage'
 export default {
   name: 'Index',
   components: {
@@ -179,7 +208,9 @@ export default {
     EditAnnouncement,
     EditIdleZone,
     EdittHolidayTravel,
-    EditHousekeepingServices
+    EditHousekeepingServices,
+    EditDate,
+    HomePage
   },
   data() {
     return {
@@ -214,14 +245,17 @@ export default {
       curNav: '1',
       bodyImg: require('@/assets/index/body.png'),
       userInfo: {},
+      userTables:{},
       showAddVegetables: false,
       showAnnouncement:false,
       showTravel:false,
       showHouse:false,
+      showDateUser:false,
       showIdleZone:false,
     }
   },
   created() {
+    
     let userInfo = localStorage.getItem('userInfo')
     if (userInfo) {
       this.userInfo = JSON.parse(userInfo)
@@ -243,12 +277,13 @@ export default {
       this.$router.push('/register')
     },
     jumpUserInfo() {
-
+    //  alert("11111")
     },
     loginOut() {
       localStorage.removeItem('userInfo')
       this.$router.push('/login')
     },
+
     addCommunityResources() {
       if (this.userInfo.id === 1) { // 管理员登录
         if (this.curNav === '1') { // 增加送菜的资源
@@ -288,7 +323,7 @@ export default {
       }
     },
 
-
+// 增加闲置用品
     addIdle(){
       if (this.userInfo.id) { // 
         if (this.curNav === '2') {
@@ -298,9 +333,44 @@ export default {
       } else { // 非管理员登录
 
       }
-
-  
     },
+
+    // 编辑资料
+    editperson(userInfo){
+      if (this.userInfo.id) {
+        this.userTables = this.userInfo
+        
+        this.userTables.pic='http://localhost:8888'+this.userTables.pic
+        console.log(this.userTables.pic);
+      // this.userTables.showpic=userInfo.showFmImg
+      // console.log(this.userTables.showpic);
+
+
+      this.showDateUser = true
+        
+      } else { // 非管理员登录
+
+      }
+    },
+    // updateDatauser(item) {
+    //   this.title = '修改信息'
+    //   this.userTables = item
+    //   this.showUser = true
+    // },
+    updateUserid(){
+      let param = this.$refs.updateUserByid.getParam()
+      this.$server.updateByid(param).then(res => {
+        if (res.state === 10000) {
+          this.$message.success('操作成功')
+          this.showDateUser = false
+        } else {
+          this.$message.error('系统异常')
+          console.log(res.state)
+        }
+      })
+
+    },
+
 // 增加菜
     addVegetables() {
       let param = this.$refs.addCommunityVegetables.getParam()
@@ -387,6 +457,7 @@ export default {
       this.showIdleZone=false
       this.showTravel=false
       this.showHouse=false
+      this.showDateUser=false
     }
   }
 }
@@ -420,6 +491,13 @@ export default {
          flex: 1;
          text-align: right;
          padding-right: 10px;
+         .el-dropdown-link {
+      cursor: pointer;
+     color: #409EFF;
+         }
+        .el-icon-arrow-down {
+          font-size: 12px;
+           }
          .pic{
               height: 40px;
               margin-right: 10px;
