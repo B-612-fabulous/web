@@ -456,7 +456,7 @@ export default {
 <style lang="less" scoped>
  .main-index{
    width: 100%;
-   height: 100%;
+   height: ~"calc(100% - 100px)";
    position: absolute;
    input{
       outline: none;
@@ -516,7 +516,7 @@ export default {
             display: -ms-inline-flexbox;
             display: inline-flex;
             cursor: pointer;
-            margin-top: 22px;
+            margin-top: 6px;
          }
        }
        .center{
@@ -647,8 +647,8 @@ export default {
    .main-body{
        background-size: 100%;
        background-repeat: no-repeat;
-       height: ~"calc(100% - 160px)";
-       margin-top: 62px;
+       height: ~"calc(100% - 260px)";
+       margin-top: 100px;
    }
  }
 </style>
