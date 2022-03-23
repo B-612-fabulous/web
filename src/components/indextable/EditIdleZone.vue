@@ -1,7 +1,6 @@
 <template>
   <div class="main-content">
     <el-form ref="form" label-width="80px">
-
       <el-form-item label="商品描述">
         <el-input v-model="idleZoneObj.commodityDesc" type="textarea" rows="3" placeholder="请输入商品描述" />
       </el-form-item>
@@ -21,8 +20,6 @@
           <i v-else class="el-icon-plus avatar-uploader-icon" />
         </el-upload>
       </el-form-item>
-   
-    
     </el-form>
   </div>
 </template>
@@ -45,7 +42,7 @@ export default {
         fmImg: '',
         commodityDesc: '',
         showFmImg: ''
-      },
+      }
     }
   },
   created() {
@@ -76,7 +73,7 @@ export default {
         this.idleZoneObj.id = this.idleZone.id
       }
       return this.idleZoneObj
-    },
+    }
   }
 }
 </script>

@@ -55,14 +55,14 @@ export default {
         phone: '',
         username: '',
         password: ''
-      },
+      }
     }
   },
   methods: {
     getforget() {
-      
+
       this.$server.updateByTruename(this.loginForm).then(res => {
-        console.log(res);
+        console.log(res)
         if (res.message === 'success') {
           // 请求成功
           this.$message.success('修改成功,请登录!')

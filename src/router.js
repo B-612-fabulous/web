@@ -115,8 +115,7 @@ export default new Router({
       path: '/HomePage',
       name: 'HomePage',
       component: HomePage
-    },
-
+    }
 
   ]
 })

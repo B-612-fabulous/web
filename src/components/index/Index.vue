@@ -13,19 +13,20 @@
           <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
         </div>
         <div v-else class="right">
-          <img :src="getImgUrl(userInfo)"  class="pic" >
-
-          <!-- <span @click="jumpUserInfo">{{ userInfo.trueName }}</span>| -->
-
-                <el-dropdown>
-                  <span class="el-dropdown-link" @click="jumpUserInfo">
-                    {{ userInfo.trueName }}<i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item   @click.native="editperson">编辑个人资料</el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
-         <span @click="loginOut">退出</span>
+          <img :src="cachePic" class="pic">
+          <el-dropdown style="position: relative;top: -16px;font-size: 18px;font-weight: 600;">
+            <span class="el-dropdown-link" @click="jumpUserInfo">
+              {{ userInfo.trueName }}<i class="el-icon-arrow-down el-icon--right" />
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="editperson">
+                编辑资料
+              </el-dropdown-item>
+              <el-dropdown-item @click.native="loginOut">
+                退出系统
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </div>
       <div class="top-search">
@@ -42,19 +43,19 @@
           </div>
         </div>
         <div class="right">
-          <button  v-if="curNav == 1" class="qz-btn" @click="addCommunityResources">
+          <button v-if="curNav == 1" class="qz-btn" @click="addCommunityResources">
             发布求助信息
           </button>
-          <button  v-if="curNav == 2" class="qz-btn" @click="addIdle">
+          <button v-if="curNav == 2" class="qz-btn" @click="addIdle">
             发布闲置信息
           </button>
-          <button  v-if="curNav == 6" class="qz-btn" @click="addAnnounce">
+          <button v-if="curNav == 6" class="qz-btn" @click="addAnnounce">
             发布公告
           </button>
-          <button  v-if="curNav == 3" class="qz-btn" @click="addTravel">
+          <button v-if="curNav == 3" class="qz-btn" @click="addTravel">
             发布出游信息
           </button>
-           <button  v-if="curNav == 5" class="qz-btn" @click="addHouse">
+          <button v-if="curNav == 5" class="qz-btn" @click="addHouse">
             发布家政信息
           </button>
         </div>
@@ -80,7 +81,7 @@
       </div>
       <!-- 假期出游 -->
       <div v-if="curNav == 3" class="main-body-box">
-        <HolidayTravel  ref="holidayTravel"/>
+        <HolidayTravel ref="holidayTravel" />
       </div>
       <!-- 家政服务 -->
       <div v-if="curNav == 5" class="main-body-box">
@@ -90,10 +91,9 @@
       <div v-if="curNav == 6" class="main-body-box">
         <Announcement ref="announcement" />
       </div>
-    <div v-if="curNav == 4" class="main-body-box">
+      <div v-if="curNav == 4" class="main-body-box">
         <HomePage ref="HomePage" />
       </div>
-
     </div>
     <!-- 增加送菜 -->
     <el-dialog
@@ -108,7 +108,7 @@
         <el-button type="primary" @click="addVegetables">确 定</el-button>
       </span>
     </el-dialog>
-<!-- 增加闲置用品 -->
+    <!-- 增加闲置用品 -->
     <el-dialog
       title="增加闲置商品"
       :visible.sync="showIdleZone"
@@ -122,7 +122,7 @@
       </span>
     </el-dialog>
 
- <!-- 增加公告 -->
+    <!-- 增加公告 -->
     <el-dialog
       title="增加公告"
       :visible.sync="showAnnouncement"
@@ -135,8 +135,8 @@
         <el-button type="primary" @click="addAnnouncetables">确 定</el-button>
       </span>
     </el-dialog>
- <!-- 增加假期信息 -->
-     <el-dialog
+    <!-- 增加假期信息 -->
+    <el-dialog
       title="增加假期出行"
       :visible.sync="showTravel"
       width="60%"
@@ -149,8 +149,8 @@
       </span>
     </el-dialog>
 
-     <!-- 增加家政服务信息 -->
-     <el-dialog
+    <!-- 增加家政服务信息 -->
+    <el-dialog
       title="增加公告"
       :visible.sync="showHouse"
       width="60%"
@@ -162,7 +162,7 @@
         <el-button type="primary" @click="addHousekeepingServices">确 定</el-button>
       </span>
     </el-dialog>
-<!-- 编辑用户资料 -->
+    <!-- 编辑用户资料 -->
     <el-dialog
       v-if="showDateUser"
       :visible.sync="showDateUser"
@@ -176,10 +176,6 @@
         <el-button type="primary" @click="updateUserid">确 定</el-button>
       </span>
     </el-dialog>
-
-
-
-
   </div>
 </template>
 
@@ -245,28 +241,25 @@ export default {
       curNav: '1',
       bodyImg: require('@/assets/index/body.png'),
       userInfo: {},
-      userTables:{},
+      userTables: {},
       showAddVegetables: false,
-      showAnnouncement:false,
-      showTravel:false,
-      showHouse:false,
-      showDateUser:false,
-      showIdleZone:false,
+      showAnnouncement: false,
+      showTravel: false,
+      showHouse: false,
+      showDateUser: false,
+      showIdleZone: false,
+      cachePic: ''
     }
   },
   created() {
-    
     let userInfo = localStorage.getItem('userInfo')
     if (userInfo) {
       this.userInfo = JSON.parse(userInfo)
+      let host = 'http://localhost:8888'
+      this.cachePic = host + this.userInfo.pic
     }
   },
   methods: {
-    getImgUrl(userInfo) {
-      let host = 'http://localhost:8888'
-      userInfo.showFmImg = host + userInfo.pic
-      return userInfo.showFmImg
-    },
     loadItemData(obj) {
       this.curNav = obj.id
     },
@@ -294,8 +287,8 @@ export default {
       }
     },
 
-    addAnnounce(){
-        if (this.userInfo.id === 1) { // 管理员登录
+    addAnnounce() {
+      if (this.userInfo.id === 1) { // 管理员登录
         if (this.curNav === '6') { // 增加送菜的资源
           this.showAnnouncement = true
         }
@@ -304,8 +297,8 @@ export default {
       }
     },
 
-    addTravel(){
-        if (this.userInfo.id ) { // 管理员登录
+    addTravel() {
+      if (this.userInfo.id) { // 管理员登录
         if (this.curNav === '3') { // 增加送菜的资源
           this.showTravel = true
         }
@@ -313,8 +306,8 @@ export default {
 
       }
     },
-    addHouse(){
-          if (this.userInfo.id) { // 管理员登录
+    addHouse() {
+      if (this.userInfo.id) { // 管理员登录
         if (this.curNav === '5') { // 增加送菜的资源
           this.showHouse = true
         }
@@ -323,9 +316,9 @@ export default {
       }
     },
 
-// 增加闲置用品
-    addIdle(){
-      if (this.userInfo.id) { // 
+    // 增加闲置用品
+    addIdle() {
+      if (this.userInfo.id) { //
         if (this.curNav === '2') {
           this.showAddVegetables = false
           this.showIdleZone = true
@@ -336,18 +329,11 @@ export default {
     },
 
     // 编辑资料
-    editperson(userInfo){
+    editperson(userInfo) {
       if (this.userInfo.id) {
         this.userTables = this.userInfo
-        
-        this.userTables.pic='http://localhost:8888'+this.userTables.pic
-        console.log(this.userTables.pic);
-      // this.userTables.showpic=userInfo.showFmImg
-      // console.log(this.userTables.showpic);
-
-
-      this.showDateUser = true
-        
+        this.userTables.pic = 'http://localhost:8888' + this.userTables.pic
+        this.showDateUser = true
       } else { // 非管理员登录
 
       }
@@ -357,11 +343,16 @@ export default {
     //   this.userTables = item
     //   this.showUser = true
     // },
-    updateUserid(){
+    updateUserid() {
       let param = this.$refs.updateUserByid.getParam()
       this.$server.updateByid(param).then(res => {
         if (res.state === 10000) {
           this.$message.success('操作成功')
+          // 拿到最新的地址更新session中的user;
+          this.userInfo.pic = param.pic
+          let host = 'http://localhost:8888'
+          this.cachePic = host + this.userInfo.pic
+          localStorage.setItem('userInfo', JSON.stringify(this.userInfo))
           this.showDateUser = false
         } else {
           this.$message.error('系统异常')
@@ -371,7 +362,7 @@ export default {
 
     },
 
-// 增加菜
+    // 增加菜
     addVegetables() {
       let param = this.$refs.addCommunityVegetables.getParam()
       param.createPeople = this.userInfo.id
@@ -385,11 +376,11 @@ export default {
         }
       })
     },
-    addIdleZone(){
+    addIdleZone() {
 
       let param = this.$refs.addIIdleZone.getParam()
       param.createPeople = this.userInfo.id
-      param.pic=this.userInfo.pic
+      param.pic = this.userInfo.pic
       this.$server.addIIdleZone(param).then(res => {
         if (res.state === 'success') { // 请求成功
           this.$message.success('操作成功')
@@ -401,63 +392,62 @@ export default {
       })
 
     },
-// 增加公告
-  addAnnouncetables(){
-    let param = this.$refs.addCommunityAnnounce.getParam()
+    // 增加公告
+    addAnnouncetables() {
+      let param = this.$refs.addCommunityAnnounce.getParam()
       param.createPeople = this.userInfo.id
       this.$server.addCommunityAnnounce(param).then(res => {
         if (res.state === 'success') { // 请求成功
-         this.showAnnouncement = false
+          this.showAnnouncement = false
           this.$message.success('操作成功')
           this.$refs.announcement.getCommunityAnnounceList()
-         
+
         } else {
           this.$message.error('系统异常')
         }
       })
 
-  },
-  // 增加假期游玩信息
-  addHolidaTtravel(){
-    let param = this.$refs.addHolidaTtravel.getParam()
+    },
+    // 增加假期游玩信息
+    addHolidaTtravel() {
+      let param = this.$refs.addHolidaTtravel.getParam()
       param.createPeople = this.userInfo.id
       this.$server.addHolidaTtravel(param).then(res => {
         if (res.state === 'success') { // 请求成功
-         this.showTravel = false
+          this.showTravel = false
           this.$message.success('操作成功')
           this.$refs.holidayTravel.getHolidaTtravelList()
-         
+
         } else {
           this.$message.error('系统异常')
         }
       })
 
-  },
-  // 添加家政服务
-  addHousekeepingServices(){
-    let param = this.$refs.addHousekeepingServices.getParam()
+    },
+    // 添加家政服务
+    addHousekeepingServices() {
+      let param = this.$refs.addHousekeepingServices.getParam()
       param.createPeople = this.userInfo.id
       this.$server.addHousekeepingServices(param).then(res => {
         if (res.state === 'success') { // 请求成功
-         this.showHouse = false
+          this.showHouse = false
           this.$message.success('操作成功')
           this.$refs.housekeepingServices.getHousekeepingServicesList()
-         
+
         } else {
           this.$message.error('系统异常')
         }
       })
 
-  },
-
+    },
 
     handleClose() {
       this.showAddVegetables = false
-      this.showAnnouncement=false
-      this.showIdleZone=false
-      this.showTravel=false
-      this.showHouse=false
-      this.showDateUser=false
+      this.showAnnouncement = false
+      this.showIdleZone = false
+      this.showTravel = false
+      this.showHouse = false
+      this.showDateUser = false
     }
   }
 }
@@ -479,34 +469,35 @@ export default {
      left: 10%;
      .userInfo{
        margin-bottom: 17px;
-       height: 40px;
-       line-height: 40px;
+       height: 60px;
+       line-height: 60px;
        display: flex;
        font-size: 14px;
        color: #8c8c8c;
        .left{
          flex: 1;
+         height: 60px;
+         line-height: 60px;
+         font-size: 16px;
        }
        .right{
          flex: 1;
          text-align: right;
-         padding-right: 10px;
+         height: 60px;
+         line-height: 60px;
          .el-dropdown-link {
-      cursor: pointer;
-     color: #409EFF;
+            cursor: pointer;
+            color: #409EFF;
          }
         .el-icon-arrow-down {
-          font-size: 12px;
-           }
+            font-size: 12px;
+          }
          .pic{
-              height: 40px;
+              height: 50px;
+              width: 50px;
               margin-right: 10px;
-              border-radius: 10px;
+              border-radius: 6px;
               margin-top: 5px;
-         }
-         span{
-           cursor: pointer;
-           padding: 0 20px;
          }
 
        }

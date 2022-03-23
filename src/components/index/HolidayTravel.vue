@@ -2,11 +2,11 @@
   <div class="main-index">
     <!-- 主体 -->
     <div class="main-body-child">
-       <!-- @click="jumpcommvegDetail(item)" -->
-      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item" @click="jumptravelDetail(item)" >
-        <div class="left" >
+      <!-- @click="jumpcommvegDetail(item)" -->
+      <div v-for="(item,index) in dataList" :key="index" class="main-body-child-item" @click="jumptravelDetail(item)">
+        <div class="left">
           <!-- getImgUrl(item) -->
-          <img :src="addbg" >
+          <img :src="addbg">
           <div class="price">
             <span class="left">￥{{ item.price }}</span><span class="right">/人</span>
           </div>
@@ -19,12 +19,10 @@
             {{ item.commodityDesc }}
           </div>
           <div class="tag-box">
-              <div class="do-time">
-            {{ item.dotime }}
+            <div class="do-time">
+              {{ item.dotime }}
+            </div>
           </div>
-          
-          </div>
-        
         </div>
       </div>
     </div>

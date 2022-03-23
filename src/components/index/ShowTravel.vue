@@ -1,8 +1,7 @@
 <template>
   <el-container>
-
     <div class="bd" :style="{ 'backgroundImage':'url('+ bodyImg +')'}">
-       <div class="userInfo" >
+      <div class="userInfo">
         <div class="letf">
           欢迎来到假期出游专区。
         </div>
@@ -10,13 +9,12 @@
           <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
         </div>
         <div v-else class="right">
-          <img :src="getImgUrll(userInfo)"  class="pic" >
-           <span>{{ userInfo.trueName }}</span>|
-         <span @click="loginOut">退出</span>
+          <img :src="getImgUrll(userInfo)" class="pic">
+          <span>{{ userInfo.trueName }}</span>|
+          <span @click="loginOut">退出</span>
         </div>
-        
       </div>
-      <div id="detail"  >
+      <div id="detail">
         <div class="tb-item-info tb-clear">
           <div class="tb-item-info-l">
             <img :src="addbg" class="imgt">
@@ -26,8 +24,8 @@
               <h3>{{ commvegtObj.title }}</h3>
             </div>
 
-           <div class="address">
-            <span>地点</span>:{{commvegtObj.address }}
+            <div class="address">
+              <span>地点</span>:{{ commvegtObj.address }}
             </div>
 
             <div class="price">
@@ -35,20 +33,21 @@
             </div>
 
             <div class="commodityDesc">
-             <span>景点描述</span>: {{ commvegtObj.commodityDesc }}
+              <span>景点描述</span>: {{ commvegtObj.commodityDesc }}
             </div>
 
             <div class="commodityDesc">
-             <span>时间</span>: {{ commvegtObj.dotime }}
+              <span>时间</span>: {{ commvegtObj.dotime }}
             </div>
 
-            <el-button type="success" round @click="addShoppingCart" class="el">加入购物车</el-button>
+            <el-button type="success" round class="el" @click="addShoppingCart">
+              加入购物车
+            </el-button>
           </div>
 
           <div class="phone">
-          <span>联系电话</span>:<span>{{ commvegtObj.phone }}</span>
+            <span>联系电话</span>:<span>{{ commvegtObj.phone }}</span>
           </div>
-
         </div>
       </div>
     </div>
@@ -104,10 +103,10 @@ export default {
     jumpRegister() {
       this.$router.push('/register')
     },
-    addShoppingCart(){
+    addShoppingCart() {
 
-    },
-  
+    }
+
   }
 }
 </script>
@@ -160,7 +159,7 @@ export default {
 
        }
      }
-  
+
    .bd{
       width: 100%;
       height: 800px;

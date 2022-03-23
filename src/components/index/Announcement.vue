@@ -26,7 +26,7 @@ export default {
     }
   },
   created() {
-    this.getCommunityAnnounceList();
+    this.getCommunityAnnounceList()
   },
   // mounted() {
   //   this.getCommunityAnnounceLists()

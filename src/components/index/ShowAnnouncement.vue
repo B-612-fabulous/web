@@ -1,21 +1,20 @@
 <template>
-<div class="main-top">
-  <div class="userInfo">
-        <div class="letf">
-          公告详情
-        </div>
-        <div v-if="!userInfo.id || userInfo.id === ''" class="right">
-          <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
-        </div>
-        <div v-else class="right">
-          <img :src="getImgUrl(userInfo)"  class="pic" >
-           <span>{{ userInfo.trueName }}</span>|
-         <span @click="loginOut">退出</span>
-        </div>
-        
+  <div class="main-top">
+    <div class="userInfo">
+      <div class="letf">
+        公告详情
       </div>
-      <div class="bgc" :style="{ 'backgroundImage':'url('+ bodyImg +')'}">
-        <h1 class="center">
+      <div v-if="!userInfo.id || userInfo.id === ''" class="right">
+        <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
+      </div>
+      <div v-else class="right">
+        <img :src="getImgUrl(userInfo)" class="pic">
+        <span>{{ userInfo.trueName }}</span>|
+        <span @click="loginOut">退出</span>
+      </div>
+    </div>
+    <div class="bgc" :style="{ 'backgroundImage':'url('+ bodyImg +')'}">
+      <h1 class="center">
         {{ annoucementObj.title }}
       </h1>
       <p>{{ annoucementObj.announcement }}</p>
@@ -23,18 +22,13 @@
       <div class="tim">
         {{ annoucementObj.createDate }}
       </div>
-       
+    </div>
 
-      </div>
-      
-
-       <el-container>
+    <el-container>
     <!-- <el-header>{{ annoucementObj.title }}</el-header> -->
     <!-- <el-main>{{ annoucementObj.announcement }}</el-main> -->
-      </el-container>
-      </div>
-      
-
+    </el-container>
+  </div>
 </template>
 
 <script>
@@ -48,7 +42,7 @@ export default {
       }],
       bodyImg: require('@/assets/index/body.png'),
       annoucementObj: {},
-      userInfo: {},
+      userInfo: {}
     }
   },
   created() {
@@ -60,9 +54,9 @@ export default {
     let param = this.$route.query.param
     let annoucementObj = JSON.parse(param)
     this.annoucementObj = annoucementObj
-    
+
   },
-  methods:{
+  methods: {
 
     getImgUrl(userInfo) {
       let host = 'http://localhost:8888'
@@ -79,7 +73,7 @@ export default {
     },
     jumpRegister() {
       this.$router.push('/register')
-    },
+    }
   }
 }
 </script>
@@ -139,6 +133,5 @@ p{
 
        }
      }
- 
-  
+
 </style>

@@ -1,8 +1,7 @@
 <template>
   <el-container>
-
     <div class="bd" :style="{ 'backgroundImage':'url('+ bodyImg +')'}">
-        <div class="userInfo" >
+      <div class="userInfo">
         <div class="letf">
           欢迎来到家政服务专区。
         </div>
@@ -10,11 +9,10 @@
           <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
         </div>
         <div v-else class="right">
-          <img :src="getImgUrll(userInfo)"  class="pic" >
-           <span>{{ userInfo.trueName }}</span>|
-         <span @click="loginOut">退出</span>
+          <img :src="getImgUrll(userInfo)" class="pic">
+          <span>{{ userInfo.trueName }}</span>|
+          <span @click="loginOut">退出</span>
         </div>
-        
       </div>
       <div id="detail">
         <div class="tb-item-info tb-clear">
@@ -23,18 +21,19 @@
           </div>
           <div class="tb-item-info-r">
             <div class="tb-title">
-             
-                  <img :src="getuserUrl(commvegtObj)" class="head-pic">
+              <img :src="getuserUrl(commvegtObj)" class="head-pic">
             </div>
             <div class="price">
-            <span>物品价格</span>:  {{ commvegtObj.price }}
+              <span>物品价格</span>:  {{ commvegtObj.price }}
             </div>
 
             <div class="rules">
               <span>物品描述</span>:{{ commvegtObj.commodityDesc }}
             </div>
 
-            <el-button type="success" round @click="addShoppingCart" class="el">加入购物车</el-button>
+            <el-button type="success" round class="el" @click="addShoppingCart">
+              加入购物车
+            </el-button>
 
             <!-- <div class="commodityDesc">
               {{ commvegtObj.preferentialRules }}
@@ -59,11 +58,11 @@ export default {
 
       },
       userInfo: {},
-      bodyImg: require('@/assets/index/body.png'),
+      bodyImg: require('@/assets/index/body.png')
     }
   },
   created() {
-     let userInfo = localStorage.getItem('userInfo')
+    let userInfo = localStorage.getItem('userInfo')
     if (userInfo) {
       this.userInfo = JSON.parse(userInfo)
     }
@@ -72,7 +71,7 @@ export default {
     this.commvegtObj = commvegtObj
   },
   methods: {
-     getImgUrll(userInfo) {
+    getImgUrll(userInfo) {
       let host = 'http://localhost:8888'
       userInfo.showFmImg = host + userInfo.pic
       return userInfo.showFmImg
@@ -98,9 +97,9 @@ export default {
     jumpRegister() {
       this.$router.push('/register')
     },
-    addShoppingCart(){
+    addShoppingCart() {
 
-    },
+    }
   }
 }
 </script>
@@ -160,7 +159,7 @@ export default {
   .el{
        margin-top: 100px;
     }
-  
+
    .bd{
       width: 100%;
       height: 800px;

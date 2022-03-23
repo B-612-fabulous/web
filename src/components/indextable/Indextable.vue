@@ -317,7 +317,7 @@
             </div>
           </el-tab-pane>
           <!-- 闲置专区 -->
-           <el-tab-pane label="闲置专区">
+          <el-tab-pane label="闲置专区">
             <div class="manger-box-body-right">
               <el-table
                 :data="IdleZonetableData"
@@ -345,7 +345,7 @@
                     <img :src="getImgUrl(scope.row)" style="width:80px;height:80px;">
                   </template>
                 </el-table-column>
-                 <el-table-column
+                <el-table-column
                   label="操作"
                   width="200"
                 >
@@ -358,7 +358,6 @@
                     </el-button>
                   </template>
                 </el-table-column>
-               
               </el-table>
             </div>
           </el-tab-pane>
@@ -406,7 +405,7 @@
       width="60%"
       :before-close="handleClose"
     >
-      <EditAnnouncement ref="updateCommunityAnnounce" :editAnnounceTables="editAnnounceTables" />
+      <EditAnnouncement ref="updateCommunityAnnounce" :edit-announce-tables="editAnnounceTables" />
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="showAnnouncement = false">取 消</el-button>
@@ -422,7 +421,7 @@
       width="60%"
       :before-close="handleClose"
     >
-      <EditHousekeepingServices ref="upadteIdHousekeepingServices" :houseTables="houseTables" />
+      <EditHousekeepingServices ref="upadteIdHousekeepingServices" :house-tables="houseTables" />
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="showHouse = false">取 消</el-button>
@@ -437,7 +436,7 @@
       width="60%"
       :before-close="handleClose"
     >
-      <EdittHolidayTravel ref="upadteIdHolidaTtravel" :travelTables="travelTables" />
+      <EdittHolidayTravel ref="upadteIdHolidaTtravel" :travel-tables="travelTables" />
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="showTravel = false">取 消</el-button>
@@ -445,21 +444,20 @@
       </span>
     </el-dialog>
     <!-- 闲置物品 -->
- <el-dialog
+    <el-dialog
       v-if="showIdleZone"
       :title="title"
       :visible.sync="showIdleZone"
       width="60%"
       :before-close="handleClose"
     >
-      <EditIdleZone ref="updateIdleZone" :idleZone="idleZone" />
+      <EditIdleZone ref="updateIdleZone" :idle-zone="idleZone" />
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="showIdleZone = false">取 消</el-button>
         <el-button type="primary" @click="updateIdleZone">确 定</el-button>
       </span>
     </el-dialog>
-
   </div>
 </template>
 
@@ -485,7 +483,7 @@ export default {
     return {
       tableData: [],
       userDate: [],
-      IdleZonetableData:[],
+      IdleZonetableData: [],
       announceDate: [],
       HouservicesData: [],
       HolidayData: [],
@@ -493,13 +491,13 @@ export default {
       showAddVegetables: false,
       showUser: false,
       showHouse: false,
-      showTravel:false,
-      showIdleZone:false,
+      showTravel: false,
+      showIdleZone: false,
       showAnnouncement: false,
       communityVegetables: {},
-      travelTables:{},
+      travelTables: {},
       userTables: {},
-      idleZone:{},
+      idleZone: {},
       houseTables: {},
       editAnnounceTables: {},
       title: '增加商品'
@@ -542,7 +540,7 @@ export default {
       })
     },
     // 获取闲置物品列表
-    getIdleZoneList(){
+    getIdleZoneList() {
       let param = {}
       this.$server.getIdleZoneList(param).then(res => {
         if (res.state === 'success') { // 请求成功
@@ -553,7 +551,6 @@ export default {
         }
       })
     },
-
 
     getCommunityAnnounceList() {
       let param = {}
@@ -639,8 +636,8 @@ export default {
       this.showUser = false
       this.showAnnouncement = false
       this.showHouse = false
-      this.showTravel=false
-      this.showIdleZone=false
+      this.showTravel = false
+      this.showIdleZone = false
     },
     getImgUrl(item) {
       let host = 'http://localhost:8888'
@@ -664,7 +661,7 @@ export default {
       })
     },
     // 删除闲置物品信息
-    deleteIdleZone(item){
+    deleteIdleZone(item) {
       let param = { id: item.id }
       this.$server.deleteIdleZone(param).then(res => {
         if (res.state === 10000) {
@@ -680,13 +677,13 @@ export default {
       this.communityVegetables = item
       this.showAddVegetables = true
     },
-    updateIdleZoneData(item){
+    updateIdleZoneData(item) {
       this.title = '修改闲置商品'
-      this.idleZone=item
-      this.showIdleZone=true
+      this.idleZone = item
+      this.showIdleZone = true
     },
 
-     updatetravelData(item) {
+    updatetravelData(item) {
       this.title = '修改出行信息'
       console.log(item)
       this.travelTables = item
@@ -748,7 +745,7 @@ export default {
     updateDatauser(item) {
       this.title = '修改信息'
       this.userTables = item
-      console.log(this.userTables);
+      console.log(this.userTables)
       this.showUser = true
     },
 
@@ -782,7 +779,7 @@ export default {
 
     },
     // 修改闲置物品
-     updateIdleZone() {
+    updateIdleZone() {
       let param = this.$refs.updateIdleZone.getParam()
       this.$server.updateIdleZone(param).then(res => {
         if (res.state === 10000) {
@@ -797,8 +794,6 @@ export default {
 
     },
 
-
-    
     updateAnnounce() {
       let param = this.$refs.updateCommunityAnnounce.getParam()
       this.$server.updateCommunityAnnounce(param).then(res => {
@@ -811,7 +806,7 @@ export default {
         }
       })
     },
-    upadteIdHousekeepingServices(){
+    upadteIdHousekeepingServices() {
       let param = this.$refs.upadteIdHousekeepingServices.getParam()
       this.$server.upadteIdHousekeepingServices(param).then(res => {
         if (res.state === 10000) {
@@ -823,7 +818,7 @@ export default {
         }
       })
     },
-     upadteIdHolidaTtravel(){
+    upadteIdHolidaTtravel() {
       let param = this.$refs.upadteIdHolidaTtravel.getParam()
       this.$server.upadteIdHolidaTtravel(param).then(res => {
         if (res.state === 10000) {

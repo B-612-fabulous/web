@@ -23,19 +23,19 @@ export default {
       }
     }
   },
-  
+
   data() {
     return {
       announceObj: {
-        title:' ',
-        announcement:' '
+        title: ' ',
+        announcement: ' '
       }
     }
   },
   created() {
-    if (this.editAnnounceTables&& this.editAnnounceTables.id) { // 修改
+    if (this.editAnnounceTables && this.editAnnounceTables.id) { // 修改
       this.announceObj = this.editAnnounceTables
-      console.log("0000"+this.announceObj);
+      console.log('0000' + this.announceObj)
     }
   },
   // created() {
@@ -49,10 +49,10 @@ export default {
     getParam() {
       if (this.editAnnounceTables && this.editAnnounceTables.id) { // 修改
         this.announceObj.id = this.editAnnounceTables.id
-        console.log("0000"+this.announceObj.id);
+        console.log('0000' + this.announceObj.id)
       }
       return this.announceObj
-    } ,
+    }
     // getParam() {
     //   if (this.usertables && this.usertables.id) { // 修改
     //     this.userObj.id = this.usertables.id

@@ -7,19 +7,18 @@
       <el-form-item label="联系电话">
         <el-input v-model="userObj.phone" placeholder="请输入联系电话" />
       </el-form-item>
-       <el-form-item label="出行地点">
+      <el-form-item label="出行地点">
         <el-input v-model="userObj.address" placeholder="请输入服务地点" />
       </el-form-item>
       <el-form-item label="出行价格">
         <el-input v-model="userObj.price" placeholder="请输入出行价格" />
       </el-form-item>
-        <el-form-item label="出行描述">
+      <el-form-item label="出行描述">
         <el-input v-model="userObj.commodityDesc" placeholder="请输入出行价格" />
       </el-form-item>
       <el-form-item label="时间">
         <el-input v-model="userObj.dotime" placeholder="请输入出行时间" />
       </el-form-item>
-     
     </el-form>
   </div>
 </template>
@@ -41,7 +40,7 @@ export default {
         title: '',
         phone: '',
         price: '',
-        commodityDesc:'',
+        commodityDesc: '',
         dotime: '',
         address: ''
       }
@@ -50,7 +49,7 @@ export default {
   created() {
     if (this.travelTables && this.travelTables.id) { // 修改
       this.userObj = this.travelTables
-      console.log("00000000"+this.userObj);
+      console.log('00000000' + this.userObj)
       // console.log("00000000"+this.userTables.id)
     }
   },
@@ -58,7 +57,7 @@ export default {
     getParam() {
       if (this.travelTables && this.travelTables.id) { // 修改
         this.userObj.id = this.travelTables.id
-        console.log("000011"+this.userObj.id);
+        console.log('000011' + this.userObj.id)
       }
       return this.userObj
     }

@@ -2,12 +2,11 @@
   <div class="main-index">
     <!-- 主体 -->
     <div class="main-body-child">
-        <el-carousel :interval="5000" arrow="always">
-          <el-carousel-item v-for="item in carouselImg" :key="item.src">
-            
-            <img :src="item"/>
-          </el-carousel-item>
-        </el-carousel>
+      <el-carousel :interval="5000" arrow="always">
+        <el-carousel-item v-for="item in carouselImg" :key="item.src">
+          <img :src="item">
+        </el-carousel-item>
+      </el-carousel>
     </div>
   </div>
 </template>
@@ -18,18 +17,17 @@ export default {
   data() {
     return {
       carouselImg: [
-        
-          require('../../assets/index/lbt1.jpeg'),
-          require('../../assets/index/lbt2.jpeg'),
-          require('../../assets/index/lbt3.jpeg'),
-        
-      ],
+
+        require('../../assets/index/lbt1.jpeg'),
+        require('../../assets/index/lbt2.jpeg'),
+        require('../../assets/index/lbt3.jpeg')
+
+      ]
     }
   },
-  
+
   methods: {
-   
-    
+
   }
 }
 </script>
@@ -42,11 +40,11 @@ export default {
     line-height: 300px;
     margin: 0;
   }
-  
+
   .el-carousel__item:nth-child(2n) {
     background-color: #99a9bf;
   }
-  
+
   .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
   }

@@ -81,7 +81,7 @@ export const server = {
   updateIdleZone(param) {
     return post(`/updateIdleZone`, param)
   },
-  
+
   addIIdleZone(param) {
     return post(`/addIIdleZone`, param)
   },
@@ -93,7 +93,6 @@ export const server = {
   },
   updateByTruename(param) {
     return post(`/updateByTruename`, param)
-  },
-
+  }
 
 }

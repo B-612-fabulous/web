@@ -1,8 +1,7 @@
 <template>
   <el-container>
-
     <div class="bd" :style="{ 'backgroundImage':'url('+ bodyImg +')'}">
-       <div class="userInfo" >
+      <div class="userInfo">
         <div class="letf">
           欢迎来到送菜专区。
         </div>
@@ -10,13 +9,12 @@
           <span @click="jumpLogin">登录</span>|<span @click="jumpRegister">注册</span>
         </div>
         <div v-else class="right">
-          <img :src="getImgUrll(userInfo)"  class="pic" >
-           <span>{{ userInfo.trueName }}</span>|
-         <span @click="loginOut">退出</span>
+          <img :src="getImgUrll(userInfo)" class="pic">
+          <span>{{ userInfo.trueName }}</span>|
+          <span @click="loginOut">退出</span>
         </div>
-        
       </div>
-      <div id="detail"  >
+      <div id="detail">
         <div class="tb-item-info tb-clear">
           <div class="tb-item-info-l">
             <img :src="getImgUrl(commvegtObj)" class="imgt">
@@ -26,7 +24,7 @@
               <h3>{{ commvegtObj.title }}</h3>
             </div>
             <div class="price">
-             <span>单价</span>: {{ commvegtObj.price }}
+              <span>单价</span>: {{ commvegtObj.price }}
             </div>
 
             <div class="rules">
@@ -34,9 +32,11 @@
             </div>
 
             <div class="commodityDesc">
-            <span>促销折扣</span>:{{ commvegtObj.preferentialRules }}
+              <span>促销折扣</span>:{{ commvegtObj.preferentialRules }}
             </div>
-             <el-button type="success" round @click="addShoppingCart" class="el">加入购物车</el-button>
+            <el-button type="success" round class="el" @click="addShoppingCart">
+              加入购物车
+            </el-button>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@ export default {
 
       },
       userInfo: {},
-      bodyImg: require('@/assets/index/body.png'),
+      bodyImg: require('@/assets/index/body.png')
     }
   },
   created() {
@@ -91,8 +91,8 @@ export default {
     },
     jumpRegister() {
       this.$router.push('/register')
-    },
-  
+    }
+
   }
 }
 </script>
@@ -140,7 +140,7 @@ export default {
 
        }
      }
-  
+
    .bd{
       width: 100%;
       height: 800px;

@@ -80,7 +80,7 @@ export default {
             this.$message.error('账号密码错误')
           }
         } else {
-          alert("账号密码错误")
+          alert('账号密码错误')
 
           this.$message.error('系统异常')
         }

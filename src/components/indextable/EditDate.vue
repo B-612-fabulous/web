@@ -1,7 +1,6 @@
 <template>
   <div class="main-content">
     <el-form ref="form" label-width="80px">
-      
       <!-- <el-form-item label="用户密码">
         <el-input v-model="userObj.passWord" placeholder="请输入密码" />
       </el-form-item> -->
@@ -13,7 +12,7 @@
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="userObj.showpic" :src="userObj.showpic" class="avatar">
+          <img v-if="cachePic !==''" :src="cachePic" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon" />
         </el-upload>
       </el-form-item>
@@ -51,14 +50,19 @@ export default {
         address: '',
         showpic: '',
         trueName: ''
-      }
+      },
+      cachePic: ''
     }
   },
   created() {
     if (this.userTables && this.userTables.id) { // 修改
       this.userObj = this.userTables
-      console.log('00000000' + this.userObj)
-      // console.log("00000000"+this.userTables.id)
+      let host = 'http://localhost:8888'
+      let userInfo = localStorage.getItem('userInfo')
+      if (userInfo) {
+        let userObj = JSON.parse(userInfo)
+        this.cachePic = host + userObj.pic
+      }
     }
   },
   methods: {
@@ -66,6 +70,7 @@ export default {
       let host = 'http://localhost:8888'
       this.userObj.pic = '/download/image?filePath=' + res.data
       this.userObj.showpic = host + '/download/image?filePath=' + res.data
+      this.cachePic = this.userObj.showpic
     },
     beforeAvatarUpload(file) {
       // const isJPG = file.type === 'image/jpeg'
@@ -82,7 +87,6 @@ export default {
     getParam() {
       if (this.userTables && this.userTables.id) { // 修改
         this.userObj.id = this.userTables.id
-        console.log('000011' + this.userObj.id)
       }
       return this.userObj
     }
