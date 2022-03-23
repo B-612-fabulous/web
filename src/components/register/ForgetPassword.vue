@@ -15,7 +15,7 @@
         <!-- 输入登录 开始 --><div id="loginWrapInput" class="loginWrap">
           <div class="loginTop">
             <div class="loginTypes">
-              账号密码注册
+              找回密码
             </div>
           </div>
           <div id="loginAccountPwd" class="loginModule">
@@ -34,7 +34,7 @@
                 <div class="item loginPwd">
                   <input id="loginPwd" v-model="loginForm.passWord" type="password" placeholder="请输入新密码" autocomplete="off">
                 </div>
-                <button class="loginBtn" @click="register">
+                <button class="loginBtn" @click="getforget">
                   确&nbsp;定
                 </button>
               </div>
@@ -48,7 +48,7 @@
 
 <script>
 export default {
-  name: 'Register',
+  name: 'ForgetPassword',
   data() {
     return {
       loginForm: {
@@ -59,13 +59,16 @@ export default {
     }
   },
   methods: {
-    register() {
-      this.$server.addUser(this.loginForm).then(res => {
-        if (res.state === 'success') { // 请求成功
-          this.$message.success('注册成功,请登录!')
+    getforget() {
+      
+      this.$server.updateByTruename(this.loginForm).then(res => {
+        console.log(res);
+        if (res.message === 'success') {
+          // 请求成功
+          this.$message.success('修改成功,请登录!')
           this.$router.push('/login')
         } else {
-          this.$message.error(res.data.msg)
+          this.$message.error('信息有误,请重试!')
         }
       })
     },

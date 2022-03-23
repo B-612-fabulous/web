@@ -33,7 +33,7 @@
               <el-table
                 :data="tableData"
                 border
-                height="700"
+                height="550"
                 style="width: 100%"
               >
                 <el-table-column
@@ -101,7 +101,7 @@
               <el-table
                 :data="userDate"
                 border
-                height="700"
+                height="550"
                 style="width: 100%"
               >
                 <el-table-column

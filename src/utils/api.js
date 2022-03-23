@@ -91,6 +91,9 @@ export const server = {
   addHousekeepingServices(param) {
     return post(`/addHousekeepingServices`, param)
   },
+  updateByTruename(param) {
+    return post(`/updateByTruename`, param)
+  },
 
 
 }
