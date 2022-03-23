@@ -30,7 +30,7 @@
                     <input id="loginPwd" v-model="loginForm.passWord" type="password" placeholder="请输入密码" autocomplete="off" value="">
                   </div>
                   <div class="forgetPwd">
-                    <a id="forget" href="">忘记密码</a>
+                    <a id="forget" @click="jumpForget">忘记密码</a>
                   </div>
                   <button class="loginBtn" @click="login">
                     登录
@@ -88,7 +88,11 @@ export default {
     },
     jumpRegister() {
       this.$router.push('/register')
+    },
+    jumpForget() {
+      this.$router.push('/ForgetPassword')
     }
+
   }
 }
 </script>

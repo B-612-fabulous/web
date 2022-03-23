@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/components/login/Login'
 import Index from '@/components/index/Index'
 import Register from '@/components/register/Register'
+import ForgetPassword from '@/components/register/ForgetPassword'
 import Indextable from '@/components/indextable/Indextable'
 import AddCommunityVegetables from '@/components/index/AddCommunityVegetables'
 import EditUser from '@/components/indextable/EditUser'
@@ -38,6 +39,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/ForgetPassword',
+      name: 'ForgetPassword',
+      component: ForgetPassword
     },
     {
       path: '/indextable',
