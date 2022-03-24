@@ -22,14 +22,22 @@
     <div class="manger-box-body">
       <div class="manger-box-body-left">
         <el-tabs tab-position="left">
-          <div class="opera-btn-box">
-            <el-button type="primary" @click="addVegetablesPop">
+          <!-- <div class="opera-btn-box"> -->
+
+            <!-- <el-button type="primary" @click="addVegetablesPop">
               新增商品
-            </el-button>
-          </div>
+            </el-button> -->
+          <!-- <button  v-if="label"=="社区送菜管理" class="qz-btn" @click="addIdle">
+            发布闲置信息
+          </button> -->
+
+          <!-- </div> -->
           <!-- 送菜管理 -->
           <el-tab-pane label="社区送菜管理">
             <div class="manger-box-body-right">
+              <el-button type="primary" @click="addVegetablesPop" class="opera-btn-box">
+              新增商品
+              </el-button>
               <el-table
                 :data="tableData"
                 border
@@ -170,6 +178,9 @@
           <!-- 家政服务 -->
           <el-tab-pane label="家政服务">
             <div class="manger-box-body-right">
+               <el-button type="primary" @click="addHouse" class="opera-btn-box">
+              新增家政服务
+              </el-button>
               <el-table
                 :data="HouservicesData"
                 border
@@ -222,6 +233,9 @@
 
           <el-tab-pane label="假期出行">
             <div class="manger-box-body-right">
+               <el-button type="primary" @click="addTravel" class="opera-btn-box">
+              新增出行
+              </el-button>
               <el-table
                 :data="HolidayData"
                 border
@@ -278,6 +292,9 @@
           <!-- 公告管理 -->
           <el-tab-pane label="公告管理">
             <div class="manger-box-body-right">
+              <el-button type="primary" @click="addAnnounce" class="opera-btn-box">
+              新增公告
+              </el-button>
               <el-table
                 :data="announceDate"
                 border
@@ -319,6 +336,9 @@
           <!-- 闲置专区 -->
           <el-tab-pane label="闲置专区">
             <div class="manger-box-body-right">
+               <el-button type="primary" @click="addIdle" class="opera-btn-box">
+              新增闲置
+              </el-button>
               <el-table
                 :data="IdleZonetableData"
                 border
@@ -631,6 +651,30 @@ export default {
       this.title = '增加商品'
       this.showAddVegetables = true
     },
+    addAnnounce(){
+      this.title = '增加公告'
+      this.showAnnouncement = true
+      
+    },
+    addIdle(){
+      this.title = '增加闲置物品'
+      this.showIdleZone = true
+    },
+    addTravel(){
+    
+    this.title='增加出行'
+    this.showTravel = true
+      
+    },
+    addHouse(){
+       
+      this.title = '增加家政服务' 
+      this.showHouse = true
+     
+
+
+    },
+
     handleClose() {
       this.showAddVegetables = false
       this.showUser = false
@@ -781,7 +825,8 @@ export default {
     // 修改闲置物品
     updateIdleZone() {
       let param = this.$refs.updateIdleZone.getParam()
-      this.$server.updateIdleZone(param).then(res => {
+      if(param.id){
+        this.$server.updateIdleZone(param).then(res => {
         if (res.state === 10000) {
           this.$message.success('操作成功')
           this.getIdleZoneList()
@@ -791,12 +836,28 @@ export default {
           console.log(res.state)
         }
       })
+      } else{
+      param.createPeople = this.userInfo.id
+      param.pic=this.userInfo.pic
+      this.$server.addIIdleZone(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+          this.$message.success('操作成功')
+          this.getIdleZoneList()
+          this.showIdleZone = false
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+
+      }
+      
 
     },
 
     updateAnnounce() {
       let param = this.$refs.updateCommunityAnnounce.getParam()
-      this.$server.updateCommunityAnnounce(param).then(res => {
+      if(param.id){
+        this.$server.updateCommunityAnnounce(param).then(res => {
         if (res.state === 10000) {
           this.$message.success('操作成功')
           this.getCommunityAnnounceList()
@@ -805,10 +866,27 @@ export default {
           this.$message.error('系统异常')
         }
       })
+      }
+      else{
+        this.$server.addCommunityAnnounce(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+         this.showAnnouncement = false
+          this.$message.success('操作成功')
+          this.$refs.announcement.getCommunityAnnounceList()
+         
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+
+      }
+      
+
     },
-    upadteIdHousekeepingServices() {
+    upadteIdHousekeepingServices() { 
       let param = this.$refs.upadteIdHousekeepingServices.getParam()
-      this.$server.upadteIdHousekeepingServices(param).then(res => {
+      if(param.id){
+        this.$server.upadteIdHousekeepingServices(param).then(res => {
         if (res.state === 10000) {
           this.$message.success('操作成功')
           this.getHousekeepingServicesList()
@@ -817,10 +895,28 @@ export default {
           this.$message.error('系统异常')
         }
       })
+      }
+      else{
+      this.$server.addHousekeepingServices(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+         this.showHouse = false
+          this.$message.success('操作成功')
+          this.getHousekeepingServicesList()
+         
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+
+      }
+    
     },
+
+
     upadteIdHolidaTtravel() {
       let param = this.$refs.upadteIdHolidaTtravel.getParam()
-      this.$server.upadteIdHolidaTtravel(param).then(res => {
+      if(param.id){
+        this.$server.upadteIdHolidaTtravel(param).then(res => {
         if (res.state === 10000) {
           this.$message.success('操作成功')
           this.getHolidaTtravelList()
@@ -829,6 +925,19 @@ export default {
           this.$message.error('系统异常')
         }
       })
+      }
+      else{
+        this.$server.addHolidaTtravel(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+         this.showTravel = false
+          this.$message.success('操作成功')
+          this.getHolidaTtravelList()
+         
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+      }
     }
 
   }
@@ -892,11 +1001,14 @@ export default {
           position: relative;
           height: 100%;
           .opera-btn-box{
-            width: 100%;
-            text-align: right;
-            height: 60px;
-            line-height: 60px;
-            padding-right: 20px;
+              margin-left: 1280px;
+              margin-bottom: 10px;
+              margin-top: 10px;
+            // width: 100%;
+            // text-align: right;
+            // height: 60px;
+            // line-height: 60px;
+            // padding-right: 20px;
           }
           .manger-box-body-right{
             overflow: auto;

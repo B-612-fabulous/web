@@ -52,12 +52,6 @@
           <button v-if="curNav == 6" class="qz-btn" @click="addAnnounce">
             发布公告
           </button>
-          <button v-if="curNav == 3" class="qz-btn" @click="addTravel">
-            发布出游信息
-          </button>
-          <button v-if="curNav == 5" class="qz-btn" @click="addHouse">
-            发布家政信息
-          </button>
         </div>
       </div>
       <div class="top-nav">
@@ -133,33 +127,6 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="showAnnouncement = false">取 消</el-button>
         <el-button type="primary" @click="addAnnouncetables">确 定</el-button>
-      </span>
-    </el-dialog>
-    <!-- 增加假期信息 -->
-    <el-dialog
-      title="增加假期出行"
-      :visible.sync="showTravel"
-      width="60%"
-      :before-close="handleClose"
-    >
-      <EdittHolidayTravel ref="addHolidaTtravel" />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="showTravel = false">取 消</el-button>
-        <el-button type="primary" @click="addHolidaTtravel">确 定</el-button>
-      </span>
-    </el-dialog>
-
-    <!-- 增加家政服务信息 -->
-    <el-dialog
-      title="增加公告"
-      :visible.sync="showHouse"
-      width="60%"
-      :before-close="handleClose"
-    >
-      <EditHousekeepingServices ref="addHousekeepingServices" />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="showHouse = false">取 消</el-button>
-        <el-button type="primary" @click="addHousekeepingServices">确 定</el-button>
       </span>
     </el-dialog>
     <!-- 编辑用户资料 -->
@@ -296,25 +263,7 @@ export default {
 
       }
     },
-
-    addTravel() {
-      if (this.userInfo.id) { // 管理员登录
-        if (this.curNav === '3') { // 增加送菜的资源
-          this.showTravel = true
-        }
-      } else { // 非管理员登录
-
-      }
-    },
-    addHouse() {
-      if (this.userInfo.id) { // 管理员登录
-        if (this.curNav === '5') { // 增加送菜的资源
-          this.showHouse = true
-        }
-      } else { // 非管理员登录
-
-      }
-    },
+    
 
     // 增加闲置用品
     addIdle() {
@@ -408,38 +357,7 @@ export default {
       })
 
     },
-    // 增加假期游玩信息
-    addHolidaTtravel() {
-      let param = this.$refs.addHolidaTtravel.getParam()
-      param.createPeople = this.userInfo.id
-      this.$server.addHolidaTtravel(param).then(res => {
-        if (res.state === 'success') { // 请求成功
-          this.showTravel = false
-          this.$message.success('操作成功')
-          this.$refs.holidayTravel.getHolidaTtravelList()
-
-        } else {
-          this.$message.error('系统异常')
-        }
-      })
-
-    },
-    // 添加家政服务
-    addHousekeepingServices() {
-      let param = this.$refs.addHousekeepingServices.getParam()
-      param.createPeople = this.userInfo.id
-      this.$server.addHousekeepingServices(param).then(res => {
-        if (res.state === 'success') { // 请求成功
-          this.showHouse = false
-          this.$message.success('操作成功')
-          this.$refs.housekeepingServices.getHousekeepingServicesList()
-
-        } else {
-          this.$message.error('系统异常')
-        }
-      })
-
-    },
+  
 
     handleClose() {
       this.showAddVegetables = false
@@ -516,7 +434,7 @@ export default {
             display: -ms-inline-flexbox;
             display: inline-flex;
             cursor: pointer;
-            margin-top: 6px;
+            margin-top: -6px;
          }
        }
        .center{
