@@ -14,7 +14,10 @@
             <div class="bak_tit">
               社区众包后台管理系统
             </div>
-            <span @click="jumpUserInfo">{{ userInfo.trueName }}</span>|<span @click="loginOut">退出</span>
+
+            <span @click="jumpUserInfo">{{ userInfo.trueName }}</span>|
+            <span @click="goindex">进入首页</span>|<span @click="loginOut">退出</span>
+
           </div>
         </div>
       </div>
@@ -171,10 +174,6 @@
               </el-table>
             </div>
           </el-tab-pane>
-
-          <el-tab-pane label="定时任务补偿">
-            定时任务补偿
-          </el-tab-pane>
           <!-- 家政服务 -->
           <el-tab-pane label="家政服务">
             <div class="manger-box-body-right">
@@ -310,7 +309,10 @@
                 <el-table-column
                   prop="announcement"
                   label="内容"
-                  width="280"
+                  width="180"
+                  height="69"
+                
+                  
                 />
                 <el-table-column
                   prop="createDate"
@@ -621,6 +623,10 @@ export default {
       localStorage.removeItem('userInfo')
       this.$router.push('/login')
     },
+    goindex(){
+
+      this.$router.push('/index')
+    },
     addVegetables() {
       let param = this.$refs.addCommunityVegetables.getParam()
       param.createPeople = this.userInfo.id
@@ -850,8 +856,6 @@ export default {
       })
 
       }
-      
-
     },
 
     updateAnnounce() {
@@ -944,6 +948,14 @@ export default {
 }
 </script>
 <style scoped lang="less">
+.cell2{
+      overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+}
 .manager-box{
   position: absolute;
   width: 100%;

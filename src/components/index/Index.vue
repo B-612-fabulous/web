@@ -52,6 +52,9 @@
           <button v-if="curNav == 6" class="qz-btn" @click="addAnnounce">
             发布公告
           </button>
+           <button v-if="curNav == 4" v-show="this.userInfo.id === 1" class="qz-btn" @click="goindextable">
+            后台管理
+          </button>
         </div>
       </div>
       <div class="top-nav">
@@ -85,6 +88,7 @@
       <div v-if="curNav == 6" class="main-body-box">
         <Announcement ref="announcement" />
       </div>
+      <!-- 首页 -->
       <div v-if="curNav == 4" class="main-body-box">
         <HomePage ref="HomePage" />
       </div>
@@ -180,6 +184,10 @@ export default {
       logoImg: require('@/assets/index/logo1.png'),
       navData: [
         {
+          name: '首页',
+          id: '4'
+        },
+        {
           name: '送菜上门',
           id: '1'
         },
@@ -191,10 +199,7 @@ export default {
           name: '假期出游',
           id: '3'
         },
-        {
-          name: '首页',
-          id: '4'
-        },
+        
         {
           name: '家政服务',
           id: '5'
@@ -205,7 +210,7 @@ export default {
         }
 
       ],
-      curNav: '1',
+      curNav: '4',
       bodyImg: require('@/assets/index/body.png'),
       userInfo: {},
       userTables: {},
@@ -262,6 +267,15 @@ export default {
       } else { // 非管理员登录
 
       }
+    },
+    goindextable(){
+      if (this.userInfo.id === 1) { // 管理员登录
+        this.$router.push('/indextable')
+      } else { // 非管理员登录
+
+        alert("meijinqu ")
+      }
+
     },
     
 
