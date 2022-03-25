@@ -33,15 +33,15 @@
         <div class="left">
           <img :src="logoImg" class="logo">
         </div>
-        <div class="center">
-          <div class="search-input">
-            <input type="text" class="input-box" placeholder="请输入求助关键词">
-            <button class="search-input-btn">
+        <!-- <div class="center"> -->
+          <!-- <div class="search-input"> -->
+            <!-- <input type="text" class="input-box" placeholder="请输入求助关键词" v-model="keyword"> -->
+            <!-- <button class="search-input-btn">
               搜寻求助
               <span class="hot">HOT</span>
-            </button>
-          </div>
-        </div>
+            </button> -->
+          <!-- </div> -->
+        <!-- </div> -->
         <div class="right">
           <button v-if="curNav == 1" class="qz-btn" @click="addCommunityResources">
             发布求助信息
@@ -182,6 +182,7 @@ export default {
   data() {
     return {
       logoImg: require('@/assets/index/logo1.png'),
+      keyword:'',//搜索关键词
       navData: [
         {
           name: '首页',
@@ -550,6 +551,7 @@ export default {
               position: relative;
               border-radius: 24px;
               border: none;
+              margin-left: 893px;
          }
        }
      }

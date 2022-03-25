@@ -18,6 +18,7 @@ import EditIdleZone from '@/components/indextable/EditIdleZone'
 import ShowTravel from '@/components/index/ShowTravel'
 import ShowHouse from '@/components/index/ShowHouse'
 import HomePage from '@/components/index/HomePage'
+import Test from '@/components/indextable/Test'
 // 组件模块
 
 Vue.use(Router)
@@ -25,6 +26,11 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/Test',
+      name: 'Test',
+      component: Test
+    },
     {
       path: '/index',
       name: 'Index',
