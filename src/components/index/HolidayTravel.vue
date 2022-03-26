@@ -1,11 +1,11 @@
 <template>
   <div class="main-index">
-     <input type="text" class="input-box" placeholder="请输入求助关键词" v-model="keyword">
-     <!-- <el-button class="searchbtn" @click="search">搜索</el-button> -->
-     <button class="search-input-btn" @click="search" >
-              搜寻求助
-              <span class="hot">HOT</span>
-            </button>
+    <input v-model="keyword" type="text" class="input-box" placeholder="请输入求助关键词">
+    <!-- <el-button class="searchbtn" @click="search">搜索</el-button> -->
+    <button class="search-input-btn" @click="search">
+      搜寻求助
+      <span class="hot">HOT</span>
+    </button>
     <!-- 主体 -->
     <div class="main-body-child">
       <!-- @click="jumpcommvegDetail(item)" -->
@@ -50,7 +50,7 @@ export default {
         }
       ],
       addbg: require('@/assets/index/travel.jpg'),
-      addlist:''
+      addlist: ''
     }
   },
   created() {
@@ -65,7 +65,7 @@ export default {
       this.$server.getHolidaTtravelList(param).then(res => {
         if (res.state === 'success') { // 请求成功
           this.dataList = res.data
-          this.addlist=this.dataList
+          this.addlist = this.dataList
           this.showAddVegetables = false
         } else {
           this.$message.error('系统异常')
@@ -90,18 +90,18 @@ export default {
         }})
       window.open(routerJump.href, '_blank')
     },
-    search(){
-   var keyword = this.keyword;
-   if (keyword) {
-           this.addlist =  this.dataList.filter(function(dataList) {
-              return Object.keys(dataList).some(function(key) {
-                   return String(dataList[key]).toLowerCase().indexOf(keyword) > -1
-               })
-           })
-   }else{
-       this.addlist =  this.dataList;
-                }
-            },
+    search() {
+      var keyword = this.keyword
+      if (keyword) {
+        this.addlist = this.dataList.filter(function(dataList) {
+          return Object.keys(dataList).some(function(key) {
+            return String(dataList[key]).toLowerCase().indexOf(keyword) > -1
+          })
+        })
+      } else {
+        this.addlist = this.dataList
+      }
+    }
   }
 }
 </script>
@@ -170,7 +170,7 @@ export default {
     padding: 0 15px;
     font-size: 14px;
     border-top-left-radius: 24px;
-    border-bottom-left-radius: 24px;             
+    border-bottom-left-radius: 24px;
 
 }
  .main-index{

@@ -1,12 +1,12 @@
 <template>
   <div class="main-index">
-     <!-- 主体 -->
-     <input type="text" class="input-box" placeholder="请输入求助关键词" v-model="keyword">
-     <!-- <el-button class="searchbtn" @click="search">搜索</el-button> -->
-     <button class="search-input-btn" @click="search" >
-              搜寻求助
-              <span class="hot">HOT</span>
-            </button>
+    <!-- 主体 -->
+    <input v-model="keyword" type="text" class="input-box" placeholder="请输入求助关键词">
+    <!-- <el-button class="searchbtn" @click="search">搜索</el-button> -->
+    <button class="search-input-btn" @click="search">
+      搜寻求助
+      <span class="hot">HOT</span>
+    </button>
     <!-- 主体 -->
     <div class="main-body-child">
       <!-- @click="jumpcommvegDetail(item)" -->
@@ -23,11 +23,11 @@
             {{ item.title }}
           </div>
           <div class="text-desc">
-           <span>服务地点</span>: {{ item.address }}
+            <span>服务地点</span>: {{ item.address }}
           </div>
           <div class="tag-box">
             <div class="do-time">
-             <span>服务时间</span>: {{ item.dotime }}
+              <span>服务时间</span>: {{ item.dotime }}
             </div>
           </div>
           <!-- <div class="btn">
@@ -53,11 +53,11 @@ export default {
           preferentialRules: '满20减3'
         }
       ],
-      
+
       quan: require('@/assets/index/quan.png'),
       addCart: require('@/assets/index/addCart.png'),
       addbg: require('@/assets/index/house.jpg'),
-      addlist:''
+      addlist: ''
     }
   },
   created() {
@@ -72,27 +72,27 @@ export default {
       this.$server.getHousekeepingServicesList(param).then(res => {
         if (res.state === 'success') { // 请求成功
           this.dataList = res.data
-          this.addlist=this.dataList
+          this.addlist = this.dataList
           this.showAddVegetables = false
         } else {
           this.$message.error('系统异常')
         }
       })
     },
-     search(){
-                //搜索
-                alert("faff")
-                var keyword = this.keyword;
-                if (keyword) {
-                        this.addlist =  this.dataList.filter(function(dataList) {
-                            return Object.keys(dataList).some(function(key) {
-                                return String(dataList[key]).toLowerCase().indexOf(keyword) > -1
-                            })
-                        })
-                }else{
-                    this.addlist =  this.dataList;
-                }
-            },
+    search() {
+      // 搜索
+      alert('faff')
+      var keyword = this.keyword
+      if (keyword) {
+        this.addlist = this.dataList.filter(function(dataList) {
+          return Object.keys(dataList).some(function(key) {
+            return String(dataList[key]).toLowerCase().indexOf(keyword) > -1
+          })
+        })
+      } else {
+        this.addlist = this.dataList
+      }
+    },
     jumpHouseDetail(obj) {
       let routerJump = this.$router.resolve({ path: '/ShowHouse',
         query: { param: JSON.stringify(obj)
@@ -167,7 +167,7 @@ export default {
     padding: 0 15px;
     font-size: 14px;
     border-top-left-radius: 24px;
-    border-bottom-left-radius: 24px;             
+    border-bottom-left-radius: 24px;
 
 }
  .main-index{

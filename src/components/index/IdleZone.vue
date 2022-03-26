@@ -1,12 +1,11 @@
 <template>
-
   <div class="main-index">
-    <input type="text" class="input-box" placeholder="请输入求助关键词" v-model="keyword">
-     <!-- <el-button class="searchbtn" @click="search">搜索</el-button> -->
-     <button class="search-input-btn" @click="search" >
-              搜寻求助
-              <span class="hot">HOT</span>
-            </button>
+    <input v-model="keyword" type="text" class="input-box" placeholder="请输入求助关键词">
+    <!-- <el-button class="searchbtn" @click="search">搜索</el-button> -->
+    <button class="search-input-btn" @click="search">
+      搜寻求助
+      <span class="hot">HOT</span>
+    </button>
     <!-- 主体 -->
     <div class="main-body-child">
       <div v-for="(item,index) in addlist" :key="index" class="main-body-child-item" @click="jumpidleDetail(item)">
@@ -21,7 +20,7 @@
             <div class="head-pic">
               <img :src="getuserUrl(item)">
             </div>
-            
+
             <div class="price">
               <span>￥</span>{{ item.price }}
             </div>
@@ -45,10 +44,10 @@ export default {
           preferentialRules: '满20减3',
           pic: ''
 
-        },  
+        }
       ],
-      addlist:''
-      
+      addlist: ''
+
     }
   },
   created() {
@@ -83,25 +82,25 @@ export default {
       this.$server.getIdleZoneList(param).then(res => {
         if (res.state === 'success') { // 请求成功
           this.dataList = res.data
-          this.addlist=this.dataList
+          this.addlist = this.dataList
           // this.showAddVegetables = false
         } else {
           this.$message.error('系统异常')
         }
       })
     },
-     search(){
-   var keyword = this.keyword;
-   if (keyword) {
-           this.addlist =  this.dataList.filter(function(dataList) {
-              return Object.keys(dataList).some(function(key) {
-                   return String(dataList[key]).toLowerCase().indexOf(keyword) > -1
-               })
-           })
-   }else{
-       this.addlist =  this.dataList;
-                }
-            },
+    search() {
+      var keyword = this.keyword
+      if (keyword) {
+        this.addlist = this.dataList.filter(function(dataList) {
+          return Object.keys(dataList).some(function(key) {
+            return String(dataList[key]).toLowerCase().indexOf(keyword) > -1
+          })
+        })
+      } else {
+        this.addlist = this.dataList
+      }
+    },
     getImgUrl(item) {
       let host = 'http://localhost:8888'
       item.showFmImg = host + item.fmImg
@@ -187,7 +186,7 @@ export default {
     padding: 0 15px;
     font-size: 14px;
     border-top-left-radius: 24px;
-    border-bottom-left-radius: 24px;             
+    border-bottom-left-radius: 24px;
 
 }
  .main-index{

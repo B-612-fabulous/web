@@ -34,25 +34,25 @@
           <img :src="logoImg" class="logo">
         </div>
         <!-- <div class="center"> -->
-          <!-- <div class="search-input"> -->
-            <!-- <input type="text" class="input-box" placeholder="请输入求助关键词" v-model="keyword"> -->
-            <!-- <button class="search-input-btn">
+        <!-- <div class="search-input"> -->
+        <!-- <input type="text" class="input-box" placeholder="请输入求助关键词" v-model="keyword"> -->
+        <!-- <button class="search-input-btn">
               搜寻求助
               <span class="hot">HOT</span>
             </button> -->
-          <!-- </div> -->
+        <!-- </div> -->
         <!-- </div> -->
         <div class="right">
-          <button v-if="curNav == 1" class="qz-btn" @click="addCommunityResources">
+          <!-- <button v-if="curNav == 1" class="qz-btn" @click="addCommunityResources">
             发布求助信息
-          </button>
+          </button> -->
           <button v-if="curNav == 2" class="qz-btn" @click="addIdle">
             发布闲置信息
           </button>
           <button v-if="curNav == 6" class="qz-btn" @click="addAnnounce">
             发布公告
           </button>
-           <button v-if="curNav == 4" v-show="this.userInfo.id === 1" class="qz-btn" @click="goindextable">
+          <button v-if="curNav == 4" v-show="this.userInfo.id === 1" class="qz-btn" @click="goindextable">
             后台管理
           </button>
         </div>
@@ -174,15 +174,15 @@ export default {
     HousekeepingServices,
     EditAnnouncement,
     EditIdleZone,
-    EdittHolidayTravel,
-    EditHousekeepingServices,
+    // EdittHolidayTravel,
+    // EditHousekeepingServices,
     EditDate,
     HomePage
   },
   data() {
     return {
       logoImg: require('@/assets/index/logo1.png'),
-      keyword:'',//搜索关键词
+      keyword: '', // 搜索关键词
       navData: [
         {
           name: '首页',
@@ -200,7 +200,7 @@ export default {
           name: '假期出游',
           id: '3'
         },
-        
+
         {
           name: '家政服务',
           id: '5'
@@ -269,16 +269,15 @@ export default {
 
       }
     },
-    goindextable(){
+    goindextable() {
       if (this.userInfo.id === 1) { // 管理员登录
         this.$router.push('/indextable')
       } else { // 非管理员登录
 
-        alert("meijinqu ")
+        alert('meijinqu ')
       }
 
     },
-    
 
     // 增加闲置用品
     addIdle() {
@@ -372,7 +371,6 @@ export default {
       })
 
     },
-  
 
     handleClose() {
       this.showAddVegetables = false

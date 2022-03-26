@@ -1,12 +1,12 @@
 <template>
   <div class="main-index">
     <!-- 主体 -->
-     <input type="text" class="input-box" placeholder="请输入求助关键词" v-model="keyword">
-     <!-- <el-button class="searchbtn" @click="search">搜索</el-button> -->
-     <button class="search-input-btn" @click="search" >
-              搜寻求助
-              <span class="hot">HOT</span>
-            </button>
+    <input v-model="keyword" type="text" class="input-box" placeholder="请输入求助关键词">
+    <!-- <el-button class="searchbtn" @click="search">搜索</el-button> -->
+    <button class="search-input-btn" @click="search">
+      搜寻求助
+      <span class="hot">HOT</span>
+    </button>
     <div class="main-body-child">
       <div v-for="(item,index) in agentlisttwo" :key="index" class="main-body-child-item" @click="jumpAnnouncementDetail(item)">
         <div class="tit">
@@ -25,8 +25,8 @@ export default {
   name: 'Announcement',
   data() {
     return {
-      keyword:'',
-      agentlisttwo:'',
+      keyword: '',
+      agentlisttwo: '',
       dataList: [{
         title: '',
         createDate: ''
@@ -43,10 +43,10 @@ export default {
       this.$server.getCommunityAnnounceList(param).then(res => {
         if (res.state === 'success') { // 请求成功
           this.dataList = res.data
-          this.agentlisttwo=this.dataList
-          console.log(this.dataList);
+          this.agentlisttwo = this.dataList
+          console.log(this.dataList)
 
-          console.log(res.data);
+          console.log(res.data)
         } else {
           this.$message.error('系统异常')
         }
@@ -59,27 +59,26 @@ export default {
         }})
       window.open(routerJump.href, '_blank')
     },
-    search(){
-                //搜索
-                alert("faff")
-                var keyword = this.keyword;
-                if (keyword) {
-                        this.agentlisttwo =  this.dataList.filter(function(dataList) {
-                            return Object.keys(dataList).some(function(key) {
-                                return String(dataList[key]).toLowerCase().indexOf(keyword) > -1
-                            })
-                        })
-                }else{
-                    this.agentlisttwo =  this.dataList;
-                }
-            },
+    search() {
+      // 搜索
+      alert('faff')
+      var keyword = this.keyword
+      if (keyword) {
+        this.agentlisttwo = this.dataList.filter(function(dataList) {
+          return Object.keys(dataList).some(function(key) {
+            return String(dataList[key]).toLowerCase().indexOf(keyword) > -1
+          })
+        })
+      } else {
+        this.agentlisttwo = this.dataList
+      }
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
 
-       
 .search-input-btn{
                     float: left;
                     margin-top: -117px;
@@ -143,7 +142,7 @@ export default {
                       padding: 0 15px;
                       font-size: 14px;
                       border-top-left-radius: 24px;
-                      border-bottom-left-radius: 24px;             
+                      border-bottom-left-radius: 24px;
 
 }
 
