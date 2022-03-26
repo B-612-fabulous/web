@@ -41,6 +41,13 @@
       <span v-if="cartListNumber>0" class="cartListNumber">{{ cartListNumber }}</span>
       <img :src="addCartTotal" @click="showCartTotalList">
     </div>
+    <el-drawer
+      title="购物车"
+      :visible.sync="drawer"
+      direction="rtl"
+    >
+      <span>渲染购物车!</span>
+    </el-drawer>
   </div>
 </template>
 
@@ -70,7 +77,8 @@ export default {
       cartList: [],
       keyword: '',
       timer: '',
-      cartListNumber: 0
+      cartListNumber: 0,
+      drawer: false
 
     }
   },
@@ -136,7 +144,7 @@ export default {
       this.timer = new Date().getTime()
     },
     showCartTotalList() {
-
+      this.drawer = true
     }
   }
 }
