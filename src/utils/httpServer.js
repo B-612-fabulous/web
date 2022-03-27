@@ -13,6 +13,7 @@ const httpService = axios.create({
 httpService.interceptors.request.use(
   config => {
     // 根据条件加入token-安全携带
+    console.log('进行拦截业务逻辑处理')
     if (true) { // 需自定义
       // 让每个请求携带token
       // config.headers['userId'] = 'localStorage.getItem("userId")';

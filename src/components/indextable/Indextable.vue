@@ -526,6 +526,9 @@ export default {
     let userInfo = localStorage.getItem('userInfo')
     if (userInfo) {
       this.userInfo = JSON.parse(userInfo)
+      if (this.userInfo.id !== 1) {
+        this.jumpLogin()
+      }
     }
     this.getDataList()
     this.getUserDataList()
@@ -606,7 +609,6 @@ export default {
       })
 
     },
-
     jumpLogin() {
       this.$router.push('/login')
     },

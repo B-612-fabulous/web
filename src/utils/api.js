@@ -40,11 +40,11 @@ export const server = {
   },
   // 删除用户
   deleteUserByid(param) {
-    return post(`deleteUserByid`, param)
+    return post(`/deleteUserByid`, param)
   },
   // 获取闲置用品列表
   getIdleZoneList(param) {
-    return post(`getIdleZoneList`, param)
+    return post(`/getIdleZoneList`, param)
   },
   // 删除公告
   deleteCommunityAnnounce(param) {
@@ -93,6 +93,9 @@ export const server = {
   },
   updateByTruename(param) {
     return post(`/updateByTruename`, param)
+  },
+  addOrder(param) {
+    return post(`/addOrder`, param)
   }
 
 }

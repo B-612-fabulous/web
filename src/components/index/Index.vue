@@ -70,7 +70,7 @@
     <div class="main-body" :style="{ 'backgroundImage':'url('+ bodyImg +')' }">
       <!-- 社区送菜 -->
       <div v-if="curNav == 1" class="main-body-box">
-        <CommunityVegetables ref="communityVegetables" />
+        <CommunityVegetables ref="communityVegetables" :user-info="userInfo" />
       </div>
       <!-- 闲置专区 -->
       <div v-if="curNav == 2" class="main-body-box">

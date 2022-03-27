@@ -46,15 +46,54 @@
       :visible.sync="drawer"
       direction="rtl"
     >
-      <span>渲染购物车!</span>
+      <el-empty v-if="cartList.length<1" description="购物车空空如也,快去选购喜欢的东西吧" />
+      <div v-else class="cart-list-box">
+        <div class="cart-list-box-top">
+          <div v-for="(item,index) in cartList" :key="index" class="cart-list-box-item">
+            <div class="goods-lable-left">
+              <img :src="getImgUrl(item)">
+            </div>
+            <div class="goods-lable-center">
+              <div class="text-tit">
+                {{ item.title }}
+              </div>
+              <div class="text-desc">
+                {{ item.commodityDesc }}
+              </div>
+            </div>
+            <div class="goods-lable-right">
+              <el-input-number v-model="item.cartNumber" size="mini" @change="changeCartVegetable(item)" />
+            </div>
+          </div>
+        </div>
+        <div class="cart-list-box-bottom">
+          <div class="custom-addr">
+            配送地址&nbsp;&nbsp;:&nbsp;&nbsp;{{ sendAddr }}
+          </div>
+          <div class="pay-way">
+            支付方式&nbsp;&nbsp;:&nbsp;&nbsp;货到付款
+          </div>
+          <el-button type="warning" @click="changeAddress">
+            更改地址
+          </el-button>
+          <el-button type="primary" @click="subOrder">
+            提交订单
+          </el-button>
+        </div>
+      </div>
     </el-drawer>
   </div>
 </template>
 
 <script>
-import { cloneDeep } from 'lodash'
 export default {
   name: 'CommunityVegetables',
+  props: {
+    userInfo: {
+      type: Object,
+      default: null
+    }
+  },
   data() {
     return {
       dataList: [
@@ -78,7 +117,8 @@ export default {
       keyword: '',
       timer: '',
       cartListNumber: 0,
-      drawer: false
+      drawer: false,
+      sendAddr: ''
 
     }
   },
@@ -144,7 +184,33 @@ export default {
       this.timer = new Date().getTime()
     },
     showCartTotalList() {
+      this.sendAddr = this.userInfo.address
       this.drawer = true
+    },
+    changeAddress() {
+      this.$prompt('请输入配送地址', '', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
+        this.sendAddr = value
+      }).catch(() => {
+      })
+    },
+    subOrder() {
+      if (this.sendAddr === '') {
+        this.$prompt('请输入配送地址', '', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消'
+        }).then(({ value }) => {
+          this.sendAddr = value
+        }).catch(() => {
+        })
+      } else { // 提交订单
+        let param = { userId: this.userInfo.id, sendAddr: this.sendAddr, orderList: JSON.stringify(this.cartList) }
+        this.$server.addOrder(param).then(res => {
+          console.log(res)
+        })
+      }
     }
   }
 }
@@ -340,6 +406,63 @@ export default {
      border-radius:30px;
      top: 20px;
      right: 10px;
+   }
+ }
+ .cart-list-box{
+   .cart-list-box-top{
+     height: 76vh;
+     overflow: auto;
+     .cart-list-box-item{
+       display: flex;
+       .goods-lable-left{
+         padding-top: 5px;
+         padding-left: 10px;
+            img{
+              width: 60px;
+              height: 60px;
+              border-radius: 6px;
+            }
+       }
+       .goods-lable-center{
+         width: 270px;
+         margin-left: 10px;
+          .text-tit{
+            text-align: left;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            font-weight: 600;
+          }
+          .text-desc{
+            font-size: 12px;
+            color: #726969;
+            line-height: 1.5em;
+            height: 32px;
+            overflow: hidden;
+          }
+       }
+       .goods-lable-right{
+         padding-top: 5px;
+         text-align: right;
+       }
+     }
+   }
+   .cart-list-box-bottom{
+     text-align: center;
+     .custom-addr{
+       text-align: left;
+       font-size: 14px;
+       color: #726969;
+       padding-left: 20px;
+     }
+     .pay-way{
+       text-align: left;
+       font-size: 14px;
+       color: #726969;
+       padding-left: 20px;
+       margin-top: 10px;
+       margin-bottom: 10px;
+     }
    }
  }
 </style>
