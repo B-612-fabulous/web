@@ -208,7 +208,14 @@ export default {
       } else { // 提交订单
         let param = { userId: this.userInfo.id, sendAddr: this.sendAddr, orderList: JSON.stringify(this.cartList) }
         this.$server.addOrder(param).then(res => {
-          console.log(res)
+          if (res.state === 'success') {
+            this.getCommunityVegetablesList()
+            this.cartList = []
+            this.drawer = false
+            this.$message.success('订单提交成功')
+          } else {
+            this.$message.success('订单提交失败')
+          }
         })
       }
     }

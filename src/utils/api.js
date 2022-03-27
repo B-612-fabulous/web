@@ -95,7 +95,7 @@ export const server = {
     return post(`/updateByTruename`, param)
   },
   addOrder(param) {
-    return post(`/addOrder`, param)
+    return post(`/order/addOrder`, param)
   }
 
 }
