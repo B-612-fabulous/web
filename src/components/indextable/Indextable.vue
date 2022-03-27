@@ -526,7 +526,7 @@ export default {
     let userInfo = localStorage.getItem('userInfo')
     if (userInfo) {
       this.userInfo = JSON.parse(userInfo)
-      if (!this.userInfo || this.userInfo.id !== 1 || this.userInfo.id !== '1') {
+      if (this.userInfo.id !== 1) {
         this.jumpLogin()
       }
     }
