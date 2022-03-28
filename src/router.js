@@ -18,6 +18,8 @@ import EditIdleZone from '@/components/indextable/EditIdleZone'
 import ShowTravel from '@/components/index/ShowTravel'
 import ShowHouse from '@/components/index/ShowHouse'
 import HomePage from '@/components/index/HomePage'
+import Ordetail from '@/components/index/Ordetail'
+
 // 组件模块
 
 Vue.use(Router)
@@ -25,6 +27,12 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
+
+    {
+      path: '/ordetail',
+      name: 'Ordetail',
+      component: Ordetail
+    },
     {
       path: '/index',
       name: 'Index',

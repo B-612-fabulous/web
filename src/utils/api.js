@@ -96,6 +96,12 @@ export const server = {
   },
   addOrder(param) {
     return post(`/order/addOrder`, param)
-  }
+  },
+  getOrderDetailList(param){
+    return post(`/getOrderDetailList`, param)
+  },
+  deleteOrderDetailList(param) {
+    return post(`deleteOrderDetailList`, param)
+  },
 
 }

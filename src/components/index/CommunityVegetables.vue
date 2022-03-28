@@ -30,7 +30,7 @@
               <img :src="quan">{{ item.preferentialRules }}
             </div>
           </div>
-          <div class="btn" @click.stop>
+          <div class="btn" @click.stop >
             <img v-if="item.cartNumber < 1 || !item.cartNumber" :src="addCart" @click.stop="addCartVegetable(item)">
             <el-input-number v-if="item.cartNumber > 0" v-model="item.cartNumber" size="mini" @change="changeCartVegetable(item)" />
           </div>
@@ -376,6 +376,7 @@ export default {
             }
           }
           .btn{
+            background-color: white;
             height: 40px;
             line-height: 40px;
             text-align: right;

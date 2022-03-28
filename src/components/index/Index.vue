@@ -22,6 +22,10 @@
               <el-dropdown-item @click.native="editperson">
                 编辑资料
               </el-dropdown-item>
+               <el-dropdown-item @click.native="orderdetail">
+                个人订单
+              </el-dropdown-item>
+
               <el-dropdown-item @click.native="loginOut">
                 退出系统
               </el-dropdown-item>
@@ -300,6 +304,13 @@ export default {
       } else { // 非管理员登录
 
       }
+    },
+    orderdetail() {
+      alert("sssss")
+      // if (this.userInfo.id) {
+        this.$router.push('/Ordetail')
+      // } else { 
+      // }
     },
     // updateDatauser(item) {
     //   this.title = '修改信息'
