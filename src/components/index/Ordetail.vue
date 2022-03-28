@@ -93,10 +93,7 @@
             </div>
           </el-tab-pane> -->
 
-
-
-
-            <el-tab-pane label="我的待送菜">
+          <el-tab-pane label="我的待送菜">
             <div class="manger-box-body-right">
               <el-table
                 :data="orderDate"
@@ -146,8 +143,6 @@
               </el-table>
             </div>
           </el-tab-pane>
-
-
         </el-tabs>
       </div>
     </div>
@@ -163,22 +158,22 @@ import EdittHolidayTravel from '@/components/indextable/EdittHolidayTravel'
 import EditIdleZone from '@/components/indextable/EditIdleZone'
 export default {
   name: 'Indextable',
-  components: {
-    AddCommunityVegetables,
-    EditUser,
-    EditAnnouncement,
-    EditHousekeepingServices,
-    EdittHolidayTravel,
-    EditIdleZone
+  // components: {
+  //   AddCommunityVegetables,
+  //   EditUser,
+  //   EditAnnouncement,
+  //   EditHousekeepingServices,
+  //   EdittHolidayTravel,
+  //   EditIdleZone
 
-  },
+  // },
   data() {
     return {
       tableData: [],
       orderDate: [],
       userInfo: {},
       showAddVegetables: false,
-   
+
       communityVegetables: {},
       travelTables: {},
       userTables: {},
@@ -189,13 +184,6 @@ export default {
     }
   },
   created() {
-    let userInfo = localStorage.getItem('userInfo')
-    if (userInfo) {
-      this.userInfo = JSON.parse(userInfo)
-      if (this.userInfo.id !== 1) {
-        this.jumpLogin()
-      }
-    }
     // this.getDataList()
     this.getOrderDetailList()
   },
@@ -212,7 +200,7 @@ export default {
     //   })
     // },
     getOrderDetailList() {
-      let param = {createPeople:this.userInfo.id
+      let param = { createPeople: this.userInfo.id
       }
       this.$server.getOrderDetailList(param).then(res => {
         if (res.state === 'success') { // 请求成功
@@ -222,7 +210,7 @@ export default {
         }
       })
     },
-     deleteData(item) {
+    deleteData(item) {
       let param = { id: item.id }
       this.$server.deleteOrderDetailList(param).then(res => {
         if (res.state === 10000) {
@@ -232,7 +220,6 @@ export default {
         }
       })
     },
-
 
     jumpLogin() {
       this.$router.push('/login')
@@ -251,7 +238,6 @@ export default {
 
       this.$router.push('/index')
     },
- 
 
     handleClose() {
       this.showAddVegetables = false
@@ -267,11 +253,6 @@ export default {
       return item.showpic
     },
 
-
-
-
-    
-  
     deleteHousekeepingServices(item) {
       let param = { id: item.id }
       alert('112')
@@ -297,11 +278,7 @@ export default {
           alert('出去')
         }
       })
-    },
-
-  
-
-   
+    }
 
   }
 }

@@ -38,62 +38,59 @@
               加入购物车
             </el-button>
 
-
-          <div class="btn" @click.stop >
-        <img v-if="commvegtObj.cartNumber < 1 || !commvegtObj.cartNumber" :src="addCart" @click.stop="addCartVegetable(commvegtObj)">
-        <el-input-number v-if="commvegtObj.cartNumber > 0" v-model="commvegtObj.cartNumber" size="mini" @change="changeCartVegetable(commvegtObj)" />
-    </div>
-
+            <div class="btn" @click.stop>
+              <img v-if="commvegtObj.cartNumber < 1 || !commvegtObj.cartNumber" :src="addCart" @click.stop="addCartVegetable(commvegtObj)">
+              <el-input-number v-if="commvegtObj.cartNumber > 0" v-model="commvegtObj.cartNumber" size="mini" @change="changeCartVegetable(commvegtObj)" />
+            </div>
           </div>
         </div>
       </div>
       <div class="addCartTotalBox">
-      <span v-if="cartListNumber>0" class="cartListNumber">{{ cartListNumber }}</span>
-      <img :src="addCartTotal" @click="showCartTotalList">
-    </div>
-
-    
-    <el-drawer
-      title="购物车"
-      :visible.sync="drawer"
-      direction="rtl"
-    >
-      <el-empty v-if="cartList.length<1" description="购物车空空如也,快去选购喜欢的东西吧" />
-      <div v-else class="cart-list-box">
-        <div class="cart-list-box-top">
-          <div v-for="(commvegtObj,index) in cartList" :key="index" class="cart-list-box-item">
-            <div class="goods-lable-left">
-              <img :src="getImgUrl(commvegtObj)">
-            </div>
-            <div class="goods-lable-center">
-              <div class="text-tit">
-                {{ commvegtObj.title }}
-              </div>
-              <div class="text-desc">
-                {{ commvegtObj.commodityDesc }}
-              </div>
-            </div>
-            <div class="goods-lable-right">
-              <el-input-number v-model="commvegtObj.cartNumber" size="mini" @change="changeCartVegetable(commvegtObj)" />
-            </div>
-          </div>
-        </div>
-        <div class="cart-list-box-bottom">
-          <div class="custom-addr">
-            配送地址&nbsp;&nbsp;:&nbsp;&nbsp;{{ sendAddr }}
-          </div>
-          <div class="pay-way">
-            支付方式&nbsp;&nbsp;:&nbsp;&nbsp;货到付款
-          </div>
-          <el-button type="warning" @click="changeAddress">
-            更改地址
-          </el-button>
-          <el-button type="primary" @click="subOrder">
-            提交订单
-          </el-button>
-        </div>
+        <span v-if="cartListNumber>0" class="cartListNumber">{{ cartListNumber }}</span>
+        <img :src="addCartTotal" @click="showCartTotalList">
       </div>
-    </el-drawer>
+
+      <el-drawer
+        title="购物车"
+        :visible.sync="drawer"
+        direction="rtl"
+      >
+        <el-empty v-if="cartList.length<1" description="购物车空空如也,快去选购喜欢的东西吧" />
+        <div v-else class="cart-list-box">
+          <div class="cart-list-box-top">
+            <div v-for="(commvegtObj,index) in cartList" :key="index" class="cart-list-box-item">
+              <div class="goods-lable-left">
+                <img :src="getImgUrl(commvegtObj)">
+              </div>
+              <div class="goods-lable-center">
+                <div class="text-tit">
+                  {{ commvegtObj.title }}
+                </div>
+                <div class="text-desc">
+                  {{ commvegtObj.commodityDesc }}
+                </div>
+              </div>
+              <div class="goods-lable-right">
+                <el-input-number v-model="commvegtObj.cartNumber" size="mini" @change="changeCartVegetable(commvegtObj)" />
+              </div>
+            </div>
+          </div>
+          <div class="cart-list-box-bottom">
+            <div class="custom-addr">
+              配送地址&nbsp;&nbsp;:&nbsp;&nbsp;{{ sendAddr }}
+            </div>
+            <div class="pay-way">
+              支付方式&nbsp;&nbsp;:&nbsp;&nbsp;货到付款
+            </div>
+            <el-button type="warning" @click="changeAddress">
+              更改地址
+            </el-button>
+            <el-button type="primary" @click="subOrder">
+              提交订单
+            </el-button>
+          </div>
+        </div>
+      </el-drawer>
     </div>
   </el-container>
 </template>
@@ -109,7 +106,7 @@ export default {
         isSeckill: true,
         preferentialRules: '满20减3',
         fmImg: require('@/assets/index/td.jpeg'),
-        cartNumber: 0,
+        cartNumber: 0
       },
       userInfo: {},
       bodyImg: require('@/assets/index/body.png'),
@@ -121,7 +118,7 @@ export default {
       addCart: require('@/assets/index/addCart.png'),
       addCartTotal: require('@/assets/index/addCartTotal.png'),
       addlist: '',
-      cartList: [],
+      cartList: []
     }
   },
   created() {
@@ -146,7 +143,7 @@ export default {
       }
       this.timer = new Date().getTime()
     },
-      addCartVegetable(commvegtObj) {
+    addCartVegetable(commvegtObj) {
       this.commvegtObj.find(obj => {
         if (obj.id === commvegtObj.id) {
           obj.cartNumber = 1
@@ -192,21 +189,9 @@ export default {
         })
       }
     },
-  addShoppingCart(){
-    this.drawer=true;
-  },
-
-
-
-
-
-
-
-
-
-
-
-
+    addShoppingCart() {
+      this.drawer = true
+    },
 
     getImgUrl(commvegtObj) {
       let host = 'http://localhost:8888'

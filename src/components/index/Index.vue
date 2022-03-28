@@ -22,7 +22,7 @@
               <el-dropdown-item @click.native="editperson">
                 编辑资料
               </el-dropdown-item>
-               <el-dropdown-item @click.native="orderdetail">
+              <el-dropdown-item @click.native="orderdetail">
                 个人订单
               </el-dropdown-item>
 
@@ -306,11 +306,7 @@ export default {
       }
     },
     orderdetail() {
-      alert("sssss")
-      // if (this.userInfo.id) {
-        this.$router.push('/Ordetail')
-      // } else { 
-      // }
+      this.$router.push('/Ordetail')
     },
     // updateDatauser(item) {
     //   this.title = '修改信息'

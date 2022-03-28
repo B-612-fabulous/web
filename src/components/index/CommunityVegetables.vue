@@ -8,7 +8,7 @@
     </button>
     <!-- 主体 -->
     <div :key="timer" class="main-body-child">
-      <div v-for="(item,index) in addlist" :key="index" class="main-body-child-item" @click="jumpcommvegDetail(item)">
+      <div v-for="(item,index) in addlist" :key="index" class="main-body-child-item">
         <div class="left">
           <img :src="getImgUrl(item)">
           <div class="price">
@@ -30,7 +30,7 @@
               <img :src="quan">{{ item.preferentialRules }}
             </div>
           </div>
-          <div class="btn" @click.stop >
+          <div class="btn" @click.stop>
             <img v-if="item.cartNumber < 1 || !item.cartNumber" :src="addCart" @click.stop="addCartVegetable(item)">
             <el-input-number v-if="item.cartNumber > 0" v-model="item.cartNumber" size="mini" @change="changeCartVegetable(item)" />
           </div>
