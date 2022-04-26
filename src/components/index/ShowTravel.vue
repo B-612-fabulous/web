@@ -50,6 +50,50 @@
           </div>
         </div>
       </div>
+
+
+            <el-drawer
+        title="购物车"
+        :visible.sync="drawer"
+        direction="rtl"
+      >
+        <div  class="cart-list-box">
+          <div class="cart-list-box-top">
+
+
+            <div class="cart-list-box-item">
+              <div class="goods-lable-left">
+                <img :src="addbg">
+              </div>
+              <div class="goods-lable-center">
+                <div class="text-tit">
+                  {{ commvegtObj.title }}
+                </div>
+                <div class="text-desc">
+                  {{ commvegtObj.commodityDesc }}
+                </div>
+              </div>
+              <div class="goods-lable-right">
+                <el-input-number v-model="commvegtObj.cartNumber" size="mini" @change="changeCartVegetable(commvegtObj)" />
+              </div>
+            </div>
+          </div>
+          <div class="cart-list-box-bottom">
+            <div class="custom-addr">
+              旅游地址&nbsp;&nbsp;:&nbsp;&nbsp;{{ sendAddr }}
+            </div>
+            <div class="pay-way">
+              支付方式&nbsp;&nbsp;:&nbsp;&nbsp;人到付款
+            </div>
+            <!-- <el-button type="warning" @click="changeAddress">
+              更改地址
+            </el-button> -->
+            <el-button type="primary" @click="subOrder">
+              提交订单
+            </el-button>
+          </div>
+        </div>
+      </el-drawer>
     </div>
   </el-container>
 </template>
@@ -69,7 +113,9 @@ export default {
       },
       userInfo: {},
       bodyImg: require('@/assets/index/body.png'),
-      addbg: require('@/assets/index/travel.jpg')
+      addbg: require('@/assets/index/travel.jpg'),
+      drawer: false,
+      sendAddr: '',
     }
   },
   created() {
@@ -105,13 +151,149 @@ export default {
     },
     addShoppingCart() {
 
-    }
+      this.drawer = true
+      this.sendAddr = this.commvegtObj.address
+    },
+    subOrder() {
+      // if (this.sendAddr === '') {
+      //   this.$prompt('请输入配送地址', '', {
+      //     confirmButtonText: '确定',
+      //     cancelButtonText: '取消'
+      //   }).then(({ value }) => {
+      //     this.sendAddr = value
+      //   }).catch(() => {
+      //   })
+      // } else { 
+      this.cartList=this.commvegtObj
+      console.log(this.commvegtObj);
+        let param = { userId: this.userInfo.id, sendAddr: this.sendAddr, orderList: JSON.stringify([this.commvegtObj]) }
+        console.log(param.orderList);
+        this.$server.addOrderholiday(param).then(res => {
+          console.log(res.state);
+          if (res.state === 'success') {
+            this.$message.success('订单提交成功')
+            this.drawer = false
+      
+          } else {
+            this.$message.success('订单提交失败')
+            this.drawer = false
+          }
+        })
+      // }
+    },
 
   }
 }
 </script>
 
 <style lang="less" scoped>
+.addCartTotalBox{
+   position: fixed;
+   right: 10px;
+   top:50vh;
+   z-index: 1111;
+   img{
+     width: 50px;
+     height: 50px;
+     cursor: pointer;
+   }
+   .cartListNumber{
+     background: red;
+     color: #fff;
+     display: block;
+     width: 20px;
+     height: 20px;
+     line-height: 20px;
+     text-align: center;
+     position: relative;
+     border-radius:30px;
+     top: 20px;
+     right: 10px;
+   }
+ }
+ .addCartTotalBox{
+   position: fixed;
+   right: 10px;
+   top:50vh;
+   z-index: 1111;
+   img{
+     width: 50px;
+     height: 50px;
+     cursor: pointer;
+   }
+   .cartListNumber{
+     background: red;
+     color: #fff;
+     display: block;
+     width: 20px;
+     height: 20px;
+     line-height: 20px;
+     text-align: center;
+     position: relative;
+     border-radius:30px;
+     top: 20px;
+     right: 10px;
+   }
+ }
+ .cart-list-box{
+   .cart-list-box-top{
+     height: 76vh;
+     overflow: auto;
+     .cart-list-box-item{
+       display: flex;
+       .goods-lable-left{
+         padding-top: 5px;
+         padding-left: 10px;
+            img{
+              width: 60px;
+              height: 60px;
+              border-radius: 6px;
+            }
+       }
+       .goods-lable-center{
+         width: 270px;
+         margin-left: 10px;
+          .text-tit{
+            text-align: left;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            font-weight: 600;
+          }
+          .text-desc{
+            font-size: 12px;
+            color: #726969;
+            line-height: 1.5em;
+            height: 32px;
+            overflow: hidden;
+          }
+       }
+       .goods-lable-right{
+         padding-top: 5px;
+         text-align: right;
+       }
+     }
+   }
+   .cart-list-box-bottom{
+     text-align: center;
+     .custom-addr{
+       text-align: left;
+       font-size: 14px;
+       color: #726969;
+       padding-left: 20px;
+     }
+     .pay-way{
+       text-align: left;
+       font-size: 14px;
+       color: #726969;
+       padding-left: 20px;
+       margin-top: 10px;
+       margin-bottom: 10px;
+     }
+   }
+ }
+
+
 .el{
   margin-top: 100px;
 }

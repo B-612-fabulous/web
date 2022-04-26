@@ -102,6 +102,35 @@ export const server = {
   },
   deleteOrderDetailList(param) {
     return post(`deleteOrderDetailList`, param)
-  }
+  },
+  addOrderidle(param) {
+    return post(`/order/addOrderidle`, param)
+  },
+  
+  addOrderholiday(param) {
+    return post(`/order/addOrderholiday`, param)
+  },
+  
+  addOrderhouse(param) {
+    return post(`/order/addOrderhouse`, param)
+  },
+  getOrderidleList(param) {
+    return post(`/getOrderidleList`, param)
+  },
+  deleteOrderidleList(param) {
+    return post(`/deleteOrderidleList`, param)
+  },
+  getOrderDetailHouseList(param) {
+    return post(`/getOrderDetailHouseList`, param)
+  },
+  deleteorderhouse(param) {
+    return post(`/deleteorderhouse`, param)
+  },
+  getOrderDetailHolidayList(param) {
+    return post(`/getOrderDetailHolidayList`, param)
+  },
+  deleteOrderholidleList(param) {
+    return post(`/deleteOrderholidleList`, param)
+  },
 
 }

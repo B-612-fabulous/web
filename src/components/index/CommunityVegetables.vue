@@ -8,7 +8,7 @@
     </button>
     <!-- 主体 -->
     <div :key="timer" class="main-body-child">
-      <div v-for="(item,index) in addlist" :key="index" class="main-body-child-item">
+      <div v-for="(item,index) in addlist" :key="index" class="main-body-child-item"  @click="jumpcommvegDetail(item)">
         <div class="left">
           <img :src="getImgUrl(item)">
           <div class="price">
@@ -206,7 +206,9 @@ export default {
         }).catch(() => {
         })
       } else { // 提交订单
+      console.log(this.cartList);
         let param = { userId: this.userInfo.id, sendAddr: this.sendAddr, orderList: JSON.stringify(this.cartList) }
+        console.log(param.orderList);
         this.$server.addOrder(param).then(res => {
           if (res.state === 'success') {
             this.getCommunityVegetablesList()

@@ -24,7 +24,7 @@
               <h3>{{ commvegtObj.title }}</h3>
             </div>
             <div class="price">
-              <span>单价</span>: {{ commvegtObj.price }}
+              <span>单价</span>: {{ commvegtObj.price }}/500g
             </div>
 
             <div class="rules">
@@ -38,10 +38,10 @@
               加入购物车
             </el-button>
 
-            <div class="btn" @click.stop>
+            <!-- <div class="btn" @click.stop>
               <img v-if="commvegtObj.cartNumber < 1 || !commvegtObj.cartNumber" :src="addCart" @click.stop="addCartVegetable(commvegtObj)">
               <el-input-number v-if="commvegtObj.cartNumber > 0" v-model="commvegtObj.cartNumber" size="mini" @change="changeCartVegetable(commvegtObj)" />
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -55,10 +55,13 @@
         :visible.sync="drawer"
         direction="rtl"
       >
-        <el-empty v-if="cartList.length<1" description="购物车空空如也,快去选购喜欢的东西吧" />
-        <div v-else class="cart-list-box">
+        <!-- <el-empty v-if="cartList.length<1" description="购物车空空如也,快去选购喜欢的东西吧" /> -->
+        <div  class="cart-list-box">
           <div class="cart-list-box-top">
-            <div v-for="(commvegtObj,index) in cartList" :key="index" class="cart-list-box-item">
+
+
+              <!-- v-for="(commvegtObj,index) in cartList" :key="index"  -->
+            <div class="cart-list-box-item">
               <div class="goods-lable-left">
                 <img :src="getImgUrl(commvegtObj)">
               </div>
@@ -99,26 +102,29 @@
 export default {
   data() {
     return {
-      commvegtObj: {
+      commvegtObj:[ 
+        {
         title: '',
         price: '',
         commodityDesc: '刚摘的新鲜番茄，甘甜可口，生吃做菜煲汤都是很可口',
         isSeckill: true,
         preferentialRules: '满20减3',
         fmImg: require('@/assets/index/td.jpeg'),
-        cartNumber: 0
-      },
+        cartNumber: 1
+      }
+      ],
       userInfo: {},
       bodyImg: require('@/assets/index/body.png'),
       timer: '',
-      cartListNumber: 0,
+      cartListNumber: 1,
       drawer: false,
       sendAddr: '',
       quan: require('@/assets/index/quan.png'),
       addCart: require('@/assets/index/addCart.png'),
       addCartTotal: require('@/assets/index/addCartTotal.png'),
       addlist: '',
-      cartList: []
+      cartList: [
+      ]
     }
   },
   created() {
@@ -131,28 +137,28 @@ export default {
     this.commvegtObj = commvegtObj
   },
   methods: {
-    changeCartVegetable(commvegtObj) {
-      if (commvegtObj.cartNumber < 1) {
-        for (let i = 0; i < this.cartList.length; i++) {
-          let curObject = this.cartList[i]
-          if (curObject.id === commvegtObj.id) {
-            this.cartList.splice(i, 1)
-            this.cartListNumber = this.cartList.length
-          }
-        }
-      }
-      this.timer = new Date().getTime()
-    },
-    addCartVegetable(commvegtObj) {
-      this.commvegtObj.find(obj => {
-        if (obj.id === commvegtObj.id) {
-          obj.cartNumber = 1
-          this.cartList.push(obj)
-          this.cartListNumber = this.cartList.length
-        }
-      })
-      this.timer = new Date().getTime()
-    },
+    // changeCartVegetable(commvegtObj) {
+    //   if (commvegtObj.cartNumber < 1) {
+    //     for (let i = 0; i < this.cartList.length; i++) {
+    //       let curObject = this.cartList[i]
+    //       if (curObject.id === commvegtObj.id) {
+    //         this.cartList.splice(i, 1)
+    //         this.cartListNumber = this.cartList.length
+    //       }
+    //     }
+    //   }
+    //   this.timer = new Date().getTime()
+    // },
+    // addCartVegetable(commvegtObj) {
+    //   this.commvegtObj.find(obj => {
+    //     if (obj.id === commvegtObj.id) {
+    //       obj.cartNumber = 1
+    //       this.cartList.push(obj)
+    //       this.cartListNumber = this.cartList.length
+    //     }
+    //   })
+    //   this.timer = new Date().getTime()
+    // },
     showCartTotalList() {
       this.sendAddr = this.userInfo.address
       this.drawer = true
@@ -176,13 +182,15 @@ export default {
         }).catch(() => {
         })
       } else { // 提交订单
-        let param = { userId: this.userInfo.id, sendAddr: this.sendAddr, orderList: JSON.stringify(this.cartList) }
+      this.cartList=this.commvegtObj
+      console.log(this.commvegtObj);
+        let param = { userId: this.userInfo.id, sendAddr: this.sendAddr,cartNumber:1, orderList: JSON.stringify([this.commvegtObj]) }
+        console.log(param.orderList);
         this.$server.addOrder(param).then(res => {
           if (res.state === 'success') {
-            this.getCommunityVegetablesList()
-            this.cartList = []
-            this.drawer = false
             this.$message.success('订单提交成功')
+            this.drawer = false
+      
           } else {
             this.$message.success('订单提交失败')
           }
@@ -191,8 +199,8 @@ export default {
     },
     addShoppingCart() {
       this.drawer = true
+      this.sendAddr = this.userInfo.address
     },
-
     getImgUrl(commvegtObj) {
       let host = 'http://localhost:8888'
       commvegtObj.showFmImg = host + commvegtObj.fmImg
@@ -388,17 +396,18 @@ export default {
       height: 500px;
     margin-right: 198px;
     border-right: 1px solid #E8E8E8;
-    background-color: #ab00ff42;
+   
   }
   .tb-item-info-l {
     float: left;
     padding: 20px 0 20px 20px;
     width: 400px;
     position: relative;
-    background-color: blanchedalmond;
+    // background-color: blanchedalmond;
     height: 300px;
 }
 .tb-item-info-l .imgt{
+  border-radius: 30px;
   height: 300px;
   width: 300px;
 }
@@ -413,28 +422,28 @@ export default {
     padding: 20px 0 10px;
     width: 420px;
     height: 56px;
-    background-color: pink;
+    // background-color: pink;
     margin-top: 13px;
 }
 .price{
   padding: 20px 0 10px;
     width: 420px;
     height: 16px;
-    background-color: pink;
+    // background-color: pink;
     margin-top: 13px;
 }
 .rules{
   padding: 20px 0 10px;
     width: 420px;
     height: 16px;
-    background-color: pink;
+    // background-color: pink;
     margin-top: 13px;
 }
 .commodityDesc{
   padding: 20px 0 10px;
     width: 420px;
     height: 16px;
-    background-color: pink;
+    // background-color: pink;
     margin-top: 13px;
 }
 </style>

@@ -41,6 +41,49 @@
           </div>
         </div>
       </div>
+
+       <el-drawer
+        title="购物车"
+        :visible.sync="drawer"
+        direction="rtl"
+      >
+        <div  class="cart-list-box">
+          <div class="cart-list-box-top">
+
+
+            <div class="cart-list-box-item">
+              <div class="goods-lable-left">
+                <img :src="getImgUrl(commvegtObj)">
+              </div>
+              <div class="goods-lable-center">
+                <div class="text-tit">
+                  {{ commvegtObj.title }}
+                </div>
+                <div class="text-desc">
+                  {{ commvegtObj.commodityDesc }}
+                </div>
+              </div>
+              <div class="goods-lable-right">
+                <el-input-number v-model="commvegtObj.cartNumber" size="mini" @change="changeCartVegetable(commvegtObj)" />
+              </div>
+            </div>
+          </div>
+          <div class="cart-list-box-bottom">
+            <div class="custom-addr">
+              配送地址&nbsp;&nbsp;:&nbsp;&nbsp;{{ sendAddr }}
+            </div>
+            <div class="pay-way">
+              支付方式&nbsp;&nbsp;:&nbsp;&nbsp;货到付款
+            </div>
+            <el-button type="warning" @click="changeAddress">
+              更改地址
+            </el-button>
+            <el-button type="primary" @click="subOrder">
+              提交订单
+            </el-button>
+          </div>
+        </div>
+      </el-drawer>
     </div>
   </el-container>
 </template>
@@ -58,7 +101,9 @@ export default {
 
       },
       userInfo: {},
-      bodyImg: require('@/assets/index/body.png')
+      bodyImg: require('@/assets/index/body.png'),
+      sendAddr: '',
+      drawer: false,
     }
   },
   created() {
@@ -99,13 +144,158 @@ export default {
     },
     addShoppingCart() {
 
-    }
+      this.drawer = true
+      this.sendAddr = this.userInfo.address
+    },
+    changeAddress() {
+      this.$prompt('请输入配送地址', '', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
+        this.sendAddr = value
+      }).catch(() => {
+      })
+    },
+    subOrder() {
+      if (this.sendAddr === '') {
+        this.$prompt('请输入配送地址', '', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消'
+        }).then(({ value }) => {
+          this.sendAddr = value
+        }).catch(() => {
+        })
+      } else { // 提交订单
+      this.cartList=this.commvegtObj
+      console.log(this.commvegtObj);
+        let param = { userId: this.userInfo.id, sendAddr: this.sendAddr, orderList: JSON.stringify([this.commvegtObj]) }
+        console.log(param.orderList);
+        this.$server.addOrderidle(param).then(res => {
+          console.log(res.state);
+          if (res.state === 'success') {
+            this.$message.success('订单提交成功')
+            this.drawer = false
+      
+          } else {
+            this.$message.success('订单提交失败')
+            this.drawer = false
+          }
+        })
+      }
+    },
+    
   }
 }
 </script>
 
 <style lang="less" scoped>
 
+
+  .addCartTotalBox{
+   position: fixed;
+   right: 10px;
+   top:50vh;
+   z-index: 1111;
+   img{
+     width: 50px;
+     height: 50px;
+     cursor: pointer;
+   }
+   .cartListNumber{
+     background: red;
+     color: #fff;
+     display: block;
+     width: 20px;
+     height: 20px;
+     line-height: 20px;
+     text-align: center;
+     position: relative;
+     border-radius:30px;
+     top: 20px;
+     right: 10px;
+   }
+ }
+ .addCartTotalBox{
+   position: fixed;
+   right: 10px;
+   top:50vh;
+   z-index: 1111;
+   img{
+     width: 50px;
+     height: 50px;
+     cursor: pointer;
+   }
+   .cartListNumber{
+     background: red;
+     color: #fff;
+     display: block;
+     width: 20px;
+     height: 20px;
+     line-height: 20px;
+     text-align: center;
+     position: relative;
+     border-radius:30px;
+     top: 20px;
+     right: 10px;
+   }
+ }
+ .cart-list-box{
+   .cart-list-box-top{
+     height: 76vh;
+     overflow: auto;
+     .cart-list-box-item{
+       display: flex;
+       .goods-lable-left{
+         padding-top: 5px;
+         padding-left: 10px;
+            img{
+              width: 60px;
+              height: 60px;
+              border-radius: 6px;
+            }
+       }
+       .goods-lable-center{
+         width: 270px;
+         margin-left: 10px;
+          .text-tit{
+            text-align: left;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            font-weight: 600;
+          }
+          .text-desc{
+            font-size: 12px;
+            color: #726969;
+            line-height: 1.5em;
+            height: 32px;
+            overflow: hidden;
+          }
+       }
+       .goods-lable-right{
+         padding-top: 5px;
+         text-align: right;
+       }
+     }
+   }
+   .cart-list-box-bottom{
+     text-align: center;
+     .custom-addr{
+       text-align: left;
+       font-size: 14px;
+       color: #726969;
+       padding-left: 20px;
+     }
+     .pay-way{
+       text-align: left;
+       font-size: 14px;
+       color: #726969;
+       padding-left: 20px;
+       margin-top: 10px;
+       margin-bottom: 10px;
+     }
+   }
+ }
   .userInfo{
       // background-color: #fff;
     width: 80%;
@@ -173,24 +363,25 @@ export default {
     margin: 20px auto 0;
     height: 500px;
     width: 1140px;
-    background-color: pink;
+    // background-color: pink;
     }
     .tb-item-info {
       width: 940px;
       height: 500px;
     margin-right: 198px;
     border-right: 1px solid #E8E8E8;
-    background-color: #ab00ff42;
+    // background-color: #ab00ff42;
   }
   .tb-item-info-l {
     float: left;
     padding: 20px 0 20px 20px;
     width: 400px;
     position: relative;
-    background-color: blanchedalmond;
+    // background-color: blanchedalmond;
     height: 300px;
 }
 .tb-item-info-l .imgt{
+  border-radius: 30px;
   height: 300px;
   width: 300px;
 }
@@ -199,13 +390,13 @@ export default {
     padding: 0 20px 20px 0;
     width: 400px;
     height: 300px;
-    background-color: blue;
+    // background-color: blue;
 }
  .tb-title {
     padding: 20px 0 10px;
     width: 420px;
     height: 56px;
-    background-color: pink;
+    // background-color: pink;
     margin-top: 13px;
 
 }
@@ -213,21 +404,21 @@ export default {
   padding: 20px 0 10px;
     width: 420px;
     height: 16px;
-    background-color: pink;
+    // background-color: pink;
     margin-top: 13px;
 }
 .rules{
   padding: 20px 0 10px;
     width: 420px;
     height: 16px;
-    background-color: pink;
+    // background-color: pink;
     margin-top: 13px;
 }
 .commodityDesc{
   padding: 20px 0 10px;
     width: 420px;
     height: 16px;
-    background-color: pink;
+    // background-color: pink;
     margin-top: 13px;
 }
 

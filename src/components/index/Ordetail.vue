@@ -109,6 +109,7 @@
                 <el-table-column
                   prop="commodityDesc"
                   label="商品描述"
+                   width="180"
                 />
                 <el-table-column
                   prop="price"
@@ -143,6 +144,154 @@
               </el-table>
             </div>
           </el-tab-pane>
+<!-- 闲置物品 -->
+          <el-tab-pane label="购买的闲置">
+            <div class="manger-box-body-right">
+              <el-table
+                :data="orderidleDate"
+                border
+                height="550"
+                style="width: 100%"
+              >
+            
+                <el-table-column
+                  prop="commodityDesc"
+                  label="商品描述"
+                />
+                <el-table-column
+                  prop="price"
+                  label="商品价格"
+                  width="180"
+                />
+
+                <el-table-column
+                  prop="fmImg"
+                  label="封面图片"
+                  width="180"
+                >
+                  <template slot-scope="scope">
+                    <img :src="getImgUrl(scope.row)" style="width:80px;height:80px;">
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  label="操作"
+                  width="200"
+                >
+                  <template slot-scope="scope">
+                    <el-button type="text" size="small" @click="deleteOrderidleList(scope.row)">
+                      删除
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </el-tab-pane>
+
+          <!-- 家政服务 -->
+          <el-tab-pane label="购买的家政服务">
+            <div class="manger-box-body-right">
+              <el-table
+                :data="orderhouseDate"
+                border
+                height="550"
+                style="width: 100%"
+              >
+                <el-table-column
+                  prop="title"
+                  label="服务标题"
+                  width="180"
+                />
+                <el-table-column
+                  prop="price"
+                  label="服务价格"
+                  width="180"
+                />
+                 
+                <el-table-column
+                  prop="dotime"
+                  label="服务时间"
+                  width="180"
+                />
+                <el-table-column
+                  prop="address"
+                  label="服务地点"
+                  width="180"
+                />
+                <el-table-column
+                  prop="dotime"
+                  label="联系方式"
+                  width="180"
+                />
+                <el-table-column
+                  label="操作"
+                  width="200"
+                >
+                  <template slot-scope="scope">
+                    <el-button type="text" size="small" @click="deletehouseData(scope.row)">
+                      删除
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </el-tab-pane>
+
+             <!-- 旅游服务 -->
+          <el-tab-pane label="购买的旅游服务">
+            <div class="manger-box-body-right">
+              <el-table
+                :data="ordertravelDate"
+                border
+                height="550"
+                style="width: 100%"
+              >
+                <el-table-column
+                  prop="title"
+                  label="服务标题"
+                  width="180"
+                />
+                <el-table-column
+                  prop="price"
+                  label="服务价格"
+                  width="180"
+                />
+                <el-table-column
+                  prop="commodityDesc"
+                  label="商品描述"
+                   width="180"
+                />
+                <el-table-column
+                  prop="dotime"
+                  label="服务时间"
+                  width="180"
+                />
+                <el-table-column
+                  prop="address"
+                  label="服务地点"
+                  width="180"
+                />
+                <el-table-column
+                  prop="dotime"
+                  label="联系方式"
+                  width="180"
+                />
+                <el-table-column
+                  label="操作"
+                  width="200"
+                >
+                  <template slot-scope="scope">
+                    <el-button type="text" size="small" @click="deleteOrderholidleList(scope.row)">
+                      删除
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </el-tab-pane>
+
+
+
+
         </el-tabs>
       </div>
     </div>
@@ -171,6 +320,9 @@ export default {
     return {
       tableData: [],
       orderDate: [],
+      orderhouseDate:[],
+      ordertravelDate:[],
+      orderidleDate:[],
       userInfo: {},
       showAddVegetables: false,
 
@@ -185,7 +337,17 @@ export default {
   },
   created() {
     // this.getDataList()
+    let userInfo = localStorage.getItem('userInfo')
+    if (userInfo) {
+      this.userInfo = JSON.parse(userInfo)
+      // if (this.userInfo.id !== 1) {
+      //   this.jumpLogin()
+      // }
+    }
     this.getOrderDetailList()
+    this.getOrderidleList()
+    this.getOrderDetailHouseList()
+    this.getOrderDetailHolidayList()
   },
   methods: {
     // getDataList() {
@@ -199,6 +361,64 @@ export default {
     //     }
     //   })
     // },
+  getOrderDetailHolidayList() {
+      let param = { createPeople: this.userInfo.id
+      }
+      this.$server.getOrderDetailHolidayList(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+          this.ordertravelDate = res.data
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+    },
+    deleteOrderholidleList(item) {
+      let param = { id: item.id }
+      this.$server.deleteOrderholidleList(param).then(res => {
+        if (res.state === 10000) {
+          this.getOrderDetailHolidayList()
+          this.$message.success('删除成功')
+        } else {
+          this.$message.error('操作失败')
+        }
+      })
+    },
+
+  getOrderDetailHouseList() {
+      let param = { createPeople: this.userInfo.id
+      }
+      this.$server.getOrderDetailHouseList(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+          this.orderhouseDate = res.data
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+    },
+    deletehouseData(item) {
+      let param = { id: item.id }
+      this.$server.deleteorderhouse(param).then(res => {
+        if (res.state === 10000) {
+          this.getOrderDetailHouseList()
+          this.$message.success('删除成功')
+        } else {
+          this.$message.error('操作失败')
+        }
+      })
+    },
+
+
+    getOrderidleList() {
+      let param = { createPeople: this.userInfo.id
+      }
+      this.$server.getOrderidleList(param).then(res => {
+        if (res.state === 'success') { // 请求成功
+          this.orderidleDate = res.data
+        } else {
+          this.$message.error('系统异常')
+        }
+      })
+    },
     getOrderDetailList() {
       let param = { createPeople: this.userInfo.id
       }
@@ -215,10 +435,23 @@ export default {
       this.$server.deleteOrderDetailList(param).then(res => {
         if (res.state === 10000) {
           this.getOrderDetailList()
+          this.$message.success('删除成功')
         } else {
           this.$message.error('操作失败')
         }
       })
+    },
+    deleteOrderidleList(item){
+      let param = { id: item.id }
+      this.$server.deleteOrderidleList(param).then(res => {
+        if (res.state === 10000) {
+          this.getOrderidleList()
+          this.$message.success('删除成功')
+        } else {
+          this.$message.error('操作失败')
+        }
+      })
+
     },
 
     jumpLogin() {
