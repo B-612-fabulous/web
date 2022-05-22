@@ -702,6 +702,7 @@ export default {
       this.$server.deleteCommunityVegetablesList(param).then(res => {
         if (res.state === 10000) {
           this.getDataList()
+          this.$message.success('删除成功')
         } else {
           this.$message.error('操作失败')
         }
@@ -713,6 +714,7 @@ export default {
       this.$server.deleteIdleZone(param).then(res => {
         if (res.state === 10000) {
           this.getIdleZoneList()
+          this.$message.success('删除成功')
         } else {
           this.$message.error('操作失败')
         }
@@ -743,6 +745,7 @@ export default {
       this.$server.deleteUserByid(param).then(res => {
         if (res.state === 10000) {
           this.getUserDataList()
+          this.$message.success('删除成功')
         } else {
           this.$message.error('操作失败')
         }
@@ -751,40 +754,42 @@ export default {
     // 删除公告
     deleteDataannounce(item) {
       let param = { id: item.id }
-      alert('112')
+   
       this.$server.deleteCommunityAnnounce(param).then(res => {
         if (res.state === 10000) {
           this.getCommunityAnnounceList()
-          alert('进入')
+          this.$message.success('删除成功')
+        
         } else {
           this.$message.error('操作失败')
-          alert('出去')
+          
         }
       })
     },
     deleteHousekeepingServices(item) {
       let param = { id: item.id }
-      alert('112')
+     
       this.$server.deleteHousekeepingServices(param).then(res => {
         if (res.state === 10000) {
           this.getHousekeepingServicesList()
-          alert('进入')
+          this.$message.success('删除成功')
+         
         } else {
           this.$message.error('操作失败')
-          alert('出去')
+       
         }
       })
     },
     deleteHolidaTtravel(item) {
       let param = { id: item.id }
-      alert('112')
+      
       this.$server.deleteHolidaTtravel(param).then(res => {
         if (res.state === 10000) {
           this.getHolidaTtravelList()
-          alert('进入')
+          this.$message.success('删除成功')
         } else {
           this.$message.error('操作失败')
-          alert('出去')
+          
         }
       })
     },
